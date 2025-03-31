@@ -18,7 +18,6 @@ class Entrante extends Model
         'email',
         'email_users',
         'quien_llama',
-        'beneficiario',
         'fecha',
         'hora',
         'duracion',

@@ -28,13 +28,6 @@
                 <input type="text" id="quien_llama" name="quien_llama" placeholder="Quién coge la llamada" required />
             </div>
             <div class="form-group">
-                <label for="beneficiario">¿Es beneficiario?</label>
-                <select id="beneficiario" name="beneficiario" required>
-                    <option value="Si">Si</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="fecha">Fecha</label>
                 <input type="date" id="fecha" name="fecha" required />
             </div>

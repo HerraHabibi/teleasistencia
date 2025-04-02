@@ -77,14 +77,12 @@ class EntrantesController extends Controller
             'email' => 'required|string|max:100',
             'email_users' => 'required|string|max:100',
             'quien_llama' => 'required|string|max:255',
-            'beneficiario' => 'required|in:Si,No',
             'fecha' => 'required|date',
             'hora' => 'required|date_format:H:i',
             'duracion' => 'required|string|max:10',
             'tipo_llamada' => 'required|string|max:255',
             'observaciones' => 'nullable|string',
             'archivo' => 'nullable|file|mimes:mp3,wav,aac,ogg',
-
         ]);
 
         if ($request->hasFile('archivo')) {
@@ -98,7 +96,6 @@ class EntrantesController extends Controller
         $entrante->email = $request->email;
         $entrante->email_users = $request->email_users;
         $entrante->quien_llama = $request->quien_llama;
-        $entrante->beneficiario = $request->beneficiario;
         $entrante->fecha = $request->fecha;
         $entrante->hora = $request->hora;
         $entrante->duracion = $request->duracion;

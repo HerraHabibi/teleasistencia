@@ -36,6 +36,7 @@ class GestionController extends Controller
             'localidad' => 'required|string',
             'provincia' => 'required|string',
             'email' => 'required|string|unique:beneficiarios,email',
+            'mayor65' => 'required|string',
         ]);
 
         
@@ -81,6 +82,7 @@ class GestionController extends Controller
             'localidad' => 'required|string',
             'provincia' => 'required|string',
             'email' => 'required|string',
+            'mayor65' => 'required|string|in:Sí,No',
         ]);
             $beneficiario->update($request->all());
             return redirect()->route('gestion.actualizar')->with('success', 'Beneficiario actualizado con éxito');

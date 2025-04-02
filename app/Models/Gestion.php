@@ -24,6 +24,7 @@ class Gestion extends Model
         'localidad',
         'provincia',
         'email',
+        'mayor65'
     ];
 
     public function contactos()

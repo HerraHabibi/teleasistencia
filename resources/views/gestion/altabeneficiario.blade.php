@@ -133,6 +133,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="mayor65">Es mayor de 65</label>
+            <select id="mayor65" name="mayor65" required>
+                <option value="Si">Sí</option>
+                <option value="No">No</option>
+            </select>
+        </div>   
+        <div class="form-group">
             <label for="email">Email</label>
             <input type="text" id="email" name="email" placeholder="example@example.com" required />
         </div>

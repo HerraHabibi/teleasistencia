@@ -57,9 +57,9 @@
             <div class="form-group">
                 <label for="tipo_beneficiario">Tipo de beneficiario</label>
                 <select id="tipo_beneficiario" name="tipo_beneficiario" required>
-                    <option value="Mayor de 65">Mayor de 65</option>
                     <option value="Dependiente">Dependiente</option>
-                    <option value="Discapacitado">Discapacitado</option>
+                    <option value="EnfermedadCronica">Enfermedad Crónica</option>
+                    <option value="Victima_de_violencia_de_género">Víctima de violencia de género</option>
                 </select>
             </div>
             <div class="form-group">
@@ -131,14 +131,48 @@
                     <option value="Zaragoza">Zaragoza</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="mayor65">Es mayor de 65</label>
+                <select id="mayor65" name="mayor65" required>
+                    <option value="Si">Sí</option>
+                    <option value="No">No</option>
+                </select>
+            </div>   
+            <div class="form-group">
+                <label for="discapacidad">Persona con discapacidad</label>
+                <select id="discapacidad" name="discapacidad" required>
+                    <option value="Si">Sí</option>
+                    <option value="No">No</option>
+                </select>
+            </div>  
+            <div class="form-group">
+                <label for="autonomia_personal">Autonomía personal</label>
+                <select id="autonomia_personal" name="autonomia_personal" required>
+                    <option value="ABVD_solo">ABVD solo</option>
+                    <option value="ABVD_con_ayuda">ABVD con ayuda</option>
+                    <option value="Se_desplaza_solo">Se desplaza solo</option>
+                    <option value="Se_desplaza_con_ayuda">Se desplaza con ayuda</option>
+                    <option value="Relacion_con_el_entorno">Relación con el entorno</option>
+                    <option value="Soledad">Soledad</option>
+                </select>
+            </div>  
+            <div class="form-group">
+                <label for="situacion_familiar">Situación_familiar</label>
+                <select id="situacion_familiar" name="situacion_familiar" requobservacionesired>
+                    <option value="Vive_solo">Vive solo</option>
+                    <option value="Acompañado">Acompañado</option>
+                    <option value="Vivienda_tutelada">Vivienda tutelada</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Situacion_sanitaria">Situación sanitaria</label>
+                <input type="text" id="Situacion_sanitaria" name="Situacion_sanitaria" placeholder="Enfermedades, intervenciones quirúrgicas, etc." required/>
+            </div>  
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <input type="text" id="observaciones" name="observaciones"/>
+            </div>  
         </div>
-        <div class="form-group">
-            <label for="mayor65">Es mayor de 65</label>
-            <select id="mayor65" name="mayor65" required>
-                <option value="Si">Sí</option>
-                <option value="No">No</option>
-            </select>
-        </div>   
         <div class="form-group">
             <label for="email">Email</label>
             <input type="text" id="email" name="email" placeholder="example@example.com" required />

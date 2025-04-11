@@ -24,6 +24,7 @@
                 <th>Localidad</th>
                 <th>Provincia</th>
                 <th>Email</th>
+                <th>Mayor de 65</th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +44,7 @@
                 <td>{{ $beneficiario->localidad }}</td>
                 <td>{{ $beneficiario->provincia }}</td>
                 <td>{{ $beneficiario->email }}</td>
+                <td>{{ $beneficiario->mayor65 }}</td>
             </tr>
             @endforeach
         </tbody>

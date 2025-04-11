@@ -24,7 +24,11 @@ class Gestion extends Model
         'localidad',
         'provincia',
         'email',
-        'mayor65'
+        'mayor65',
+        'discapacidad',
+        'situacion_familiar',
+        'situacion_sanitaria',
+        'observaciones'
     ];
 
     public function contactos()

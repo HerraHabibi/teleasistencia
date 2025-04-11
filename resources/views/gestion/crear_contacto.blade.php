@@ -107,6 +107,17 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="dispone_llave_del_domicilio">Tiene disponible la llave del domicilio del usuario/a</label>
+                <select id="dispone_llave_del_domicilio" name="dispone_llave_del_domicilio" required>
+                    <option value="Si">Sí</option>
+                    <option value="No">No</option>
+                </select>
+            </div>   
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <input type="text" id="observaciones" name="observaciones"/>
+            </div>
+            <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="example@example.com" required />
             </div>

@@ -159,6 +159,8 @@ class GestionController extends Controller
             'provincia' => 'required|string|max:255',
             'dni_beneficiario' => 'required|string|max:20',
             'email' => 'required|email|max:255',
+            'dispone_llave_del_domicilio' => 'required|string',
+            'observaciones' => 'required|string',
         ]);
 
         try {
@@ -173,6 +175,8 @@ class GestionController extends Controller
                 'provincia' => $request->input('provincia'),
                 'dni_beneficiario' => $request->input('dni_beneficiario'),
                 'email' => $request->input('email'),
+                'dispone_llave_del_domicilio' => $request->input('dispone_llave_del_domicilio'),
+                'observaciones' => $request->input('observaciones'),
             ]);
     
             return redirect()->route('gestion.contactos')->with('success', 'Contacto creado exitosamente.');
@@ -376,6 +380,8 @@ class GestionController extends Controller
             'localidad' => 'required|string|max:255',
             'provincia' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'dispone_llave_del_domicilio' => 'required|string|',
+            'observaciones' => 'required|string|',
         ]);
 
         try {
@@ -394,6 +400,8 @@ class GestionController extends Controller
             $contacto->localidad = $request->localidad;
             $contacto->provincia = $request->provincia;
             $contacto->email = $request->email;
+            $contacto->dispone_llave_del_domicilio = $request->dispone_llave_del_domicilio;
+            $contacto->observaciones = $request->observaciones;
 
             $contacto->save();
 

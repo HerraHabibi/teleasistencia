@@ -20,6 +20,8 @@ class Contacto extends Model
         'provincia',
         'dni_beneficiario',
         'email',
+        'dispone_llave_del_domicilio',
+        'observaciones'
     ];
     public function beneficiario()
     {

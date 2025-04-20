@@ -41,51 +41,8 @@
                 <input type="text" id="medicacion_noche" name="medicacion_noche" placeholder="Medicación Noche" />
             </div>
             <div class="form-group">
-                <label for="hora_preferente_manana">Hora Preferente Mañana</label>
-                <input type="time" id="hora_preferente_manana" name="hora_preferente_manana" required />
-            </div>
-            <div class="form-group">
-                <label for="hora_preferente_tarde">Hora Preferente Tarde</label>
-                <input type="time" id="hora_preferente_tarde" name="hora_preferente_tarde" required />
-            </div>
-            <div class="form-group">
-                <label for="hora_preferente_noche">Hora Preferente Noche</label>
-                <input type="time" id="hora_preferente_noche" name="hora_preferente_noche" required />
-            </div>
-            <div class="form-group">
-                <label for="ambulatorio">¿Servicio de Ambulatorio?</label>
-                <select id="ambulatorio" name="ambulatorio" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="ambulancia">¿Servicio de Ambulancia?</label>
-                <select id="ambulancia" name="ambulancia" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="policia">¿Llamar a la Policía?</label>
-                <select id="policia" name="policia" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="bomberos">¿Llamar a los Bomberos?</label>
-                <select id="bomberos" name="bomberos" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="urgencias">¿Llamar a Urgencias?</label>
-                <select id="urgencias" name="urgencias" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
+                <label for="observaciones">Observaciones</label>
+                <input type="text" id="observaciones" name="observaciones"/>
             </div>
         </div>
         <div class="form-actions">

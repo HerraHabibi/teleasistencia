@@ -165,8 +165,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Situacion_sanitaria">Situación sanitaria</label>
-                <input type="text" id="Situacion_sanitaria" name="Situacion_sanitaria" placeholder="Enfermedades, intervenciones quirúrgicas, etc." required/>
+                <label for="situacion_sanitaria">Situación sanitaria</label>
+                <input type="text" id="situacion_sanitaria" name="situacion_sanitaria" placeholder="Enfermedades, intervenciones quirúrgicas, etc." required/>
             </div>  
             <div class="form-group">
                 <label for="observaciones">Observaciones</label>

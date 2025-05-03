@@ -23,7 +23,8 @@ class BeneficiarioInteres extends Model
         'ambulancia',
         'policia',
         'bomberos',
-        'urgencias'
+        'urgencias',
+        'observaciones'
     ];
     public function beneficiario()
     {

@@ -79,6 +79,8 @@
                     <option value="Si">Sí</option>
                     <option value="No">No</option>
                 </select>
+                <label for="observaciones">Observaciones</label>
+                <input type="text" id="observaciones" name="observaciones"/>
             </div>
         </div>
         <div class="form-actions">

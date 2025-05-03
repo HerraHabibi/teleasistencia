@@ -20,7 +20,6 @@ class BeneficiarioInteres extends Model
         'hora_preferente_manana',
         'hora_preferente_tarde',
         'hora_preferente_noche',
-        'ambulatorio',
         'ambulancia',
         'policia',
         'bomberos',

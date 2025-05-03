@@ -252,7 +252,6 @@ class GestionController extends Controller
             'hora_preferente_manana' => 'required',
             'hora_preferente_tarde' => 'required',
             'hora_preferente_noche' => 'required',
-            'ambulatorio' => 'required|string|max:2',
             'ambulancia' => 'required|string|max:2',
             'policia' => 'required|string|max:2',
             'bomberos' => 'required|string|max:2',
@@ -270,7 +269,6 @@ class GestionController extends Controller
             $beneficiarioInteres->hora_preferente_manana = $request->hora_preferente_manana;
             $beneficiarioInteres->hora_preferente_tarde = $request->hora_preferente_tarde;
             $beneficiarioInteres->hora_preferente_noche = $request->hora_preferente_noche;
-            $beneficiarioInteres->ambulatorio = $request->ambulatorio;
             $beneficiarioInteres->ambulancia = $request->ambulancia;
             $beneficiarioInteres->policia = $request->policia;
             $beneficiarioInteres->bomberos = $request->bomberos;
@@ -317,7 +315,6 @@ class GestionController extends Controller
             'hora_preferente_manana' => 'required',
             'hora_preferente_tarde' => 'required',
             'hora_preferente_noche' => 'required',
-            'ambulatorio' => 'required|string|max:2',
             'ambulancia' => 'required|string|max:2',
             'policia' => 'required|string|max:2',
             'bomberos' => 'required|string|max:2',
@@ -335,7 +332,6 @@ class GestionController extends Controller
         $beneficiarioInteres->hora_preferente_manana = $request->hora_preferente_manana;
         $beneficiarioInteres->hora_preferente_tarde = $request->hora_preferente_tarde;
         $beneficiarioInteres->hora_preferente_noche = $request->hora_preferente_noche;
-        $beneficiarioInteres->ambulatorio = $request->ambulatorio;
         $beneficiarioInteres->ambulancia = $request->ambulancia;
         $beneficiarioInteres->policia = $request->policia;
         $beneficiarioInteres->bomberos = $request->bomberos;

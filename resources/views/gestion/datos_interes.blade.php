@@ -53,13 +53,6 @@
                 <input type="time" id="hora_preferente_noche" name="hora_preferente_noche" required />
             </div>
             <div class="form-group">
-                <label for="ambulatorio">¿Servicio de Ambulatorio?</label>
-                <select id="ambulatorio" name="ambulatorio" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="ambulancia">¿Servicio de Ambulancia?</label>
                 <select id="ambulancia" name="ambulancia" required>
                     <option value="Si">Sí</option>

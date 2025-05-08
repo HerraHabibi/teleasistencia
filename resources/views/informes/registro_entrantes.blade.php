@@ -12,13 +12,10 @@
         <table class="tabla-bonita" align="center">
             <thead>
                 <tr>
-                    <th>Email</th>
                     <th>Email del Usuario</th>
-                    <th>Quién Llama</th>
-                    <th>Beneficiario</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Duración</th>
+                    <th>DNI del beneficiario</th>
+                    <th>Hora inicio</th>
+                    <th>Hora fin</th>
                     <th>Observaciones</th>
                     <th>Tipo de Llamada</th>
                 </tr>
@@ -26,13 +23,10 @@
             <tbody>
                 @foreach($llamadas as $llamada)
                     <tr>
-                        <td>{{ $llamada->email }}</td>
                         <td>{{ $llamada->email_users }}</td>
-                        <td>{{ $llamada->quien_llama }}</td>
-                        <td>{{ $llamada->beneficiario }}</td>
-                        <td>{{ $llamada->fecha }}</td>
-                        <td>{{ $llamada->hora }}</td>
-                        <td>{{ $llamada->duracion }}</td>
+                        <td>{{ $llamada->dni_beneficiario }}</td>
+                        <td>{{ $llamada->hora_inicio }}</td>
+                        <td>{{ $llamada->hora_fin }}</td>
                         <td>{{ $llamada->observaciones }}</td>
                         <td>{{ $llamada->tipo_llamada }}</td>
                     </tr>

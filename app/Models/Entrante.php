@@ -15,12 +15,10 @@ class Entrante extends Model
      * @var array
      */
     protected $fillable = [
-        'email',
         'email_users',
-        'quien_llama',
-        'fecha',
-        'hora',
-        'duracion',
+        'dni_beneficiario',
+        'hora_inicio',
+        'hora_fin',
         'tipo_llamada',
         'observaciones',
         'archivo',

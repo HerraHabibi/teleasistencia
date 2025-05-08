@@ -671,6 +671,40 @@ ALTER TABLE beneficiario_interes
   MODIFY COLUMN urgencias ENUM('Si', 'No') NULL DEFAULT NULL
   ADD COLUMN observaciones VARCHAR(300) NOT NULL DEFAULT 'NULL';
 
+ALTER TABLE registro_llamadas_entrantes
+  DROP COLUMN email,
+  DROP COLUMN quien_llama,
+  DROP COLUMN fecha,
+  DROP COLUMN hora,
+  DROP COLUMN duracion,
+  DROP COLUMN tipo_llamada,
+  ADD COLUMN tipo_llamada ENUM(
+    'Emergencia: social',
+    'Emergencia: sanitaria',
+    'Emergencia: crisis de soledad',
+    'Emergencia: alarma sin respuesta',
+    'No emergencia: comunicación ausencia/regreso',
+    'No emergencia: modificación de datos',
+    'No emergencia: pulsación por error',
+    'No emergencia: petición de información',
+    'No emergencia: sugerencia',
+    'No emergencia: reclamación o queja',
+    'No emergencia: saludo/conversación',
+    'Técnica: por pulsación: primera conexión',
+    'Técnica: por pulsación: revisión',
+    'Técnica: por pulsación: fallo o avería',
+    'Técnica: por pulsación: sustitución de terminal/UCR',
+    'Técnica: por pulsación: retirada de terminal',
+    'Técnica: automática: fallo de protocolo',
+    'Técnica: automática: fallo de conexión con el servidor',
+    'Técnica: automática: saturación del tráfico de comunicaciones',
+    'Técnica: automática: fallo en la red eléctrica'
+  ) NULL,
+  ADD COLUMN dni_beneficiario VARCHAR(9) NULL,
+  ADD CONSTRAINT fk_dni_beneficiario FOREIGN KEY (dni_beneficiario) REFERENCES beneficiarios(dni),
+  ADD COLUMN hora_inicio DATETIME NULL,
+  ADD COLUMN hora_fin DATETIME NULL;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

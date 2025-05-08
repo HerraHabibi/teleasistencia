@@ -7,6 +7,7 @@ use App\Models\Entrante;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class EntrantesController extends Controller
 {
@@ -74,12 +75,10 @@ class EntrantesController extends Controller
     {
         // Validación de los datos recibidos del formulario
         $request->validate([
-            'email' => 'required|string|max:100',
             'email_users' => 'required|string|max:100',
-            'quien_llama' => 'required|string|max:255',
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-            'duracion' => 'required|string|max:10',
+            'dni_beneficiario' => 'required|exists:beneficiarios,dni',
+            'hora_inicio' => 'required|date_format:Y-m-d\TH:i:s',
+            'hora_fin' => 'required|date_format:Y-m-d\TH:i:s|after:hora_inicio',
             'tipo_llamada' => 'required|string|max:255',
             'observaciones' => 'nullable|string',
             'archivo' => 'nullable|file|mimes:mp3,wav,aac,ogg',
@@ -93,12 +92,10 @@ class EntrantesController extends Controller
         }
         // Creación de un nuevo registro en la tabla 'entrantes' utilizando el modelo Entrante
         $entrante = new Entrante();
-        $entrante->email = $request->email;
         $entrante->email_users = $request->email_users;
-        $entrante->quien_llama = $request->quien_llama;
-        $entrante->fecha = $request->fecha;
-        $entrante->hora = $request->hora;
-        $entrante->duracion = $request->duracion;
+        $entrante->dni_beneficiario = $request->dni_beneficiario;
+        $entrante->hora_inicio = Carbon::parse($request->hora_inicio)->format('Y-m-d H:i:s');
+        $entrante->hora_fin = Carbon::parse($request->hora_fin)->format('Y-m-d H:i:s');
         $entrante->tipo_llamada = $request->tipo_llamada;
         $entrante->observaciones = $request->observaciones;
         $entrante->archivo = $fileName;

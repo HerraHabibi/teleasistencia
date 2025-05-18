@@ -68,48 +68,48 @@ class EvaluarController extends Controller
         }
     }
     public function storeUsuario(Request $request)
-    {
-        $validatedData = $request->validate([
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-            'email_usuario' => 'required|email',
-            'email_teleoperador' => 'required|email',
-            'creatividad' => 'required|integer|between:1,10',
-            'satisfaccion_usuario' => 'required|integer|between:1,10',
-            'satisfaccion_teleoperador' => 'required|integer|between:1,10',
-            'teatralizacion' => 'required|integer|between:1,10',
-            'media' => 'required|integer|between:1,10',
-            'observaciones' => 'nullable|string',
+{
+    $validatedData = $request->validate([
+        'fecha' => 'required|date',
+        'hora' => 'required|date_format:H:i',
+        'email_usuario' => 'required|email',
+        'email_teleoperador' => 'required|email',
+        'creatividad' => 'required|integer|between:1,10',
+        'satisfaccion_usuario' => 'required|integer|between:1,10',
+        'satisfaccion_teleoperador' => 'required|integer|between:1,10',
+        'teatralizacion' => 'required|integer|between:1,10',
+        'media' => 'nullable|numeric', // puedes calcularla manualmente
+        'observaciones' => 'nullable|string',
+    ]);
+
+    try {
+        $media = ($validatedData['creatividad'] + $validatedData['satisfaccion_usuario'] + $validatedData['satisfaccion_teleoperador'] + $validatedData['teatralizacion']) / 4;
+
+        $evaluacion = new EvaluacionUsuario([
+            'fecha' => $validatedData['fecha'],
+            'hora' => $validatedData['hora'],
+            'email_usuario' => $validatedData['email_usuario'],
+            'email_teleoperador' => $validatedData['email_teleoperador'],
+            'creatividad' => $validatedData['creatividad'],
+            'satisfaccion_usuario' => $validatedData['satisfaccion_usuario'],
+            'satisfaccion_teleoperador' => $validatedData['satisfaccion_teleoperador'],
+            'teatralizacion' => $validatedData['teatralizacion'],
+            'media' => $media,
+            'observaciones' => $validatedData['observaciones'] ?? '',
         ]);
 
-        try {
-            $media = ($validatedData['bienvcreatividadenida'] + $validatedData['satisfaccion_usuario'] + $validatedData['satisfaccion_teleoperador'] + $validatedData['teatralizacion']) / 4;
+        $evaluacion->save();
 
-            $evaluacion = new EvaluacionUsuario([
-                'fecha' => $validatedData['fecha'],
-                'hora' => $validatedData['hora'],
-                'email_usuario' => $validatedData['email_usuario'],
-                'email_teleoperador' => $validatedData['email_teleoperador'],
-                'creatividad' => $validatedData['creatividad'],
-                'satisfaccion_usuario' => $validatedData['satisfaccion_usuario'],
-                'satisfaccion_teleoperador' => $validatedData['satisfaccion_teleoperador'],
-                'teatralizacion' => $validatedData['teatralizacion'],
-                'media' => $media,
-                'observaciones' => $validatedData['observaciones'],
-            ]);
+        return redirect()->route('evaluar.result')->with('success', 'Evaluación registrada con éxito');
 
-            $evaluacion->save();
+    } catch (\Illuminate\Database\QueryException $e) {
+        $errorMessage = $e->getMessage();
 
-            return redirect()->route('evaluar.result')->with('success', 'Evaluación registrada con éxito');
+        return redirect()->route('evaluar.usuario')->with('error', 'Error al registrar la evaluación: ' . $errorMessage);
 
-        } catch (\Illuminate\Database\QueryException $e) {
-            $errorMessage = $e->getMessage();
-
-            return redirect()->route('evaluar.teleoperador')->with('error', 'Error al registrar la evaluación: ' . $errorMessage);
-
-        } catch (\Exception $e) {
-            return redirect()->route('evaluar.teleoperador')->with('error', 'Error al registrar la evaluación');
-        }
+    } catch (\Exception $e) {
+        return redirect()->route('evaluar.usuario')->with('error', 'Error al registrar la evaluación');
     }
+}
 
 }

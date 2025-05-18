@@ -705,7 +705,7 @@ ALTER TABLE registro_llamadas_entrantes
   ADD COLUMN hora_inicio DATETIME NULL,
   ADD COLUMN hora_fin DATETIME NULL;
   
-  ALTER TABLE registro_llamadas_salientes 
+ALTER TABLE registro_llamadas_salientes 
 	MODIFY tipo ENUM(
 	  'Llamada saliente rutinaria por la mañana',
 	  'Llamada saliente rutinaria por la tarde',
@@ -731,10 +731,10 @@ ALTER TABLE registro_llamadas_entrantes
 	  'Llamada saliente suspension temporal del servicio'
 	);
   
-  ALTER TABLE beneficiarios
+ALTER TABLE beneficiarios
 	ADD COLUMN situacion_de_la_vivienda VARCHAR(100),
 	ADD COLUMN situacion_economica VARCHAR(100),
-	ADD COLUMN otros_recursos VARCHAR(100);
+	ADD COLUMN otros_recursos VARCHAR(100),
 	ADD COLUMN instalacion_de_terminal VARCHAR(100),
 	ADD COLUMN otros_complementos_TAS VARCHAR(100),
 	ADD COLUMN dispone_de_teleasistencia_movil VARCHAR(100),

@@ -37,21 +37,23 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="estadocivil">Estado Civil</label>
-                <select id="estadocivil" name="estadocivil" required>
-                    <option value="Soltero" {{ $beneficiario->estadocivil == 'Soltero' ? 'selected' : '' }}>Soltero</option>
-                    <option value="Casado" {{ $beneficiario->estadocivil == 'Casado' ? 'selected' : '' }}>Casado</option>
-                    <option value="Viudo" {{ $beneficiario->estadocivil == 'Viudo' ? 'selected' : '' }}>Viudo</option>
-                    <option value="Viviendo en pareja" {{ $beneficiario->estadocivil == 'Viviendo en pareja' ? 'selected' : '' }}>Viviendo en pareja</option>
-                    <option value="Divorciado" {{ $beneficiario->estadocivil == 'Divorciado' ? 'selected' : '' }}>Divorciado</option>
+                <label for="estado_civil">Estado Civil</label>
+                <select id="estado_civil" name="estado_civil" required>
+                    <option value="Soltero" {{ $beneficiario->estado_civil == 'Soltero' ? 'selected' : '' }}>Soltero</option>
+                    <option value="Casado" {{ $beneficiario->estado_civil == 'Casado' ? 'selected' : '' }}>Casado</option>
+                    <option value="Viudo" {{ $beneficiario->estado_civil == 'Viudo' ? 'selected' : '' }}>Viudo</option>
+                    <option value="Viviendo en pareja" {{ $beneficiario->estado_civil == 'Viviendo en pareja' ? 'selected' : '' }}>Viviendo en pareja</option>
+                    <option value="Divorciado" {{ $beneficiario->estado_civil == 'Divorciado' ? 'selected' : '' }}>Divorciado</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="tipo">Tipo de beneficiario</label>
-                <select id="tipo" name="tipo" required>
-                    <option value="Mayor de 65" {{ $beneficiario->tipo == 'Mayor de 65' ? 'selected' : '' }}>Mayor de 65</option>
-                    <option value="Dependiente" {{ $beneficiario->tipo == 'Dependiente' ? 'selected' : '' }}>Dependiente</option>
-                    <option value="Discapacitado" {{ $beneficiario->tipo == 'Discapacitado' ? 'selected' : '' }}>Discapacitado</option>
+                <label for="tipo_beneficiario">Tipo de beneficiario</label>
+                <select id="tipo_beneficiario" name="tipo_beneficiario" required>
+                    <option value="Dependiente" {{ $beneficiario->tipo_beneficiario == 'Dependiente' ? 'selected' : '' }}>Dependiente</option>
+                    <option value="EnfermedadCronica" {{ $beneficiario->tipo_beneficiario == 'EnfermedadCronica' ? 'selected' : '' }}>Enfermedad Crónica</option>
+                    <option value="Victima_de_violencia_de_género" {{ $beneficiario->tipo_beneficiario == 'Victima_de_violencia_de_género' ? 'selected' : '' }}>Víctima de violencia de género</option>
+                    <option value="Mayores_de_65" {{ $beneficiario->tipo_beneficiario == 'Mayores_de_65' ? 'selected' : '' }}>Mayores de 65 años</option>
+                    <option value="Persona_con_discapacidad" {{ $beneficiario->tipo_beneficiario == 'Persona_con_discapacidad' ? 'selected' : '' }}>Persona con discapacidad</option>
                 </select>
             </div>
             <div class="form-group">
@@ -73,6 +75,75 @@
                         <option value="{{ $provincia }}" {{ $beneficiario->provincia == $provincia ? 'selected' : '' }}>{{ $provincia }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="autonomia_personal">Autonomía personal</label>
+                <select id="autonomia_personal" name="autonomia_personal" required>
+                    @foreach(['ABVD_sin_ayuda', 'ABVD_con_ayuda', 'Se_desplaza_sin_ayuda', 'Se_desplaza_con_ayuda', 'Relacion_con_el_entorno', 'Soledad'] as $opcion)
+                        <option value="{{ $opcion }}" {{ $beneficiario->autonomia_personal == $opcion ? 'selected' : '' }}>{{ str_replace('_', ' ', $opcion) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="situacion_familiar">Situación familiar</label>
+                <select id="situacion_familiar" name="situacion_familiar" required>
+                    @foreach(['Vive_solo', 'Acompañado', 'Vivienda_tutelada'] as $opcion)
+                        <option value="{{ $opcion }}" {{ $beneficiario->situacion_familiar == $opcion ? 'selected' : '' }}>{{ str_replace('_', ' ', $opcion) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="situacion_sanitaria">Situación sanitaria</label>
+                <input type="text" id="situacion_sanitaria" name="situacion_sanitaria" value="{{ $beneficiario->situacion_sanitaria }}" placeholder="Enfermedades, intervenciones quirúrgicas, etc." required />
+            </div>
+            <div class="form-group">
+                <label for="situacion_de_la_vivienda">Situación de la vivienda</label>
+                <input type="text" id="situacion_de_la_vivienda" name="situacion_de_la_vivienda" value="{{ $beneficiario->situacion_de_la_vivienda }}" placeholder="Barreras arquitectónicas, tipo de vivienda y ubicación" required />
+            </div>
+            <div class="form-group">
+                <label for="situacion_economica">Situación económica</label>
+                <input type="text" id="situacion_economica" name="situacion_economica" value="{{ $beneficiario->situacion_economica }}" placeholder="Pensión, ingresos, ayudas..." required />
+            </div>
+            <div class="form-group">
+                <label for="otros_recursos">Otros recursos a los que tiene acceso</label>
+                <input type="text" id="otros_recursos" name="otros_recursos" value="{{ $beneficiario->otros_recursos }}" placeholder="Centro de día, de respiro, etc." required />
+            </div>
+            <div class="form-group">
+                <label for="instalacion_de_terminal">Instalación de terminal/UCR</label>
+                <input type="text" id="instalacion_de_terminal" name="instalacion_de_terminal" value="{{ $beneficiario->instalacion_de_terminal }}" required />
+            </div>
+            <div class="form-group">
+                <label for="otros_complementos_TAS">Otros complementos TAS avanzado</label>
+                <select id="otros_complementos_TAS" name="otros_complementos_TAS" required>
+                    @foreach(['no_tiene', 'detector_de_humos', 'gas', 'movimiento/inactividad', 'dispensador_de_medicación', 'detector_de_caidas', 'asistente_de_voz', 'telemedicina', 'otro'] as $complemento)
+                        <option value="{{ $complemento }}" {{ $beneficiario->otros_complementos_TAS == $complemento ? 'selected' : '' }}>{{ str_replace('_', ' ', $complemento) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dispone_de_teleasistencia_movil">Dispone de teleasistencia móvil</label>
+                <select id="dispone_de_teleasistencia_movil" name="dispone_de_teleasistencia_movil" required>
+                    <option value="no" {{ $beneficiario->dispone_de_teleasistencia_movil == 'no' ? 'selected' : '' }}>No</option>
+                    <option value="si" {{ $beneficiario->dispone_de_teleasistencia_movil == 'si' ? 'selected' : '' }}>Sí</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sistema_de_telelocalizacion">Sistema de telelocalización</label>
+                <select id="sistema_de_telelocalizacion" name="sistema_de_telelocalizacion" required>
+                    <option value="no" {{ $beneficiario->sistema_de_telelocalizacion == 'no' ? 'selected' : '' }}>No</option>
+                    <option value="si" {{ $beneficiario->sistema_de_telelocalizacion == 'si' ? 'selected' : '' }}>Si</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="custodia_de_llaves">Custodia de llaves</label>
+                <select id="custodia_de_llaves" name="custodia_de_llaves" required>
+                    <option value="no" {{ $beneficiario->custodia_de_llaves == 'no' ? 'selected' : '' }}>No</option>
+                    <option value="si" {{ $beneficiario->custodia_de_llaves == 'si' ? 'selected' : '' }}>Si</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <input type="text" id="observaciones" name="observaciones" value="{{ $beneficiario->observaciones }}"required />
             </div>
         </div>
         <div class="form-group">

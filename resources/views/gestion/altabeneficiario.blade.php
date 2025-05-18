@@ -146,7 +146,7 @@
             </div>  
             <div class="form-group">
                 <label for="situacion_familiar">Situación_familiar</label>
-                <select id="situacion_familiar" name="situacion_familiar" requobservacionesired>
+                <select id="situacion_familiar" name="situacion_familiar" required>
                     <option value="Vive_solo">Vive solo</option>
                     <option value="Acompañado">Acompañado</option>
                     <option value="Vivienda_tutelada">Vivienda tutelada</option>
@@ -174,7 +174,7 @@
             </div>
             <div class="form-group">
                 <label for="otros_complementos_TAS">Otros complementos TAS avanzado</label>
-                <select id="otros_complementos_TAS" name="otros_complementos_TAS" requobservacionesired>
+                <select id="otros_complementos_TAS" name="otros_complementos_TAS" required>
                     <option value="no_tiene">No tiene</option>
                     <option value="detector_de_humos">Detector de humos</option>
                     <option value="gas">Gas</option>
@@ -188,21 +188,21 @@
             </div>
             <div class="form-group">
                 <label for="dispone_de_teleasistencia_movil">Dispone de teleasistencia móvil</label>
-                <select id="dispone_de_teleasistencia_movil" name="dispone_de_teleasistencia_movil" requobservacionesired>
+                <select id="dispone_de_teleasistencia_movil" name="dispone_de_teleasistencia_movil" required>
                     <option value="no">No</option>
                     <option value="si">Si</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="sistema_de_telelocalizacion">Sistema de telelocalización</label>
-                <select id="sistema_de_telelocalizacion" name="sistema_de_telelocalizacion" requobservacionesired>
+                <select id="sistema_de_telelocalizacion" name="sistema_de_telelocalizacion" required>
                     <option value="no">No</option>
                     <option value="si">Si</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="custodia_de_llaves">Custodia de llaves</label>
-                <select id="custodia_de_llaves" name="custodia_de_llaves" requobservacionesired>
+                <select id="custodia_de_llaves" name="custodia_de_llaves" required>
                     <option value="no">No</option>
                     <option value="si">Si</option>
                 </select>

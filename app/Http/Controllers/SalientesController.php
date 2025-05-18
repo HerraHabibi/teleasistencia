@@ -32,7 +32,7 @@ class SalientesController extends Controller
             'observaciones' => 'nullable|string',
             'dni_beneficiario' => 'required|string|max:9',
             'archivo' => 'nullable|file|mimes:mp3,wav,aac,ogg',
-            'tipo' => 'required|string|in:Llamada saliente rutinaria por la mañana,Llamada saliente rutinaria por la tarde,Llamada saliente rutinaria por la noche,Llamada saliente para recordatorio de cita médica,Llamada saliente para felicitación de cumpleaños',
+            'tipo' => 'required|string',
         ]);
         if ($request->hasFile('archivo')) {
             $fileName = time().'.'.$request->archivo->extension();

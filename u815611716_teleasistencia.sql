@@ -704,7 +704,42 @@ ALTER TABLE registro_llamadas_entrantes
   ADD CONSTRAINT fk_dni_beneficiario FOREIGN KEY (dni_beneficiario) REFERENCES beneficiarios(dni),
   ADD COLUMN hora_inicio DATETIME NULL,
   ADD COLUMN hora_fin DATETIME NULL;
-
+  
+  ALTER TABLE registro_llamadas_salientes 
+	MODIFY tipo ENUM(
+	  'Llamada saliente rutinaria por la mañana',
+	  'Llamada saliente rutinaria por la tarde',
+	  'Llamada saliente rutinaria por la noche',
+	  'Llamada saliente para recordatorio de cita médica',
+	  'Llamada saliente para felicitación de cumpleaños',
+	  'Llamada saliente atencion psicosocial',
+	  'Llamada saliente detectar detectar situaciones riesgo',
+	  'Llamada saliente apoyo al cuidador',
+	  'Llamada saliente Actualización informacion',
+	  'Llamada saliente medicacion',
+	  'Llamada saliente especiales',
+	  'Llamada saliente alerta',
+	  'Llamada saliente seguimiento periodico semanal',
+	  'Llamada saliente seguimiento periodico quincenal',
+	  'Llamada saliente seguimiento periodico mensual',
+	  'Llamada seguimiento tras emergencia hospital',
+	  'Llamada saliente seguimiento tras emergencia accidente',
+	  'Llamada saliente seguimiento tras emergencia otro',
+	  'Llamada saliente seguimiento proceso de duelo',
+	  'Llamada saliente seguimiento tras alta hospitalaria',
+	  'Llamada saliente ausencia domiciliaria y regreso',
+	  'Llamada saliente suspension temporal del servicio'
+	);
+  
+  ALTER TABLE beneficiarios
+	ADD COLUMN situacion_de_la_vivienda VARCHAR(100),
+	ADD COLUMN situacion_economica VARCHAR(100),
+	ADD COLUMN otros_recursos VARCHAR(100);
+	ADD COLUMN instalacion_de_terminal VARCHAR(100),
+	ADD COLUMN otros_complementos_TAS VARCHAR(100),
+	ADD COLUMN dispone_de_teleasistencia_movil VARCHAR(100),
+	ADD COLUMN sistema_de_telelocalizacion VARCHAR(100),
+	ADD COLUMN custodia_de_llaves VARCHAR(100);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

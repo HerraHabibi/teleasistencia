@@ -36,11 +36,17 @@ class GestionController extends Controller
             'localidad' => 'required|string',
             'provincia' => 'required|string',
             'email' => 'required|string|unique:beneficiarios,email',
-            'mayor65' => 'required|string',
-            'discapacidad' => 'required|string',
             'situacion_familiar' => 'required|string',
             'situacion_sanitaria' => 'required|string',
             'observaciones' => 'required|string',
+            'situacion_de_la_vivienda' => 'required|string',
+            'situacion_economica' => 'required|string',
+            'otros_recursos' => 'required|string',
+            'instalacion_de_terminal' => 'required|string',
+            'otros_complementos_TAS' => 'required|string',
+            'dispone_de_teleasistencia_movil' => 'required|string',
+            'sistema_de_telelocalizacion' => 'required|string',
+            'custodia_de_llaves' => 'required|string'
         ]);
 
         
@@ -86,11 +92,17 @@ class GestionController extends Controller
             'localidad' => 'required|string',
             'provincia' => 'required|string',
             'email' => 'required|string',
-            'mayor65' => 'required|string',
-            'discapacidad' => 'required|string',
             'situacion_familiar' => 'required|string',
             'situacion_sanitaria' => 'required|string',
             'observaciones' => 'required|string',
+            'situacion_de_la_vivienda' => 'required|string',
+            'situacion_economica' => 'required|string',
+            'otros_recursos' => 'required|string',
+            'instalacion_de_terminal' => 'required|string',
+            'otros_complementos_TAS' => 'required|string',
+            'dispone_de_teleasistencia_movil' => 'required|string',
+            'sistema_de_telelocalizacion' => 'required|string',
+            'custodia_de_llaves' => 'required|string'
         ]);
             $beneficiario->update($request->all());
             return redirect()->route('gestion.actualizar')->with('success', 'Beneficiario actualizado con éxito');

@@ -58,6 +58,29 @@
                     <option value="Llamada saliente rutinaria por la noche">Llamada saliente rutinaria por la noche</option>
                     <option value="Llamada saliente para recordatorio de cita médica">Llamada saliente para recordatorio de cita médica</option>
                     <option value="Llamada saliente para felicitación de cumpleaños">Llamada saliente para felicitación de cumpleaños</option>
+                    <option value="Llamada saliente atencion psicosocial">Atención psicosocial</option>
+                    <option value="Llamada saliente detectar detectar situaciones riesgo">Detectar situaciones riesgo</option>
+                    <option value="Llamada saliente apoyo al cuidador">Apoyo al cuidador</option>
+                    <option value="Llamada saliente Actualización informacion">Actualización información</option>
+                    <optgroup label="Avisos">
+                        <option value="Llamada saliente medicacion">Medicación</option>
+                        <option value="Llamada saliente especiales">Especiales (Cumples, despertador, citas)</option>
+                        <option value="Llamada saliente alerta">Alertas (Meteo)</option>
+                    </optgroup>
+                    <optgroup label="Seguimiento periódico">
+                        <option value="Llamada saliente seguimiento periodico semanal">Semanal</option>
+                        <option value="Llamada saliente seguimiento periodico quincenal">Quincenal</option>
+                        <option value="Llamada saliente seguimiento periodico mensual">Mensual</option>
+                    </optgroup>
+                    <optgroup label="Seguimiento tras emergencia. Tipo: ">
+                        <option value="Llamada seguimiento tras emergencia hospital">Hospital</option>
+                        <option value="Llamada saliente seguimiento tras emergencia accidente">Accidente</option>
+                        <option value="Llamada saliente seguimiento tras emergencia otro">Otro</option>
+                    </optgroup>
+                    <option value="Llamada saliente seguimiento proceso de duelo">Seguimiento proceso de duelo</option>
+                    <option value="Llamada saliente seguimiento tras alta hospitalaria">Seguimiento tras alta hospitalaria</option>
+                    <option value="Llamada saliente ausencia domiciliaria y regreso">Ausencia domiciliaria y regreso</option>
+                    <option value="Llamada saliente suspension temporal del servicio">Suspensión temporal del servicio: Motivo explicar en observaciones</option>
                 </select>
             </div>
         </div>

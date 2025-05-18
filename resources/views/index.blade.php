@@ -39,15 +39,10 @@
                     <td class="custom-cell">
                         <a href="{{ route('entrantes.index') }}" class="index-click">
                             <img src="{{ asset('images/llamada-entrante.png') }}" alt="Llamadas Entrantes" border="0" class="img-index">
-                            <p>Llamadas Entrantes</p>
+                            <p>Llamadas</p>
                         </a>
                     </td>
-                    <td class="custom-cell">
-                        <a href="{{ route('salientes.create') }}" class="index-click">
-                            <img src="{{ asset('images/llamada-saliente.png') }}" alt="Llamadas Salientes" border="0" class="img-index">
-                            <p>Llamadas Salientes</p>
-                        </a>
-                    </td>
+                    
                     <td class="custom-cell">
                         <a href="{{ route('informes.index') }}" class="index-click">
                             <img src="{{ asset('images/ficha-informe.png') }}" alt="Informes" border="0" class="img-index">

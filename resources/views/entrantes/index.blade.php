@@ -20,7 +20,7 @@
     <div class="bloque-gestion">
         <form class="formoid-solid-red" method="post" action="index.php" enctype="multipart/form-data">
             <div class="title">
-                <h2>Llamadas entrantes</h2>
+                <h2>Llamadas</h2>
             </div>
             <p>Volver al <a href="{{ route('home') }}">Inicio</a></p>
             <table width="880px" border="0" class="index custom-table">
@@ -31,6 +31,12 @@
                                 <img src="{{ asset('images/llamada-entrante.png') }}" alt="Gestión de Usuarios" border="0"
                                     class="img-index">
                                 <p>Llamada entrante</p>
+                            </a>
+                        </td>
+                        <td class="custom-cell">
+                            <a href="{{ route('salientes.create') }}" class="index-click">
+                                <img src="{{ asset('images/llamada-saliente.png') }}" alt="Llamadas Salientes" border="0" class="img-index">
+                                <p>Llamadas Salientes</p>
                             </a>
                         </td>
                         <td class="custom-cell">

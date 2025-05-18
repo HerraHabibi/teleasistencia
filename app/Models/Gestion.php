@@ -24,11 +24,17 @@ class Gestion extends Model
         'localidad',
         'provincia',
         'email',
-        'mayor65',
-        'discapacidad',
         'situacion_familiar',
         'situacion_sanitaria',
-        'observaciones'
+        'observaciones',
+        'situacion_de_la_vivienda',
+        'situacion_economica',
+        'otros_recursos',
+        'instalacion_de_terminal',
+        'otros_complementos_TAS',
+        'dispone_de_teleasistencia_movil',
+        'sistema_de_telelocalizacion',
+        'custodia_de_llaves'
     ];
 
     public function contactos()

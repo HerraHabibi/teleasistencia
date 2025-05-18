@@ -60,6 +60,8 @@
                     <option value="Dependiente">Dependiente</option>
                     <option value="EnfermedadCronica">Enfermedad Crónica</option>
                     <option value="Victima_de_violencia_de_género">Víctima de violencia de género</option>
+                    <option value="Mayores_de_65">Mayores de 65 años</option>
+                    <option value="Persona_con_discapacidad">Persona con discapacidad</option>
                 </select>
             </div>
             <div class="form-group">
@@ -132,25 +134,11 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="mayor65">Es mayor de 65</label>
-                <select id="mayor65" name="mayor65" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>   
-            <div class="form-group">
-                <label for="discapacidad">Persona con discapacidad</label>
-                <select id="discapacidad" name="discapacidad" required>
-                    <option value="Si">Sí</option>
-                    <option value="No">No</option>
-                </select>
-            </div>  
-            <div class="form-group">
                 <label for="autonomia_personal">Autonomía personal</label>
                 <select id="autonomia_personal" name="autonomia_personal" required>
-                    <option value="ABVD_solo">ABVD solo</option>
+                    <option value="ABVD_sin_ayuda">ABVD sin ayuda</option>
                     <option value="ABVD_con_ayuda">ABVD con ayuda</option>
-                    <option value="Se_desplaza_solo">Se desplaza solo</option>
+                    <option value="Se_desplaza_sin_ayuda">Se desplaza sin ayuda</option>
                     <option value="Se_desplaza_con_ayuda">Se desplaza con ayuda</option>
                     <option value="Relacion_con_el_entorno">Relación con el entorno</option>
                     <option value="Soledad">Soledad</option>
@@ -168,6 +156,57 @@
                 <label for="situacion_sanitaria">Situación sanitaria</label>
                 <input type="text" id="situacion_sanitaria" name="situacion_sanitaria" placeholder="Enfermedades, intervenciones quirúrgicas, etc." required/>
             </div>  
+            <div class="form-group">
+                <label for="situacion_de_la_vivienda">Situación de la vivienda</label>
+                <input type="text" id="situacion_de_la_vivienda" name="situacion_de_la_vivienda" placeholder="Barreras arquitectónicas,tipo de vivienda y ubicacion" required />
+            </div>
+            <div class="form-group">
+                <label for="situacion_economica">Situación económica</label>
+                <input type="text" id="situacion_economica" name="situacion_economica" placeholder="pensión, ingresos, ayudas... aportación al servicio" required />
+            </div>
+            <div class="form-group">
+                <label for="otros_recursos">Otros recursos a los que tiene acceso</label>
+                <input type="text" id="otros_recursos" name="otros_recursos" placeholder="Centro de dia, de respiro familiar, ocupacional, SAD, etc" required />
+            </div>
+            <div class="form-group">
+                <label for="instalacion_de_terminal">Instalación de terminal/UCR</label>
+                <input type="text" id="instalacion_de_terminal" name="instalacion_de_terminal" required />
+            </div>
+            <div class="form-group">
+                <label for="otros_complementos_TAS">Otros complementos TAS avanzado</label>
+                <select id="otros_complementos_TAS" name="otros_complementos_TAS" requobservacionesired>
+                    <option value="no_tiene">No tiene</option>
+                    <option value="detector_de_humos">Detector de humos</option>
+                    <option value="gas">Gas</option>
+                    <option value="movimiento/inactividad">Movimiento/incatividad</option>
+                    <option value="dispensador_de_medicación">Dispensador de medicación</option>
+                    <option value="detector_de_caidas">Detector de caídas</option>
+                    <option value="asistente_de_voz">Asistente de voz</option>
+                    <option value="telemedicina">Telemedicina</option>
+                    <option value="otro">Otro (especificar en observaciones)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dispone_de_teleasistencia_movil">Dispone de teleasistencia móvil</label>
+                <select id="dispone_de_teleasistencia_movil" name="dispone_de_teleasistencia_movil" requobservacionesired>
+                    <option value="no">No</option>
+                    <option value="si">Si</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="sistema_de_telelocalizacion">Sistema de telelocalización</label>
+                <select id="sistema_de_telelocalizacion" name="sistema_de_telelocalizacion" requobservacionesired>
+                    <option value="no">No</option>
+                    <option value="si">Si</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="custodia_de_llaves">Custodia de llaves</label>
+                <select id="custodia_de_llaves" name="custodia_de_llaves" requobservacionesired>
+                    <option value="no">No</option>
+                    <option value="si">Si</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="observaciones">Observaciones</label>
                 <input type="text" id="observaciones" name="observaciones"/>

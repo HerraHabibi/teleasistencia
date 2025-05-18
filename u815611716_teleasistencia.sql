@@ -740,6 +740,16 @@ ALTER TABLE beneficiarios
 	ADD COLUMN dispone_de_teleasistencia_movil VARCHAR(100),
 	ADD COLUMN sistema_de_telelocalizacion VARCHAR(100),
 	ADD COLUMN custodia_de_llaves VARCHAR(100);
+
+ALTER TABLE beneficiarios
+  ADD COLUMN autonomia_personal ENUM(
+    'ABVD_sin_ayuda',
+    'ABVD_con_ayuda',
+    'Se_desplaza_sin_ayuda',
+    'Se_desplaza_con_ayuda',
+    'Relacion_con_el_entorno',
+    'Soledad'
+  ) NOT NULL;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -24,6 +24,7 @@ class Gestion extends Model
         'localidad',
         'provincia',
         'email',
+        'autonomia_personal',
         'situacion_familiar',
         'situacion_sanitaria',
         'observaciones',

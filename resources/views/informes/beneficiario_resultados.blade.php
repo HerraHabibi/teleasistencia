@@ -25,6 +25,19 @@
                 <th>Provincia</th>
                 <th>Email</th>
                 <th>Mayor de 65</th>
+                <th>Discapacidad</th>
+                <th>Situacion sanitaria</th>
+                <th>Situacion familiar</th>
+                <th>Situacion de la vivienda</th>
+                <th>Situacion económica</th>
+                <th>Otros recursos</th>
+                <th>Instalación de terminal</th>
+                <th>Otros complementos TAS</th>
+                <th>Dispone de teleasistencia móvil</th>
+                <th>Sistema de telelocalización</th>
+                <th>Custodia de llaves</th>
+                <th>Autonomía personal</th>
+                <th>Observaciones</th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +58,19 @@
                 <td>{{ $beneficiario->provincia }}</td>
                 <td>{{ $beneficiario->email }}</td>
                 <td>{{ $beneficiario->mayor65 }}</td>
+                <td>{{ $beneficiario->discapacidad }}</td>
+                <td>{{ $beneficiario->situacion_sanitaria }}</td>
+                <td>{{ $beneficiario->situacion_familiar }}</td>
+                <td>{{ $beneficiario->situacion_de_la_vivienda }}</td>
+                <td>{{ $beneficiario->situacion_economica }}</td>
+                <td>{{ $beneficiario->otros_recursos }}</td>
+                <td>{{ $beneficiario->instalacion_de_terminal }}</td>
+                <td>{{ $beneficiario->otros_complementos_TAS }}</td>
+                <td>{{ $beneficiario->dispone_de_teleasistencia_movil }}</td>
+                <td>{{ $beneficiario->sistema_de_telelocalizacion }}</td>
+                <td>{{ $beneficiario->custodia_de_llaves }}</td>
+                <td>{{ $beneficiario->autonomia_personal }}</td>
+                <td>{{ $beneficiario->observaciones }}</td>
             </tr>
             @endforeach
         </tbody>

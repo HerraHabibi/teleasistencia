@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('seccion', 'Gestión')
-@section('title', 'Asignar datos de interés')
+@section('title', 'Consultar datos de interés')
 @section('ruta_volver', route('informes.consultar'))
 @section('content')
 @if ($errors->any())
@@ -43,7 +43,7 @@
         </div>
         <div class="form-group">
             <label for="observaciones">Observaciones</label>
-            <input type="text" id="observaciones" name="observaciones" value="{{ $beneficiarioInteres->observaciones }}" />
+            <input type="text" id="observaciones" name="observaciones" value="{{ $beneficiarioInteres->observaciones }}" readonly/>
         </div>
     </div>
 </form>

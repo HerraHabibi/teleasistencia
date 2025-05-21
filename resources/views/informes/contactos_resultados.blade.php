@@ -20,6 +20,8 @@
                 <td><b>Localidad</b></td>
                 <td><b>Provincia</b></td>
                 <td><b>Email</b></td>
+                <td><b>Dispone de llave del domicilio</b></td>
+                <td><b>Observaciones</b></td>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +37,8 @@
                 <td>{{ $contacto->localidad }}</td>
                 <td>{{ $contacto->provincia }}</td>
                 <td>{{ $contacto->email }}</td>
+                <td>{{ $contacto->dispone_llave_del_domicilio }}</td>
+                <td>{{ $contacto->observaciones }}</td>
             </tr>
         @endforeach
         </tbody>

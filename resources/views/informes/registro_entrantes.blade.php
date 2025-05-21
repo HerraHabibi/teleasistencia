@@ -17,7 +17,8 @@
                     <th>Hora inicio</th>
                     <th>Hora fin</th>
                     <th>Observaciones</th>
-                    <th>Tipo de Llamada</th>
+                    <th>Tipo de llamada</th>
+                    <th>Nivel de activación</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,7 @@
                         <td>{{ $llamada->hora_fin }}</td>
                         <td>{{ $llamada->observaciones }}</td>
                         <td>{{ $llamada->tipo_llamada }}</td>
+                        <td>{{ $llamada->nivel_activacion }}</td>
                     </tr>
                 @endforeach
             </tbody>

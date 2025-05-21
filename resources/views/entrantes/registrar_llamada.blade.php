@@ -68,7 +68,14 @@
                     </optgroup>
                 </select>
             </div>
-            
+            <div class="form-group">
+                <label for="nivel_activacion">Nivel de activación</label>
+                <select id="nivel_activacion" name="nivel_activacion" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
         </div>
         <div class="form-group">
             <label for="observaciones">Observaciones</label>

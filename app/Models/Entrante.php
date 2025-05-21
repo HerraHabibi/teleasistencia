@@ -20,6 +20,7 @@ class Entrante extends Model
         'hora_inicio',
         'hora_fin',
         'tipo_llamada',
+        'nivel_activacion',
         'observaciones',
         'archivo',
     ];

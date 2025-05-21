@@ -80,6 +80,7 @@ class EntrantesController extends Controller
             'hora_inicio' => 'required|date_format:Y-m-d\TH:i:s',
             'hora_fin' => 'required|date_format:Y-m-d\TH:i:s|after:hora_inicio',
             'tipo_llamada' => 'required|string|max:255',
+            'nivel_activacion' => 'required|string|max:255' ,
             'observaciones' => 'nullable|string',
             'archivo' => 'nullable|file|mimes:mp3,wav,aac,ogg',
         ]);
@@ -97,6 +98,7 @@ class EntrantesController extends Controller
         $entrante->hora_inicio = Carbon::parse($request->hora_inicio)->format('Y-m-d H:i:s');
         $entrante->hora_fin = Carbon::parse($request->hora_fin)->format('Y-m-d H:i:s');
         $entrante->tipo_llamada = $request->tipo_llamada;
+        $entrante->nivel_activacion = $request->nivel_activacion;
         $entrante->observaciones = $request->observaciones;
         $entrante->archivo = $fileName;
         $entrante->save();

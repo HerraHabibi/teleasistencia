@@ -750,6 +750,16 @@ ALTER TABLE beneficiarios
     'Relacion_con_el_entorno',
     'Soledad'
   ) NOT NULL;
+
+ALTER TABLE beneficiario_interes
+  DROP COLUMN hora_preferente_manana,
+  DROP COLUMN hora_preferente_tarde,
+  DROP COLUMN hora_preferente_noche,
+  DROP COLUMN ambulatorio,
+  DROP COLUMN ambulancia,
+  DROP COLUMN policia,
+  DROP COLUMN bomberos,
+  DROP COLUMN urgencias;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -314,34 +314,32 @@ class GestionController extends Controller
             'medicacion_manana' => 'nullable|string|max:255',
             'medicacion_tarde' => 'nullable|string|max:255',
             'medicacion_noche' => 'nullable|string|max:255',
-            'hora_preferente_manana' => 'required',
-            'hora_preferente_tarde' => 'required',
-            'hora_preferente_noche' => 'required',
-            'ambulancia' => 'required|string|max:2',
-            'policia' => 'required|string|max:2',
-            'bomberos' => 'required|string|max:2',
-            'urgencias' => 'required|string|max:2'
+            'observaciones' => 'required|string',
         ]);
 
-        $beneficiarioInteres = new BeneficiarioInteres();
+        try {
+            $beneficiarioInteres = BeneficiarioInteres::where('dni_beneficiario', $request->dni_beneficiario)->first();
 
-        $beneficiarioInteres->dni_beneficiario = $request->dni_beneficiario;
-        $beneficiarioInteres->enfermedades = $request->enfermedades;
-        $beneficiarioInteres->alergias = $request->alergias;
-        $beneficiarioInteres->medicacion_manana = $request->medicacion_manana;
-        $beneficiarioInteres->medicacion_tarde = $request->medicacion_tarde;
-        $beneficiarioInteres->medicacion_noche = $request->medicacion_noche;
-        $beneficiarioInteres->hora_preferente_manana = $request->hora_preferente_manana;
-        $beneficiarioInteres->hora_preferente_tarde = $request->hora_preferente_tarde;
-        $beneficiarioInteres->hora_preferente_noche = $request->hora_preferente_noche;
-        $beneficiarioInteres->ambulancia = $request->ambulancia;
-        $beneficiarioInteres->policia = $request->policia;
-        $beneficiarioInteres->bomberos = $request->bomberos;
-        $beneficiarioInteres->urgencias = $request->urgencias;
+            if (!$beneficiarioInteres) {
+                $beneficiarioInteres = new BeneficiarioInteres();
+                $beneficiarioInteres->dni_beneficiario = $request->dni_beneficiario;
+            }
 
-        $beneficiarioInteres->save();
+            $beneficiarioInteres->dni_beneficiario = $request->dni_beneficiario;
+            $beneficiarioInteres->enfermedades = $request->enfermedades;
+            $beneficiarioInteres->alergias = $request->alergias;
+            $beneficiarioInteres->medicacion_manana = $request->medicacion_manana;
+            $beneficiarioInteres->medicacion_tarde = $request->medicacion_tarde;
+            $beneficiarioInteres->medicacion_noche = $request->medicacion_noche;
+            $beneficiarioInteres->observaciones = $request->observaciones;
 
-        return redirect()->route('gestion.interes.buscar.modificar')->with('success', 'Datos de interés guardados correctamente.');
+            $beneficiarioInteres->save();
+
+            return redirect()->route('gestion.interes.buscar.modificar')->with('success', 'Datos de interés guardados correctamente.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Hubo un problema al guardar los datos');
+        }
     }
     public function buscarcontacto()
     {

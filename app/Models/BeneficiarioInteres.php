@@ -17,13 +17,6 @@ class BeneficiarioInteres extends Model
         'medicacion_manana',
         'medicacion_tarde',
         'medicacion_noche',
-        'hora_preferente_manana',
-        'hora_preferente_tarde',
-        'hora_preferente_noche',
-        'ambulancia',
-        'policia',
-        'bomberos',
-        'urgencias',
         'observaciones'
     ];
     public function beneficiario()

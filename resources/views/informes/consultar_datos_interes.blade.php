@@ -42,53 +42,9 @@
             <input type="text" id="medicacion_noche" name="medicacion_noche" value="{{ $beneficiarioInteres->medicacion_noche }}" placeholder="Medicación Noche" readonly/>
         </div>
         <div class="form-group">
-            <label for="hora_preferente_manana">Hora Preferente Mañana</label>
-            <input type="time" id="hora_preferente_manana" name="hora_preferente_manana" value="{{ $beneficiarioInteres->hora_preferente_manana }}" required readonly/>
+            <label for="observaciones">Observaciones</label>
+            <input type="text" id="observaciones" name="observaciones" value="{{ $beneficiarioInteres->observaciones }}" />
         </div>
-        <div class="form-group">
-            <label for="hora_preferente_tarde">Hora Preferente Tarde</label>
-            <input type="time" id="hora_preferente_tarde" name="hora_preferente_tarde" value="{{ $beneficiarioInteres->hora_preferente_tarde }}" required readonly/>
-        </div>
-        <div class="form-group">
-            <label for="hora_preferente_noche">Hora Preferente Noche</label>
-            <input type="time" id="hora_preferente_noche" name="hora_preferente_noche" value="{{ $beneficiarioInteres->hora_preferente_noche }}" required readonly/>
-        </div>
-        <div class="form-group">
-            <label for="ambulatorio">¿Servicio de Ambulatorio?</label>
-            <select id="ambulatorio" name="ambulatorio" required disabled>
-                <option value="Si" {{ $beneficiarioInteres->ambulatorio == 'Si' ? 'selected' : '' }}>Sí</option>
-                <option value="No" {{ $beneficiarioInteres->ambulatorio == 'No' ? 'selected' : '' }}>No</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="ambulancia">¿Servicio de Ambulancia?</label>
-            <select id="ambulancia" name="ambulancia" required disabled>
-                <option value="Si" {{ $beneficiarioInteres->ambulancia == 'Si' ? 'selected' : '' }}>Sí</option>
-                <option value="No" {{ $beneficiarioInteres->ambulancia == 'No' ? 'selected' : '' }}>No</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="policia">¿Llamar a la Policía?</label>
-            <select id="policia" name="policia" required disabled>
-                <option value="Si" {{ $beneficiarioInteres->policia == 'Si' ? 'selected' : '' }}>Sí</option>
-                <option value="No" {{ $beneficiarioInteres->policia == 'No' ? 'selected' : '' }}>No</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="bomberos">¿Llamar a los Bomberos?</label>
-            <select id="bomberos" name="bomberos" required disabled>
-                <option value="Si" {{ $beneficiarioInteres->bomberos == 'Si' ? 'selected' : '' }}>Sí</option>
-                <option value="No" {{ $beneficiarioInteres->bomberos == 'No' ? 'selected' : '' }}>No</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="urgencias">¿Llamar a Urgencias?</label>
-            <select id="urgencias" name="urgencias" required disabled>
-                <option value="Si" {{ $beneficiarioInteres->urgencias == 'Si' ? 'selected' : '' }}>Sí</option>
-                <option value="No" {{ $beneficiarioInteres->urgencias == 'No' ? 'selected' : '' }}>No</option>
-            </select>
-        </div>
-        </div>
-        </form>
+    </div>
+</form>
 @endsection
-        

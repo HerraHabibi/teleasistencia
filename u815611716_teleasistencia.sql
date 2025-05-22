@@ -730,7 +730,11 @@ ALTER TABLE registro_llamadas_salientes
 	  'Llamada saliente ausencia domiciliaria y regreso',
 	  'Llamada saliente suspension temporal del servicio'
 	);
-  
+
+ALTER TABLE contactos
+  ADD COLUMN dispone_llave_del_domicilio VARCHAR(10) NOT NULL DEFAULT 'No',
+  ADD COLUMN observaciones VARCHAR(300) NOT NULL;
+
 ALTER TABLE beneficiarios
 	ADD COLUMN situacion_de_la_vivienda VARCHAR(100),
 	ADD COLUMN situacion_economica VARCHAR(100),

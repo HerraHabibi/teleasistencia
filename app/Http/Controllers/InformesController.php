@@ -151,4 +151,49 @@ class InformesController extends Controller
         // Devolver la vista con las llamadas
         return view('informes.registro_salientes', compact('llamadas'));
     }
+    // -----------
+    public function llamadasEntrantesHoy()
+    {
+        $hoy = Carbon::today();
+
+        $inicioHoy = $hoy->startOfDay();
+        $finHoy = $hoy->copy()->endOfDay();
+
+        $entrantes_hoy = Entrante::whereBetween('hora_inicio', [$inicioHoy, $finHoy])
+                            ->orWhereBetween('hora_fin', [$inicioHoy, $finHoy])
+                            ->orderByDesc('hora_fin')
+                            ->orderBy('dni_beneficiario')
+                            ->get();
+
+        return view('informes.llamadas.entrantes_hoy', compact('entrantes_hoy'));
+    }
+
+    public function llamadasEntrantesSiempre()
+    {
+        $entrantes_siempre = Entrante::orderByDesc('hora_fin')
+                                ->orderBy('dni_beneficiario')
+                                ->get();
+
+        return view('informes.llamadas.entrantes_siempre', compact('entrantes_siempre'));
+    }
+
+    public function llamadasSalientesHoy()
+    {
+        $hoy = Carbon::today();
+
+        $salientes_hoy = Saliente::whereDate('fecha', $hoy)
+                            ->orderByDesc('fecha')
+                            ->orderBy('dni_beneficiario')
+                            ->get();
+
+        return view('informes.llamadas.salientes_hoy', compact('salientes_hoy'));
+    }
+    public function llamadasSalientesSiempre()
+    {
+        $salientes_siempre = Saliente::orderByDesc('fecha')
+                                ->orderBy('dni_beneficiario')
+                                ->get();
+
+        return view('informes.llamadas.salientes_siempre', compact('salientes_siempre'));
+    }
 }

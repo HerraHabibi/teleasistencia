@@ -502,3 +502,71 @@ p {
 .btn-download:hover {
     background-color: #45a049;
 }
+
+.selected-tab {
+    background-color: #009879;
+}
+
+.not-selected-tab {
+    transition: background-color 0.3s;
+}
+
+.not-selected-tab:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Clases basadas en TailwindCSS */
+
+.flex {
+    display: flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.w-min {
+    width: min-content;
+}
+
+.w-max {
+    width: max-content;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-pointer:link{
+    color: #000;
+    text-decoration: none;
+}
+
+.cursor-pointer:visited{
+    color: #000;
+    text-decoration: none;
+}
+
+.gap-30px {
+    gap: 30px;
+}
+
+.mt-20px {
+    margin-top: 20px;
+}
+
+.p-20px {
+    padding: 20px;
+}
+
+.rounded-md {
+    border-radius: 6px;
+}

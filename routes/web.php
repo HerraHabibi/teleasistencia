@@ -87,6 +87,14 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::post('/previstas', [InformesController::class, 'buscarprevistas'])->name('informes.previstas.buscar');
         Route::get('/entrantes', [InformesController::class, 'mostrarLlamadasEntrantesHoy'])->name('informes.entrantes');
         Route::get('/salientes', [InformesController::class, 'mostrarLlamadasSalientesHoy'])->name('informes.salientes');
+    
+        Route::prefix('llamadas')->group(function () {
+            Route::get('/previstas', [InformesController::class, 'llamadasprevistas'])->name('informes.llamadas.previstas');
+            Route::get('/entrantes/hoy', [InformesController::class, 'llamadasEntrantesHoy'])->name('informes.llamadas.entrantes.hoy');
+            Route::get('/entrantes/siempre', [InformesController::class, 'llamadasEntrantesSiempre'])->name('informes.llamadas.entrantes.siempre');
+            Route::get('/salientes/hoy', [InformesController::class, 'llamadasSalientesHoy'])->name('informes.llamadas.salientes.hoy');
+            Route::get('/salientes/siempre', [InformesController::class, 'llamadasSalientesSiempre'])->name('informes.llamadas.salientes.siempre');
+        });
     });
 
     //Rutas Usuarios

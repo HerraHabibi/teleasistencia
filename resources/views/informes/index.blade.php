@@ -47,10 +47,10 @@
                             </a>
                         </td>
                         <td class="custom-cell">
-                            <a href="{{ route('informes.previstas') }}" class="click"><img
-                                    src="{{ asset('images/tlf.png') }}" alt="Llamadas Entrantes" border="0"
+                            <a href="{{ route('informes.llamadas.entrantes.hoy') }}" class="click"><img
+                                    src="{{ asset('images/tlf.png') }}" alt="Llamadas" border="0"
                                     class="img-index">
-                                <p>Llamadas previstas</p>
+                                <p>Llamadas</p>
                             </a>
                         </td>
                     </tr>
@@ -59,6 +59,13 @@
             <table class="custom-table" width="880px" border="0">
                 <tbody>
                     <tr class="custom-row">
+                        <td class="custom-cell">
+                            <a href="{{ route('informes.previstas') }}" class="click"><img
+                                    src="{{ asset('images/tlf.png') }}" alt="Llamadas Entrantes" border="0"
+                                    class="img-index">
+                                <p>Llamadas previstas</p>
+                            </a>
+                        </td>
                         <td class="custom-cell">
                             <a href="{{ route('informes.entrantes') }}" class="click">
                                 <img src="{{ asset('images/llamada-entrante.png') }}" alt="Gestión de Usuarios" border="0"

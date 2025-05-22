@@ -9,7 +9,7 @@
     @if($llamadas->isEmpty())
         <p class="alert alert-danger">No hay llamadas entrantes registradas para hoy.</p>
     @else
-        <table class="tabla-bonita" align="center">
+        <table class="styled-table" align="center">
             <thead>
                 <tr>
                     <th>Email del Usuario</th>

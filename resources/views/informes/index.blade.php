@@ -61,7 +61,7 @@
                     <tr class="custom-row">
                         <td class="custom-cell">
                             <a href="{{ route('informes.previstas') }}" class="click"><img
-                                    src="{{ asset('images/tlf.png') }}" alt="Llamadas Entrantes" border="0"
+                                    src="{{ asset('images/llamadas-previstas.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
                                 <p>Llamadas previstas</p>
                             </a>

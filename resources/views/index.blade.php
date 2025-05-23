@@ -38,7 +38,7 @@
                     </td>
                     <td class="custom-cell">
                         <a href="{{ route('entrantes.index') }}" class="index-click">
-                            <img src="{{ asset('images/llamada-entrante.png') }}" alt="Llamadas Entrantes" border="0" class="img-index">
+                            <img src="{{ asset('images/tlf.png') }}" alt="Llamadas Entrantes" border="0" class="img-index">
                             <p>Llamadas</p>
                         </a>
                     </td>

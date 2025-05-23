@@ -48,9 +48,9 @@
                         </td>
                         <td class="custom-cell">
                             <a href="{{ route('informes.llamadas.entrantes.hoy') }}" class="click"><img
-                                    src="{{ asset('images/tlf.png') }}" alt="Llamadas" border="0"
+                                    src="{{ asset('images/llamadas-registradas.png') }}" alt="Llamadas" border="0"
                                     class="img-index">
-                                <p>Llamadas</p>
+                                <p>Llamadas registradas</p>
                             </a>
                         </td>
                     </tr>

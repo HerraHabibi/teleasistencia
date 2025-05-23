@@ -28,8 +28,12 @@
                         <td>{{ $llamada->tipo_llamada }}</td>
                         <td>{{ $llamada->created_at }}</td>
                         <td>{{ $llamada->archivo }}</td>
-                        <td style="text-align: center">
-                            <a href="{{ asset('storage/audios/' . $llamada->archivo) }}" class="btn-download" download>Descargar</a>
+                        <td class="text-center">
+                            @if($llamada->archivo_existe)
+                                <a href="{{ asset('storage/audios/' . $llamada->archivo) }}" class="btn-download" download>Descargar</a>
+                            @else
+                                <span class="text-gray-500">No disponible</span>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

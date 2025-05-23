@@ -570,3 +570,7 @@ p {
 .rounded-md {
     border-radius: 6px;
 }
+
+.text-center {
+    text-align: center;
+}

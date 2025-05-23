@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('seccion', 'Informes')
-@section('title', 'Llamadas')
+@section('title', 'Llamadas registradas')
 @section('ruta_volver', route('informes.index'))
 @section('content')
     <nav class="flex justify-center m-auto gap-30px mt-20px">
@@ -24,13 +24,14 @@
         <table class="styled-table" align="center">
             <thead>
                 <tr>
-                    <th>Email del Usuario</th>
+                    <th>Email del teleoperador</th>
                     <th>DNI del beneficiario</th>
                     <th>Hora inicio</th>
                     <th>Hora fin</th>
                     <th>Tipo de llamada</th>
                     <th>Nivel de activación</th>
                     <th>Observaciones</th>
+                    <th>Audios</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,13 @@
                         <td>{{ $llamada->tipo_llamada }}</td>
                         <td>{{ $llamada->nivel_activacion }}</td>
                         <td>{{ $llamada->observaciones }}</td>
+                        <td class="text-center">
+                            @if($llamada->tiene_audio)
+                                <a href="{{ asset('storage/audios/' . $llamada->archivo) }}" class="btn-download" download>Descargar</a>
+                            @else
+                                <span class="text-gray-500">No disponible</span>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

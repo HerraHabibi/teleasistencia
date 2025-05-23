@@ -6,6 +6,7 @@ use App\Models\Entrante;
 use App\Models\Saliente;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AudioController extends Controller
 {
@@ -16,14 +17,16 @@ class AudioController extends Controller
             $user = User::where('email', $item->email)->first();
             $item->nombre = $user ? $user->name : 'Desconocido';
             $item->tipo_llamada = 'Entrante';
+            $item->archivo_existe = Storage::disk('public')->exists('audios/' . $item->archivo);
             return $item;
         });
 
         $salientes = Saliente::whereNotNull('archivo')->get()->map(function($item) {
             $user = User::where('email', $item->email_users)->first();
-            $item->email = $item->email_users; // Email_users para las llamadas salientes
+            $item->email = $item->email_users;
             $item->nombre = $user ? $user->name : 'Desconocido';
             $item->tipo_llamada = 'Saliente';
+            $item->archivo_existe = Storage::disk('public')->exists('audios/' . $item->archivo);
             return $item;
         });
 

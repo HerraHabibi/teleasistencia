@@ -10,6 +10,7 @@ use App\Models\Gestion;
 use App\Models\Saliente;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class InformesController extends Controller
 {
@@ -163,7 +164,11 @@ class InformesController extends Controller
                             ->orWhereBetween('hora_fin', [$inicioHoy, $finHoy])
                             ->orderByDesc('hora_fin')
                             ->orderBy('dni_beneficiario')
-                            ->get();
+                            ->get()
+                            ->map(function ($llamada) {
+                                $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                                return $llamada;
+                            });
 
         return view('informes.llamadas.entrantes_hoy', compact('entrantes_hoy'));
     }
@@ -172,7 +177,11 @@ class InformesController extends Controller
     {
         $entrantes_siempre = Entrante::orderByDesc('hora_fin')
                                 ->orderBy('dni_beneficiario')
-                                ->get();
+                                ->get()
+                                ->map(function ($llamada) {
+                                    $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                                    return $llamada;
+                                });
 
         return view('informes.llamadas.entrantes_siempre', compact('entrantes_siempre'));
     }
@@ -184,7 +193,11 @@ class InformesController extends Controller
         $salientes_hoy = Saliente::whereDate('fecha', $hoy)
                             ->orderByDesc('fecha')
                             ->orderBy('dni_beneficiario')
-                            ->get();
+                            ->get()
+                            ->map(function ($llamada) {
+                                $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                                return $llamada;
+                            });
 
         return view('informes.llamadas.salientes_hoy', compact('salientes_hoy'));
     }
@@ -192,7 +205,11 @@ class InformesController extends Controller
     {
         $salientes_siempre = Saliente::orderByDesc('fecha')
                                 ->orderBy('dni_beneficiario')
-                                ->get();
+                                ->get()
+                                ->map(function ($llamada) {
+                                    $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                                    return $llamada;
+                                });
 
         return view('informes.llamadas.salientes_siempre', compact('salientes_siempre'));
     }

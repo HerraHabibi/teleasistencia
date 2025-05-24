@@ -10,8 +10,8 @@ class EvaluacionTeleoperador extends Model
     protected $table = 'evaluacion_teleoperador';
 
     protected $fillable = [
-        'fecha',
-        'hora',
+        'hora_inicio',
+        'hora_fin',
         'email_usuario',
         'email_teleoperador',
         'bienvenida',

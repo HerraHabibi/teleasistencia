@@ -111,6 +111,8 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::post('/usuario', [EvaluarController::class, 'storeUsuario'])->name('evaluar.usuario.store');
         Route::get('/teleoperador', [EvaluarController::class, 'evaluarTeleoperador'])->name('evaluar.teleoperador');
         Route::post('/teleoperador', [EvaluarController::class, 'storeTeleoperador'])->name('evaluar.teleoperador.store');
+        Route::get('/verTeleoperador', [EvaluarController::class, 'verTeleoperador'])->name('evaluar.verTeleoperador');
+        Route::get('/verUsuario', [EvaluarController::class, 'verUsuario'])->name('evaluar.verUsuario');
     });
     //Rutas audios
     Route::prefix('audios')->group(function(){

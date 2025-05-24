@@ -9,17 +9,34 @@
         {{ session('error') }}
     </div>
     @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+    
     <form class="beneficiary-form" method="post"  action="{{route('evaluar.usuario.store')}}"enctype="multipart/form-data">
         @csrf
         <div class="form-grid">
 
             <div class="form-group">
-                <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha" required />
+                <label for="hora_inicio">Hora de inicio</label>
+                <div>
+                    <input type="datetime-local" id="hora_inicio" name="hora_inicio" step="1" required />
+                    <button type="button" onclick="establecerHora('hora_inicio')">Ahora</button>
+                </div>
             </div>
             <div class="form-group">
-                <label for="hora">Hora</label>
-                <input type="time" id="hora" name="hora" required />
+                <label for="hora_inicio">Hora final</label>
+                <div>
+                    <input type="datetime-local" id="hora_fin" name="hora_fin" step="1" required />
+                    <button type="button" onclick="establecerHora('hora_fin')">Ahora</button>
+                </div>
             </div>
             <div class="form-group">
                 <label for="email_teleoperador">Email del Teleoperador</label>
@@ -58,4 +75,11 @@
             <button type="submit" class="btn-submit">Enviar Evaluación</button>
         </div>
     </form>
+    <script>
+        function establecerHora(input) {
+            const ahora = new Date();
+            const formato = ahora.toISOString().slice(0, 19);
+            document.getElementById(input).value = formato;
+        }
+    </script>
 @endsection

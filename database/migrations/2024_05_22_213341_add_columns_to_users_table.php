@@ -15,7 +15,7 @@ return new class extends Migration
             $table->boolean('perfil')->default(0)->after('remember_token');
             $table->boolean('verificado')->default(0)->after('remember_token');
             // 0= Usuario 1= Profe
-            $table->date('fecha_nacimiento')->unique()->nullable(false)->after('remember_token');
+            $table->date('fecha_nacimiento')->nullable(false)->after('remember_token');
             $table->timestamp('last_login')->nullable()->after('remember_token');
         });
     }

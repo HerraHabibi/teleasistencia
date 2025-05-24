@@ -39,6 +39,13 @@
                                 <p>Evaluar teleoperador(Como usuario)</p>
                             </a>
                         </td>
+                        <td class="custom-cell">
+                            <a href="{{ route('evaluar.verUsuario') }}" class="click"><img
+                                    src="{{ asset('images/2.png') }}" alt="Llamadas Entrantes" border="0"
+                                    class="img-index">
+                                <p>Ver evaluaciones</p>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

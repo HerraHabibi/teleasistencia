@@ -291,7 +291,7 @@ CREATE TABLE `password_reset_tokens` (
 CREATE TABLE `registro_llamadas_entrantes` (
   `id` int(10) UNSIGNED NOT NULL,
   `email` varchar(100) NOT NULL,
-  `email_users` varchar(100) NOT NULL,
+  `email_` varchar(100) NOT NULL,
   `quien_llama` varchar(255) NOT NULL,
   `beneficiario` enum('Si','No') NOT NULL,
   `fecha` date NOT NULL,
@@ -391,7 +391,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `perfil`, `verificado`, `fecha_nacimiento`, `last_login`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$12$VBHPJcpWzCA5.SaQS8VY0uQ9esqDiyM8FLxKVAI3UXRDda1f1ptA.', NULL, '2024-06-15 12:38:33', '2024-06-15 18:15:58', 1, 1, '2024-06-08', NULL),
+(20, 'Admin', 'admin@gmail.com', NULL, '$2y$12$VBHPJcpWzCA5.SaQS8VY0uQ9esqDiyM8FLxKVAI3UXRDda1f1ptA.', NULL, '2024-06-15 12:38:33', '2024-06-15 18:15:58', 1, 1, '2024-06-08', NULL),
 (2, 'Jane Smith', 'jane.smith@example.com', NULL, 'hashed_password', NULL, '2024-06-13 13:24:23', '2024-06-13 13:24:23', 0, 1, '1985-05-20', NULL),
 (3, 'Michael Brown', 'michael.brown@example.com', NULL, 'hashed_password', NULL, '2024-06-13 13:24:23', '2024-06-13 13:41:41', 1, 1, '1982-11-10', NULL),
 (4, 'Emily Davis', 'emily.davis@example.com', NULL, 'hashed_password', NULL, '2024-06-13 13:24:23', '2024-06-13 13:24:23', 0, 1, '1995-09-08', NULL),
@@ -771,6 +771,22 @@ ALTER TABLE registro_llamadas_entrantes
     '2',
     '3'
   ) NOT NULL;
+  
+  ALTER TABLE evaluacion_teleoperador
+	DROP COLUMN fecha,
+	DROP COLUMN hora;
+
+ALTER TABLE evaluacion_usuario
+	DROP COLUMN fecha,
+	DROP COLUMN hora;
+  
+  ALTER TABLE evaluacion_teleoperador
+	ADD COLUMN hora_inicio DATETIME NULL AFTER updated_at,
+	ADD COLUMN hora_fin DATETIME NULL AFTER hora_inicio;
+
+ALTER TABLE evaluacion_usuario
+	ADD COLUMN hora_inicio DATETIME NULL AFTER updated_at,
+	ADD COLUMN hora_fin DATETIME NULL AFTER hora_inicio;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

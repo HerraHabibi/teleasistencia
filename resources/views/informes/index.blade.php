@@ -29,21 +29,21 @@
                             <a href="{{ route('informes.beneficiarios.buscar') }}" class="click">
                                 <img src="{{ asset('images/re.png') }}" alt="Gestión de Usuarios" border="0"
                                     class="img-index">
-                                <p>Informes de beneficiarios</p>
+                                <p>Datos de los beneficiarios</p>
                             </a>
                         </td>
                         <td class="custom-cell">
                             <a href="{{ route('informes.contactos.buscar') }}" class="click"><img
                                     src="{{ asset('images/modificar-contacto.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
-                                <p>Lista de contactos</p>
+                                <p>Datos de los contactos</p>
                             </a>
                         </td>
                         <td class="custom-cell">
                             <a href="{{ route('informes.consultar') }}" class="click">
                                 <img src="{{ asset('images/llamada-cita.png') }}" alt="Gestión de Usuarios" border="0"
                                     class="img-index">
-                                <p>Listas de datos de interes beneficiarios</p>
+                                <p>Intereses de los beneficiarios</p>
                             </a>
                         </td>
                         <td class="custom-cell">
@@ -51,6 +51,13 @@
                                     src="{{ asset('images/llamadas-registradas.png') }}" alt="Llamadas" border="0"
                                     class="img-index">
                                 <p>Llamadas registradas</p>
+                            </a>
+                        </td>
+                        <td class="custom-cell">
+                            <a href="{{ route('informes.previstas') }}" class="click"><img
+                                    src="{{ asset('images/llamadas-previstas.png') }}" alt="Llamadas Entrantes" border="0"
+                                    class="img-index">
+                                <p>Llamadas previstas</p>
                             </a>
                         </td>
                     </tr>
@@ -61,9 +68,16 @@
                     <tr class="custom-row">
                         <td class="custom-cell">
                             <a href="{{ route('informes.previstas') }}" class="click"><img
-                                    src="{{ asset('images/llamadas-previstas.png') }}" alt="Llamadas Entrantes" border="0"
+                                    src="{{ asset('images/informes-beneficiarios.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
-                                <p>Llamadas previstas</p>
+                                <p>Informes de los beneficiaios</p>
+                            </a>
+                        </td>
+                        <td class="custom-cell">
+                            <a href="{{ route('informes.previstas') }}" class="click"><img
+                                    src="{{ asset('images/informes-teleoperadores.png') }}" alt="Llamadas Entrantes" border="0"
+                                    class="img-index">
+                                <p>Informes de los teleoperadores</p>
                             </a>
                         </td>
                         <td class="custom-cell">

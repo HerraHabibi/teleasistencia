@@ -24,4 +24,9 @@ class Entrante extends Model
         'observaciones',
         'archivo',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email_users', 'email');
+    }
 }

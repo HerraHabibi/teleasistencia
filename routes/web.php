@@ -77,8 +77,7 @@ Route::middleware([Authenticate::class])->group(function () {
     // Rutas de informes
     Route::prefix('informes')->group(function(){
         Route::get('/', [InformesController::class, 'index'])->name('informes.index');
-        // Route::get('/beneficiarios', [InformesController::class, 'beneficiarios'])->name('informes.beneficiarios');
-        Route::get('/beneficiarios', [InformesController::class, 'buscarBeneficiario'])->name('informes.beneficiarios.buscar');
+        Route::get('/beneficiarios', [InformesController::class, 'infoBeneficiarios'])->name('informes.beneficiarios.buscar');
         Route::get('/contactos', [InformesController::class, 'buscarContacto'])->name('informes.contactos.buscar');
         Route::get('/consultar', [InformesController::class, 'interesconsultarview'])->name('informes.consultar');
         Route::post('/consultar', [InformesController::class, 'interesconsultar'])->name('informes.consultar.buscar');
@@ -87,6 +86,11 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::post('/previstas', [InformesController::class, 'buscarprevistas'])->name('informes.previstas.buscar');
         Route::get('/entrantes', [InformesController::class, 'mostrarLlamadasEntrantesHoy'])->name('informes.entrantes');
         Route::get('/salientes', [InformesController::class, 'mostrarLlamadasSalientesHoy'])->name('informes.salientes');
+
+        Route::get('/informes-beneficiario', function () {
+            return view('informes.buscar_beneficiario');
+        })->name('informes.informes-beneficiario');
+        Route::post('/informes-beneficiario', [InformesController::class, 'buscarBeneficiario'])->name('informes.buscar-beneficiario');
     
         Route::prefix('llamadas')->group(function () {
             Route::get('/previstas', [InformesController::class, 'llamadasprevistas'])->name('informes.llamadas.previstas');

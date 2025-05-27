@@ -18,39 +18,11 @@ class InformesController extends Controller
     {
         return view('informes.index');
     }
-    
-    // public function buscarBeneficiario(Request $request)
-    // {
-    //     $opcion = $request->opcion;
-
-    //     switch ($opcion) {
-    //         case 'dni':
-    //             $beneficiarios = Gestion::orderBy('dni')->get();
-    //             break;
-    //         case 'sexo':
-    //             $beneficiarios = Gestion::orderBy('sexo')->get();
-    //             break;
-    //         case 'tipo':
-    //             $beneficiarios = Gestion::orderBy('tipo_beneficiario')->get();
-    //             break;
-    //         case 'provincia':
-    //             $beneficiarios = Gestion::orderBy('provincia')->get();
-    //             break;
-    //         case 'estado_civil':
-    //             $beneficiarios = Gestion::orderBy('estado_civil')->get();
-    //             break;
-    //         default:
-    //             $beneficiarios = Gestion::all();
-    //             break;
-    //     }
-
-    //     return view('informes.beneficiario_resultados', compact('beneficiarios'));
-    // }
     public function beneficiarios()
     {
         return view('informes.listado_beneficiario');
     }
-    public function buscarBeneficiario()
+    public function infoBeneficiarios()
     {
         $beneficiarios = Gestion::orderBy('dni')->get();
 
@@ -129,6 +101,92 @@ class InformesController extends Controller
     {
         return view('informes.listado_llamadas_previstas');
     }
+    public function buscarBeneficiario(Request $request)
+    {
+        $request->validate([
+            'dni' => 'required|string|max:255',
+        ]);
+    
+        $dni = $request->input('dni');
+        $beneficiario = Gestion::where('dni', $dni)->first();
+    
+        if (!$beneficiario) {
+            return redirect()->route('informes.informes-beneficiario')->with('error', 'Beneficiario no encontrado.');
+        }
+    
+        $llamadasEntrantes = Entrante::with('user')
+            ->where('dni_beneficiario', $dni)
+            ->get()
+            ->map(function ($llamada) {
+                $tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                return [
+                    'fecha_hora' => $llamada->hora_inicio,
+                    'dni_beneficiario' => $llamada->dni_beneficiario,
+                    'tipo' => $llamada->tipo_llamada,
+                    'observaciones' => $llamada->observaciones,
+                    'archivo' => $llamada->archivo,
+                    'teleoperador' => optional($llamada->user)->name,
+                    'origen' => 'Beneficiario/Contacto',
+                    'nivel_activacion' => $llamada->nivel_activacion,
+                    'responde' => '-',
+                    'intentos' => '-',
+                    'quien_coge' => '-',
+                    'id' => $llamada->id,
+                    'tiene_audio' => $tiene_audio,
+                ];
+            });
+    
+        $llamadasSalientes = Saliente::with('user')
+            ->where('dni_beneficiario', $dni)
+            ->get()
+            ->map(function ($llamada) {
+                $tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                return [
+                    'fecha_hora' => $llamada->fecha . ' ' . $llamada->hora,
+                    'dni_beneficiario' => $llamada->dni_beneficiario,
+                    'tipo' => $llamada->tipo,
+                    'observaciones' => $llamada->observaciones,
+                    'archivo' => $llamada->archivo,
+                    'teleoperador' => optional($llamada->user)->name,
+                    'origen' => 'Teleoperador',
+                    'nivel_activacion' => '-',
+                    'responde' => $llamada->responde,
+                    'intentos' => $llamada->intentos,
+                    'quien_coge' => $llamada->quien_coge,
+                    'id' => $llamada->id,
+                    'tiene_audio' => $tiene_audio,
+                ];
+            });
+    
+        $llamadas = $llamadasEntrantes
+            ->merge($llamadasSalientes)
+            ->sortByDesc('fecha_hora')
+            ->map(function($item) {
+                return (object) $item;
+            })
+            ->values();
+    
+        $totalEntrantes = Entrante::where('dni_beneficiario', $dni)->count();
+        $totalSalientes = Saliente::where('dni_beneficiario', $dni)->count();
+        $totalSalientesNoContestadas = Saliente::where('dni_beneficiario', $dni)->where('responde', 'No')->count();
+        $activacionN1 = Entrante::where('dni_beneficiario', $dni)->where('nivel_activacion', '1')->count();
+        $activacionN2 = Entrante::where('dni_beneficiario', $dni)->where('nivel_activacion', '2')->count();
+        $activacionN3 = Entrante::where('dni_beneficiario', $dni)->where('nivel_activacion', '3')->count();
+        $evaluacionMedia = $beneficiario->evaluaciones()->avg('media');
+        $evaluacionMedia = $evaluacionMedia !== null ? round($evaluacionMedia, 2) : null;
+    
+        return view('informes.informes_beneficiario', compact(
+            'beneficiario',
+            'llamadas',
+            'totalEntrantes',
+            'totalSalientes',
+            'totalSalientesNoContestadas',
+            'activacionN1',
+            'activacionN2',
+            'activacionN3',
+            'evaluacionMedia'
+        ));
+    }
     public function mostrarLlamadasEntrantesHoy()
     {
         // Obtener hora de inicio y de fin de hoy 
@@ -152,7 +210,7 @@ class InformesController extends Controller
         // Devolver la vista con las llamadas
         return view('informes.registro_salientes', compact('llamadas'));
     }
-    // -----------
+
     public function llamadasEntrantesHoy()
     {
         $hoy = Carbon::today();

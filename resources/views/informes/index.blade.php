@@ -67,10 +67,10 @@
                 <tbody>
                     <tr class="custom-row">
                         <td class="custom-cell">
-                            <a href="{{ route('informes.previstas') }}" class="click"><img
+                            <a href="{{ route('informes.informes-beneficiario') }}" class="click"><img
                                     src="{{ asset('images/informes-beneficiarios.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
-                                <p>Informes de los beneficiaios</p>
+                                <p>Informes de los beneficiarios</p>
                             </a>
                         </td>
                         <td class="custom-cell">

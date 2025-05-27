@@ -29,4 +29,9 @@ class Saliente extends Model
     {
         return $this->belongsTo(Gestion::class, 'dni_beneficiario', 'dni');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email_users', 'email');
+    }
 }

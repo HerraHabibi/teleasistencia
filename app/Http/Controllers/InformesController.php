@@ -9,6 +9,8 @@ use App\Models\Entrante;
 use App\Models\Gestion;
 use App\Models\User;
 use App\Models\Saliente;
+use App\Models\EvaluacionUsuario;
+use App\Models\EvaluacionTeleoperador;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -166,6 +168,33 @@ class InformesController extends Controller
                 return (object) $item;
             })
             ->values();
+        
+        $evaluaciones = EvaluacionUsuario::where('email_usuario', $beneficiario->email)
+        ->orderByDesc('hora_inicio')
+        ->get()
+        ->map(function ($evaluacion) {
+            $nombreEvaluador = function ($email) {
+                $teleoperador = User::where('email', $email)->first();
+                if ($teleoperador) {
+                    return $teleoperador->name;
+                }
+    
+                $beneficiario = User::where('email', $email)->first();
+                return $beneficiario ? $beneficiario->nombre . ' ' . $beneficiario->apellidos : $email;
+            };
+    
+            return [
+                'nombre_usuario' => $nombreEvaluador($evaluacion->email_usuario),
+                'hora_inicio' => $evaluacion->hora_inicio,
+                'hora_fin' => $evaluacion->hora_fin,
+                'bienvenida' => $evaluacion->bienvenida,
+                'contenido' => $evaluacion->contenido,
+                'comunicacion' => $evaluacion->comunicacion,
+                'despedida' => $evaluacion->despedida,
+                'media' => $evaluacion->media,
+                'observaciones' => $evaluacion->observaciones,
+            ];
+        });
     
         $totalEntrantes = Entrante::where('dni_beneficiario', $dni)->count();
         $totalSalientes = Saliente::where('dni_beneficiario', $dni)->count();
@@ -185,7 +214,8 @@ class InformesController extends Controller
             'activacionN1',
             'activacionN2',
             'activacionN3',
-            'evaluacionMedia'
+            'evaluacionMedia',
+            'evaluaciones'
         ));
     }
     public function buscarTeleoperador(Request $request)
@@ -252,7 +282,34 @@ class InformesController extends Controller
             ->sortByDesc('fecha_hora')
             ->map(fn($item) => (object) $item)
             ->values();
+        
+        $evaluaciones = EvaluacionTeleoperador::where('email_teleoperador', $email)
+        ->orderByDesc('hora_inicio')
+        ->get()
+        ->map(function ($evaluacion) {
+            $nombreEvaluador = function ($email) {
+                $beneficiario = Gestion::where('email', $email)->first();
+                if ($beneficiario) {
+                    return $beneficiario->nombre . ' ' . $beneficiario->apellidos;
+                }
     
+                $teleoperador = User::where('email', $email)->first();
+                return $teleoperador ? $teleoperador->name : $email;
+            };
+
+            return [
+                'nombre_usuario' => $nombreEvaluador($evaluacion->email_usuario),
+                'hora_inicio' => $evaluacion->hora_inicio,
+                'hora_fin' => $evaluacion->hora_fin,
+                'bienvenida' => $evaluacion->bienvenida,
+                'contenido' => $evaluacion->contenido,
+                'comunicacion' => $evaluacion->comunicacion,
+                'despedida' => $evaluacion->despedida,
+                'media' => $evaluacion->media,
+                'observaciones' => $evaluacion->observaciones,
+            ];
+        });
+
         $totalRealizadas = $llamadasRealizadas->count();
         $totalAtendidas = $llamadasAtendidas->count();
         $totalRealizadasNoContestadas = Saliente::where('email_users', $email)->where('responde', 'No')->count();
@@ -265,7 +322,8 @@ class InformesController extends Controller
             'totalRealizadas',
             'totalAtendidas',
             'totalRealizadasNoContestadas',
-            'evaluacionMedia'
+            'evaluacionMedia',
+            'evaluaciones'
         ));
     }
     public function mostrarLlamadasEntrantesHoy()

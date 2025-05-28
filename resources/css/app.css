@@ -563,6 +563,11 @@ p {
     margin-top: 20px;
 }
 
+.my-20px {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .p-20px {
     padding: 20px;
 }

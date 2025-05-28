@@ -84,4 +84,41 @@
             </tbody>
         </table>
     @endif
+    <br></br>
+
+    <h2 class="text-center">Evaluaciones del beneficiario</h2>
+    @if($evaluaciones->isEmpty())
+        <p class="alert alert-danger my-20px">Este beneficiario no ha sido evaluado.</p>
+    @else
+        <table class="styled-table" align="center">
+            <thead>
+                <tr>
+                    <th>Evaluador</th>
+                    <th>Hora inicio</th>
+                    <th>Hora fin</th>
+                    <th>Creatividad</th>
+                    <th>Satisfacción usuario</th>
+                    <th>Satisfacción teleoperador</th>
+                    <th>Teatralización</th>
+                    <th>Media</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($evaluaciones as $eval)
+                    <tr>
+                        <td>{{ $eval['nombre'] }}</td>
+                        <td>{{ \Carbon\Carbon::parse($eval['hora_inicio'])->format('H:i:s - d/m/Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($eval['hora_fin'])->format('H:i:s - d/m/Y') }}</td>
+                        <td>{{ $eval['creatividad'] }}</td>
+                        <td>{{ $eval['satisfaccion_usuario'] }}</td>
+                        <td>{{ $eval['satisfaccion_teleoperador'] }}</td>
+                        <td>{{ $eval['teatralizacion'] }}</td>
+                        <td>{{ $eval['media'] }}</td>
+                        <td>{{ $eval['observaciones'] ?? '-' }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 @endsection

@@ -74,7 +74,7 @@
                             </a>
                         </td>
                         <td class="custom-cell">
-                            <a href="{{ route('informes.previstas') }}" class="click"><img
+                            <a href="{{ route('informes.informes-teleoperador') }}" class="click"><img
                                     src="{{ asset('images/informes-teleoperadores.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
                                 <p>Informes de los teleoperadores</p>

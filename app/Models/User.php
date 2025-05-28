@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function evaluaciones()
+    {
+        return $this->hasMany(EvaluacionTeleoperador::class, 'email_teleoperador', 'email');
+    }
 }

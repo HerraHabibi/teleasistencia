@@ -1,34 +1,29 @@
 @extends('layout')
 
 @section('seccion', 'Informes')
-@section('title', 'Informe del beneficiario')
+@section('title', 'Informe del teleoperador')
 @section('ruta_volver', route('informes.index'))
+
 @section('content')
-    <h2 class='text-center'>Resumen del beneficiario</h2>
+    <h2 class="text-center">Resumen del teleoperador</h2>
     <table class="styled-table" align="center">
         <thead>
             <tr>
-                <th>DNI</th>
-                <th>Nombre completo</th>
+                <th>Nombre</th>
+                <th>Email</th>
                 <th>Llamadas realizadas</th>
-                <th>Llamadas recibidas</th>
+                <th>Llamadas atendidas</th>
                 <th>Llamadas no contestadas</th>
-                <th>Nvl. activación 1</th>
-                <th>Nvl. activación 2</th>
-                <th>Nvl. activación 3</th>
                 <th>Eval. media</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>{{ $beneficiario->dni }}</td>
-                <td>{{ $beneficiario->nombre }} {{ $beneficiario->apellidos }}</td>
-                <td>{{ $totalEntrantes }}</td>
-                <td>{{ $totalSalientes }}</td>
-                <td>{{ $totalSalientesNoContestadas }}</td>
-                <td>{{ $activacionN1 }}</td>
-                <td>{{ $activacionN2 }}</td>
-                <td>{{ $activacionN3 }}</td>
+                <td>{{ $teleoperador->name }}</td>
+                <td>{{ $teleoperador->email }}</td>
+                <td>{{ $totalRealizadas }}</td>
+                <td>{{ $totalAtendidas }}</td>
+                <td>{{ $totalRealizadasNoContestadas }}</td>
                 <td>
                     @if($evaluacionMedia !== null)
                         {{ number_format($evaluacionMedia, 2) }}/10
@@ -41,15 +36,15 @@
     </table>
     <br>
 
-    <h2 class="text-center">Llamadas del beneficiario</h2>
+    <h2 class="text-center">Llamadas del teleoperador</h2>
     @if($llamadas->isEmpty())
-        <p class="alert alert-danger mt-20px">El beneficiario no ha realizado/recibido ninguna llamada.</p>
+        <p class="alert alert-danger mt-20px">El teleoperador no ha realizado/atendido ninguna llamada.</p>
     @else
         <table class="styled-table" align="center">
             <thead>
                 <tr>
                     <th>Quién llamó</th>
-                    <th>Teleoperador</th>
+                    <th>Beneficiario</th>
                     <th>Fecha y hora</th>
                     <th>Tipo de llamada</th>
                     <th>Nivel de activación</th>
@@ -64,9 +59,9 @@
                 @foreach ($llamadas as $llamada)
                     <tr>
                         <td>{{ ucfirst($llamada->origen) }}</td>
-                        <td>{{ $llamada->teleoperador ?? '-' }}</td>
+                        <td>{{ $llamada->beneficiario_nombre ?? '-' }}</td>
                         <td>{{ \Carbon\Carbon::parse($llamada->fecha_hora)->format('H:i:s - d/m/Y') }}</td>
-                        <td>{{ $llamada->tipo_llamada ?? $llamada->tipo ?? '-' }}</td>
+                        <td>{{ $llamada->tipo ?? '-' }}</td>
                         <td>{{ $llamada->nivel_activacion ?? '-' }}</td>
                         <td>{{ $llamada->responde ?? '-' }}</td>
                         <td>{{ $llamada->intentos ?? '-' }}</td>

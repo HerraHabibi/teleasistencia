@@ -7,6 +7,7 @@ use App\Models\CitaMedica;
 use App\Models\Contacto;
 use App\Models\Entrante;
 use App\Models\Gestion;
+use App\Models\User;
 use App\Models\Saliente;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -184,6 +185,86 @@ class InformesController extends Controller
             'activacionN1',
             'activacionN2',
             'activacionN3',
+            'evaluacionMedia'
+        ));
+    }
+    public function buscarTeleoperador(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|max:255',
+        ]);
+    
+        $email = $request->input('email');
+        $teleoperador = User::where('email', $email)->first();
+    
+        if (!$teleoperador) {
+            return redirect()->route('informes.informes-teleoperador')->with('error', 'Teleoperador no encontrado.');
+        }
+    
+        $llamadasAtendidas = Entrante::with(['beneficiario', 'user'])
+            ->where('email_users', $email)
+            ->get()
+            ->map(function ($llamada) {
+                $tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                return [
+                    'fecha_hora' => $llamada->hora_inicio,
+                    'dni_beneficiario' => $llamada->dni_beneficiario,
+                    'tipo' => $llamada->tipo_llamada,
+                    'observaciones' => $llamada->observaciones,
+                    'archivo' => $llamada->archivo,
+                    'teleoperador' => optional($llamada->user)->name,
+                    'origen' => 'Beneficiario/Contacto',
+                    'nivel_activacion' => $llamada->nivel_activacion,
+                    'responde' => '-',
+                    'intentos' => '-',
+                    'quien_coge' => '-',
+                    'id' => $llamada->id,
+                    'tiene_audio' => $tiene_audio,
+                    'beneficiario_nombre' => optional($llamada->beneficiario)->nombre . ' ' . optional($llamada->beneficiario)->apellidos,
+                ];
+            });
+    
+        $llamadasRealizadas = Saliente::with(['beneficiario', 'user'])
+            ->where('email_users', $email)
+            ->get()
+            ->map(function ($llamada) {
+                $tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+                return [
+                    'fecha_hora' => $llamada->fecha . ' ' . $llamada->hora,
+                    'dni_beneficiario' => $llamada->dni_beneficiario,
+                    'tipo' => $llamada->tipo,
+                    'observaciones' => $llamada->observaciones,
+                    'archivo' => $llamada->archivo,
+                    'teleoperador' => optional($llamada->user)->name,
+                    'origen' => 'Teleoperador',
+                    'nivel_activacion' => '-',
+                    'responde' => $llamada->responde,
+                    'intentos' => $llamada->intentos,
+                    'quien_coge' => $llamada->quien_coge,
+                    'id' => $llamada->id,
+                    'tiene_audio' => $tiene_audio,
+                    'beneficiario_nombre' => optional($llamada->getRelationValue('beneficiario'))->nombre . ' ' . optional($llamada->getRelationValue('beneficiario'))->apellidos,
+                ];
+            });
+    
+        $llamadas = $llamadasRealizadas
+            ->merge($llamadasAtendidas)
+            ->sortByDesc('fecha_hora')
+            ->map(fn($item) => (object) $item)
+            ->values();
+    
+        $totalRealizadas = $llamadasRealizadas->count();
+        $totalAtendidas = $llamadasAtendidas->count();
+        $totalRealizadasNoContestadas = Saliente::where('email_users', $email)->where('responde', 'No')->count();
+        $evaluacionMedia = $teleoperador->evaluaciones()->avg('media');
+        $evaluacionMedia = $evaluacionMedia !== null ? round($evaluacionMedia, 2) : null;
+    
+        return view('informes.informes_teleoperador', compact(
+            'teleoperador',
+            'llamadas',
+            'totalRealizadas',
+            'totalAtendidas',
+            'totalRealizadasNoContestadas',
             'evaluacionMedia'
         ));
     }

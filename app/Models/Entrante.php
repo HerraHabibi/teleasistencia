@@ -29,4 +29,8 @@ class Entrante extends Model
     {
         return $this->belongsTo(User::class, 'email_users', 'email');
     }
+    public function beneficiario()
+    {
+        return $this->belongsTo(Gestion::class, 'dni_beneficiario', 'dni');
+    }
 }

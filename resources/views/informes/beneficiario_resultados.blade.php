@@ -24,8 +24,6 @@
                 <th>Localidad</th>
                 <th>Provincia</th>
                 <th>Email</th>
-                <th>Mayor de 65</th>
-                <th>Discapacidad</th>
                 <th>Situacion sanitaria</th>
                 <th>Situacion familiar</th>
                 <th>Situacion de la vivienda</th>
@@ -57,8 +55,6 @@
                 <td>{{ $beneficiario->localidad }}</td>
                 <td>{{ $beneficiario->provincia }}</td>
                 <td>{{ $beneficiario->email }}</td>
-                <td>{{ $beneficiario->mayor65 }}</td>
-                <td>{{ $beneficiario->discapacidad }}</td>
                 <td>{{ $beneficiario->situacion_sanitaria }}</td>
                 <td>{{ $beneficiario->situacion_familiar }}</td>
                 <td>{{ $beneficiario->situacion_de_la_vivienda }}</td>

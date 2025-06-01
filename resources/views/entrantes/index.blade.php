@@ -19,10 +19,17 @@
     </header>
     <div class="bloque-gestion">
         <form class="formoid-solid-red" method="post" action="index.php" enctype="multipart/form-data">
-            <div class="title">
-                <h2>Llamadas</h2>
+            <div class="title" style="position: relative; display: flex; align-items: center; justify-content: center;">
+                <a href="{{ route('home') }}" title="Volver al inicio" class="back-arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 1-.5.5H2.707l4.147 4.146a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z" />
+                    </svg>
+                </a>
+                <h2 style="margin: 0;">Llamadas</h2>
             </div>
-            <p>Volver al <a href="{{ route('home') }}">Inicio</a></p>
+
             <table width="880px" border="0" class="index custom-table">
                 <tbody>
                     <tr class="custom-row">

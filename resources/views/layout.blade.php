@@ -7,18 +7,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-
 </head>
 <body id="body">
     <header class="header">
         <h2>@yield('seccion')</h2>
         <h1 class="header-title">@yield('title')</h1>
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
         <h2><a href="@yield('ruta_volver')" class="click-layout">Volver</a></h2>
     </header>
 
     <main class="main">
         @yield('content')
     </main>
+    
 </body>
 </html>

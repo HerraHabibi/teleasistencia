@@ -24,11 +24,19 @@ class EvaluarController extends Controller
     {
         return view('informes.evaluacion.error');
     }
-    public function verUsuario()
+    public function verUsuario(Request $request)
     {
-        $evaluaciones = EvaluacionUsuario::orderBy('hora_inicio', 'desc')->get();
+        $query = EvaluacionUsuario::orderBy('hora_inicio', 'desc');
+
+        if ($request->has('buscar') && $request->buscar != '') {
+            $query->where('email_usuario', 'like', '%' . $request->buscar . '%');
+        }
+
+        $evaluaciones = $query->get();
+
         return view('informes.evaluacion.verUsuario', compact('evaluaciones'));
     }
+
 
     public function verTeleoperador()
     {
@@ -41,7 +49,7 @@ class EvaluarController extends Controller
         $validatedData = $request->validate([
             'hora_inicio' => 'required|date_format:Y-m-d\TH:i:s',
             'hora_fin' => 'required|date_format:Y-m-d\TH:i:s|after:hora_inicio',
-            'email_usuario' => 'required|email|exists:users,email',
+            'email_usuario' => 'required|email|exists:beneficiarios,email',
             'email_teleoperador' => 'required|email|exists:users,email',
             'bienvenida' => 'required|integer|between:1,10',
             'contenido' => 'required|integer|between:1,10',

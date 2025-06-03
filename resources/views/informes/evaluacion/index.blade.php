@@ -26,26 +26,21 @@
                 <tbody>
                     <tr class="custom-row">
                         <td class="custom-cell">
-                            <a href="{{ route('evaluar.usuario') }}" class="click">
-                                <img src="{{ asset('images/1.png') }}" alt="Gestión de Usuarios" border="0"
-                                    class="img-index">
-                                <p>Evaluar usuario(Como teleoperador)</p>
-                            </a>
-                        </td>
-                        <td class="custom-cell">
                             <a href="{{ route('evaluar.teleoperador') }}" class="click"><img
                                     src="{{ asset('images/2.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
-                                <p>Evaluar teleoperador(Como usuario)</p>
+                                <p>Evaluar a teleoperador</p>
                             </a>
                         </td>
+                        @if (Auth::user()->perfil == 1)
                         <td class="custom-cell">
-                            <a href="{{ route('evaluar.verUsuario') }}" class="click"><img
+                            <a href="{{ route('evaluar.verTeleoperador') }}" class="click"><img
                                     src="{{ asset('images/ver-evaluaciones.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
                                 <p>Ver evaluaciones</p>
                             </a>
                         </td>
+                        @endif
                     </tr>
                 </tbody>
             </table>

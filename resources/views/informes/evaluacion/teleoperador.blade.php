@@ -28,11 +28,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="email_usuario">Email del Usuario</label>
+                <label for="email_usuario">Email del Evaluador</label>
                 <input type="text" id="email_usuario" name="email_usuario" placeholder="Nombre del usuario" value="{{Auth::user()->email}}" required readonly />
             </div>
             <div class="form-group">
-                <label for="email_teleoperador">Email del Teleoperador</label>
+                <label for="email_teleoperador">Email del Teleoperador a evaluar</label>
                 <input type="text" id="email_teleoperador" name="email_teleoperador" placeholder="Nombre del teleoperador" required />
             </div>
 

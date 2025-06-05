@@ -47,6 +47,18 @@
                             </a>
                         </td>
                         <td class="custom-cell">
+                            <a href="{{ route('evaluar.index') }}" class="click">
+                                <img src="{{ asset('images/1.png') }}" alt="Gestión de Usuarios" border="0" class="img-index">
+                                <p>Evaluación compañero</p>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="custom-table" width="880px" border="0">
+                <tbody>
+                    <tr class="custom-row">
+                        <td class="custom-cell">
                             <a href="{{ route('informes.llamadas.entrantes.hoy') }}" class="click"><img
                                     src="{{ asset('images/llamadas-registradas.png') }}" alt="Llamadas" border="0"
                                     class="img-index">
@@ -60,12 +72,6 @@
                                 <p>Llamadas previstas</p>
                             </a>
                         </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="custom-table" width="880px" border="0">
-                <tbody>
-                    <tr class="custom-row">
                         <td class="custom-cell">
                             <a href="{{ route('informes.informes-beneficiario') }}" class="click"><img
                                     src="{{ asset('images/informes-beneficiarios.png') }}" alt="Llamadas Entrantes" border="0"
@@ -78,25 +84,6 @@
                                     src="{{ asset('images/informes-teleoperadores.png') }}" alt="Llamadas Entrantes" border="0"
                                     class="img-index">
                                 <p>Informes de los teleoperadores</p>
-                            </a>
-                        </td>
-                        <td class="custom-cell">
-                            <a href="{{ route('informes.entrantes') }}" class="click">
-                                <img src="{{ asset('images/llamada-entrante.png') }}" alt="Gestión de Usuarios" border="0"
-                                    class="img-index">
-                                <p>Registro de llamadas entrantes(hoy)</p>
-                            </a>
-                        </td>
-                        <td class="custom-cell">
-                            <a href="{{ route('informes.salientes') }}" class="click">
-                                <img src="{{ asset('images/llamada-saliente.png') }}" alt="Gestión de Usuarios" border="0" class="img-index">
-                                <p>Registro de llamadas salientes(hoy)</p>
-                            </a>
-                        </td>
-                        <td class="custom-cell">
-                            <a href="{{ route('evaluar.index') }}" class="click">
-                                <img src="{{ asset('images/1.png') }}" alt="Gestión de Usuarios" border="0" class="img-index">
-                                <p>Evaluación compañero</p>
                             </a>
                         </td>
                     </tr>

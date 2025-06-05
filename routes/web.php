@@ -84,8 +84,6 @@ Route::middleware([Authenticate::class])->group(function () {
 
         Route::get('/previstas', [InformesController::class, 'llamadasprevistas'])->name('informes.previstas');
         Route::post('/previstas', [InformesController::class, 'buscarprevistas'])->name('informes.previstas.buscar');
-        Route::get('/entrantes', [InformesController::class, 'mostrarLlamadasEntrantesHoy'])->name('informes.entrantes');
-        Route::get('/salientes', [InformesController::class, 'mostrarLlamadasSalientesHoy'])->name('informes.salientes');
 
         Route::get('/informes-beneficiario', function () {
             return view('informes.buscar_beneficiario');

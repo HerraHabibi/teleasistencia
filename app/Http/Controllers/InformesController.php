@@ -326,29 +326,6 @@ class InformesController extends Controller
             'evaluaciones'
         ));
     }
-    public function mostrarLlamadasEntrantesHoy()
-    {
-        // Obtener hora de inicio y de fin de hoy 
-        $inicioHoy = Carbon::today()->startOfDay();
-        $finHoy = Carbon::today()->endOfDay();
-        
-        // Obtener las llamadas que han empezado o terminado hoy
-        $llamadas = Entrante::whereBetween('hora_inicio', [$inicioHoy, $finHoy]) -> orWhereBetween('hora_fin', [$inicioHoy, $finHoy]) -> get();
-        
-        // Devolver la vista con las llamadas
-        return view('informes.registro_entrantes', compact('llamadas'));
-    }
-    public function mostrarLlamadasSalientesHoy()
-    {
-        // Obtener la fecha de hoy
-        $hoy = Carbon::today()->toDateString();
-        
-        // Obtener las llamadas salientes de hoy
-        $llamadas = Saliente::whereDate('fecha', $hoy)->get();
-        
-        // Devolver la vista con las llamadas
-        return view('informes.registro_salientes', compact('llamadas'));
-    }
 
     public function llamadasEntrantesHoy()
     {

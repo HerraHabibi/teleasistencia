@@ -26,6 +26,10 @@
                 <input type="text" id="dni" name="dni" placeholder="DNI" required />
             </div>
             <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="example@example.com" required />
+            </div>
+            <div class="form-group">
                 <label for="fecha">Fecha de nacimiento</label>
                 <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required />
             </div>
@@ -208,13 +212,29 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="observaciones">Observaciones</label>
-                <input type="text" id="observaciones" name="observaciones"/>
-            </div>  
+                <label for="enfermedades">Enfermedades (opcional)</label>
+                <input type="text" id="enfermedades" name="enfermedades" placeholder="Enfermedades" />
+            </div>
+            <div class="form-group">
+                <label for="alergias">Alergias (opcional)</label>
+                <input type="text" id="alergias" name="alergias" placeholder="Alergias" />
+            </div>
+            <div class="form-group">
+                <label for="medicacion_manana">Medicación Mañana (opcional)</label>
+                <input type="text" id="medicacion_manana" name="medicacion_manana" placeholder="Medicación Mañana" />
+            </div>
+            <div class="form-group">
+                <label for="medicacion_tarde">Medicación Tarde (opcional)</label>
+                <input type="text" id="medicacion_tarde" name="medicacion_tarde" placeholder="Medicación Tarde" />
+            </div>
+            <div class="form-group">
+                <label for="medicacion_noche">Medicación Noche (opcional)</label>
+                <input type="text" id="medicacion_noche" name="medicacion_noche" placeholder="Medicación Noche" />
+            </div>
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" placeholder="example@example.com" required />
+            <label for="observaciones">Observaciones</label>
+            <textarea type="text" id="observaciones" name="observaciones"></textarea>
         </div>
         <div class="form-actions">
             <button type="submit" class="btn-submit">Dar de alta</button>

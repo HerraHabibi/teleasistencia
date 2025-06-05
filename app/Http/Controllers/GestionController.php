@@ -47,18 +47,35 @@ class GestionController extends Controller
             'otros_complementos_TAS' => 'required|string',
             'dispone_de_teleasistencia_movil' => 'required|string',
             'sistema_de_telelocalizacion' => 'required|string',
-            'custodia_de_llaves' => 'required|string'
+            'custodia_de_llaves' => 'required|string',
+
+            // Validación para BeneficiarioInteres
+            'enfermedades' => 'nullable|string|max:255',
+            'alergias' => 'nullable|string|max:255',
+            'medicacion_manana' => 'nullable|string|max:255',
+            'medicacion_tarde' => 'nullable|string|max:255',
+            'medicacion_noche' => 'nullable|string|max:255',
         ]);
 
-        
         try {
-            Gestion::create($validatedData);
+            Gestion::getConnectionResolver()->connection()->transaction(function () use ($validatedData) {
+                $beneficiario = Gestion::create($validatedData);
+
+                // Crear beneficiarioInteres relacionado
+                $beneficiarioInteres = new BeneficiarioInteres();
+                $beneficiarioInteres->dni_beneficiario = $validatedData['dni'];
+                $beneficiarioInteres->enfermedades = $validatedData['enfermedades'] ?? null;
+                $beneficiarioInteres->alergias = $validatedData['alergias'] ?? null;
+                $beneficiarioInteres->medicacion_manana = $validatedData['medicacion_manana'] ?? null;
+                $beneficiarioInteres->medicacion_tarde = $validatedData['medicacion_tarde'] ?? null;
+                $beneficiarioInteres->medicacion_noche = $validatedData['medicacion_noche'] ?? null;
+                $beneficiarioInteres->save();
+            });
+
             return redirect()->route('gestion.index')->with('success', 'Beneficiario creado con éxito');
         } catch (\Exception $e) {
-            return redirect()->route('gestion.error')->with('error', 'Error al crear el beneficiario ')->withInput();
+            return redirect()->route('gestion.error')->with('error', 'Error al crear el beneficiario y sus datos de interés')->withInput();
         }
-
-        return redirect()->route('gestion.index')->with('success', 'Beneficiario creado con éxito');
     }
 
     public function show($id)
@@ -230,59 +247,6 @@ class GestionController extends Controller
             return redirect()->route('gestion.borrar.beneficiario.form')->with('error', 'Beneficiario no encontrado.');
         }
     }
-    public function interesview()
-    {
-        return view('gestion.asignar_interes');
-    }
-    public function interes(Request $request)
-    {
-        $request->validate([
-            'dni' => 'required|string|max:9'
-        ]);
-
-        $dni = $request->input('dni');
-        $beneficiarioInteres = BeneficiarioInteres::where('dni_beneficiario', $dni)->first();
-
-        if ($beneficiarioInteres) {
-            return redirect()->back()->with('error', 'Datos ya asignados');
-        }
-
-        return redirect()->route('gestion.interes.view', ['dni' => $dni]);
-    }
-    public function interesguardarview(Request $request)
-    {
-        $dni = $request->input('dni');
-        return view('gestion.datos_interes', compact('dni'));
-    }
-    public function interesguardar(Request $request)
-    {
-        $request->validate([
-            'dni_beneficiario' => 'required|string|max:9',
-            'enfermedades' => 'nullable|string|max:255',
-            'alergias' => 'nullable|string|max:255',
-            'medicacion_manana' => 'nullable|string|max:255',
-            'medicacion_tarde' => 'nullable|string|max:255',
-            'medicacion_noche' => 'nullable|string|max:255',
-            'observaciones' => 'required|string',
-        ]);
-
-        try {
-            $beneficiarioInteres = new BeneficiarioInteres();
-            $beneficiarioInteres->dni_beneficiario = $request->dni_beneficiario;
-            $beneficiarioInteres->enfermedades = $request->enfermedades;
-            $beneficiarioInteres->alergias = $request->alergias;
-            $beneficiarioInteres->medicacion_manana = $request->medicacion_manana;
-            $beneficiarioInteres->medicacion_tarde = $request->medicacion_tarde;
-            $beneficiarioInteres->medicacion_noche = $request->medicacion_noche;
-            $beneficiarioInteres->observaciones = $request->observaciones;
-
-            $beneficiarioInteres->save();
-
-            return redirect()->route('gestion.interes')->with('success', 'Beneficiario de interés creado exitosamente');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Hubo un problema al crear el beneficiario de interés');
-        }
-    }
     public function interesmodificarview()
     {
         return view('gestion.modificar_interes');
@@ -384,7 +348,7 @@ class GestionController extends Controller
             $contacto = Contacto::where('dni_beneficiario', $request->dni_beneficiario)->first();
 
             if (!$contacto) {
-                return redirect()->route('gestion.interes')->with('error', 'No se encontró ningún contacto asociado a ese beneficiario.');
+                return redirect()->route('gestion.contactos.buscar.mod')->with('error', 'No se encontró ningún contacto asociado a ese beneficiario.');
             }
 
             $contacto->nombre = $request->nombre;

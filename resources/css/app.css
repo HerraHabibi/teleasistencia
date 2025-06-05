@@ -138,6 +138,9 @@ p {
     max-width:100%;
     width: 100%;
 }
+.beneficiary-form textarea {
+    min-height: 45px;
+}
 .red-btn-log{
     display: flex;
     width: auto;
@@ -326,7 +329,7 @@ p {
     margin-top: 40px;
 }
 
-.form-group input {
+.form-group input, .form-group textarea {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;

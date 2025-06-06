@@ -94,8 +94,7 @@ class GestionController extends Controller
     {
         $beneficiario = Gestion::findOrFail($id);
 
-        try{
-        $request->validate([
+        $validatedData = $request->validate([
             'nombre' => 'required|string',
             'apellidos' => 'required|string',
             'dni' => 'required|string|unique:beneficiarios,dni,'.$beneficiario->id,
@@ -121,14 +120,35 @@ class GestionController extends Controller
             'otros_complementos_TAS' => 'required|string',
             'dispone_de_teleasistencia_movil' => 'required|string',
             'sistema_de_telelocalizacion' => 'required|string',
-            'custodia_de_llaves' => 'required|string'
-        ]);
-            $beneficiario->update($request->all());
-            return redirect()->route('gestion.actualizar')->with('success', 'Beneficiario actualizado con éxito');
-        } catch (\Exception $e) {
+            'custodia_de_llaves' => 'required|string',
 
-            $errorMessage = $e->getMessage();
-            return redirect()->route('gestion.actualizar')->with('error', 'Beneficiario actualizado sin éxito'. $errorMessage);
+            // Validación para BeneficiarioInteres
+            'enfermedades' => 'nullable|string|max:255',
+            'alergias' => 'nullable|string|max:255',
+            'medicacion_manana' => 'nullable|string|max:255',
+            'medicacion_tarde' => 'nullable|string|max:255',
+            'medicacion_noche' => 'nullable|string|max:255',
+        ]);
+
+        try {
+            Gestion::getConnectionResolver()->connection()->transaction(function () use ($validatedData, $beneficiario) {
+                $beneficiario->update($validatedData);
+
+                $interes = BeneficiarioInteres::firstOrNew([
+                    'dni_beneficiario' => $validatedData['dni'],
+                ]);
+                $interes->enfermedades = $validatedData['enfermedades'] ?? null;
+                $interes->alergias = $validatedData['alergias'] ?? null;
+                $interes->medicacion_manana = $validatedData['medicacion_manana'] ?? null;
+                $interes->medicacion_tarde = $validatedData['medicacion_tarde'] ?? null;
+                $interes->medicacion_noche = $validatedData['medicacion_noche'] ?? null;
+                $interes->save();
+            });
+
+            return redirect()->route('gestion.actualizar')->with('success', 'Datos actualizados con éxito.');
+
+        } catch (\Exception $e) {
+            return redirect()->route('gestion.actualizar')->with('error', 'Error al actualizar los datos. ' . $e->getMessage());
         }
     }
 
@@ -145,10 +165,10 @@ class GestionController extends Controller
         $request->validate([
             'dni' => 'required|string|max:255',
         ]);
-
+    
         $dni = $request->input('dni');
-        $beneficiario = Gestion::where('dni', $dni)->first();
-
+        $beneficiario = Gestion::with('beneficiarioInteres')->where('dni', $dni)->first();
+    
         if ($beneficiario) {
             return view('gestion.resultados', ['beneficiario' => $beneficiario]);
         } else {
@@ -245,28 +265,6 @@ class GestionController extends Controller
             return redirect()->route('gestion.borrar.beneficiario.form')->with('success', 'Beneficiario borrado exitosamente.');
         } else {
             return redirect()->route('gestion.borrar.beneficiario.form')->with('error', 'Beneficiario no encontrado.');
-        }
-    }
-    public function interesmodificarview()
-    {
-        return view('gestion.modificar_interes');
-    }
-    public function interesmodificar(Request $request)
-    {
-        $request->validate([
-            'dni' => 'required|string|max:9'
-        ]);
-
-        $dni = $request->input('dni');
-        $beneficiario = Gestion::where('dni', $dni)->first();
-        $beneficiarioInteres = BeneficiarioInteres::where('dni_beneficiario', $dni)->first();
-
-        if (!$beneficiario) {
-            return redirect()->back()->with('error', 'El DNI no existe en la tabla Beneficiario.');
-        } elseif (!$beneficiarioInteres) {
-            return redirect()->back()->with('error', 'Datos no asignados.');
-        } else {
-            return view('gestion.modificar_datos_interes', compact('beneficiarioInteres'));
         }
     }
     public function guardarDatosInteres(Request $request)

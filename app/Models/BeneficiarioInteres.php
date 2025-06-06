@@ -16,8 +16,7 @@ class BeneficiarioInteres extends Model
         'alergias',
         'medicacion_manana',
         'medicacion_tarde',
-        'medicacion_noche',
-        'observaciones'
+        'medicacion_noche'
     ];
     public function beneficiario()
     {

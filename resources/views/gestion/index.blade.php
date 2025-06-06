@@ -50,12 +50,6 @@
                 <tbody>
                     <tr class="custom-row">
                         <td class="custom-cell">
-                            <a href="{{ route('gestion.interes.buscar.modificar') }}" class="click">
-                                <img src="{{ asset('images/modificar-datos-interes.png') }}" alt="Llamadas Entrantes" border="0" class="img-index">
-                                <p>Modificación de datos de interes del beneficiario</p>
-                            </a>
-                        </td>
-                        <td class="custom-cell">
                             <a href="{{ route('gestion.contactos') }}" class="click">
                                 <img src="{{ asset('images/nuevo-contacto.png') }}" alt="Contactos" border="0" class="img-index">
                                 <p>Asignación de personas de contacto</p>

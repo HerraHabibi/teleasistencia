@@ -44,6 +44,7 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::get('/baja', [GestionController::class, 'showDeleteForm'])->name('gestion.borrar.beneficiario.form');
         Route::post('/baja', [GestionController::class, 'searchBeneficiario'])->name('gestion.borrar.beneficiario');
         Route::delete('/baja/{id}', [GestionController::class, 'deleteBeneficiario'])->name('gestion.eliminar.beneficiario');
+        Route::post('/buscar/guardar', [GestionController::class, 'interesguardar'])->name('gestion.interes.guardar');
         Route::get('/modificar', [GestionController::class, 'interesmodificarview'])->name('gestion.interes.buscar.modificar');
         Route::post('/modificar', [GestionController::class, 'interesmodificar'])->name('gestion.interes.buscar');
         Route::post('/modificar/asd', [GestionController::class, 'guardarDatosInteres'])->name('gestion.interes.modificar');

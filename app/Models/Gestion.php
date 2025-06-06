@@ -47,4 +47,9 @@ class Gestion extends Model
     {
         return $this->hasMany(EvaluacionUsuario::class, 'email_usuario', 'email');
     }
+
+    public function beneficiarioInteres()
+    {
+        return $this->hasOne(BeneficiarioInteres::class, 'dni_beneficiario', 'dni');
+    }
 }

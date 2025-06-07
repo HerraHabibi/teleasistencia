@@ -1,59 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Teleasistencia</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        @vite('resources/css/app.css')
-        @vite('resources/js/app.js')
-    </head>
-    
-    <body id="body" class="login-body">
+@extends('layouts.app')
 
-        <div class="login-container">
-            
-            <form method="post" action="{{ route('login.submit') }}" class="login-box">
-                <h2 class="pb-1 title-session">Iniciar sesión</h2>
-                @csrf
-                <div class="form-log form-m1">
-                    <label for="search">E-mail</label>
-                    <input 
-                        type="text" 
-                        name="email" 
-                        id="email" 
-                        class="search-text" 
-                        placeholder="Escribe aquí" 
-                    />
-                    @if ($errors->any())
-                        <div class="alertaaa alert-error">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                </div>
-                <div class="form-log form-m2">
-                    <label for="password">Contraseña</label>
-                    <input 
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        class="search-text" 
-                        placeholder="Escribe aquí" 
-                    />
-                    <div class="input-group-append">
-                        <span class="input-group-text icon"></span>
-                    </div>
-                    
-                </div>
-                <button type="submit" class="red-btn-log">Continuar</button>
-            </form>
+@section('title', 'Iniciar sesión')
+
+@section('content')
+<div class="login-wrapper d-flex justify-content-center align-items-center min-vh-75">
+    <form method="POST" action="{{ route('login.submit') }}" class="login-form p-5 rounded shadow bg-white">
+        <h2 class="mb-5 fw-bold text-center text-primary display-4">Iniciar sesión</h2>
+        @csrf
+
+        <div class="mb-4">
+            <label for="email" class="form-label fw-semibold text-secondary fs-4">E-mail</label>
+            <input 
+                type="email" 
+                name="email" 
+                id="email" 
+                class="form-control form-control-lg" 
+                placeholder="Escribe aquí" 
+                required
+                autofocus
+            />
+            @if ($errors->has('email'))
+                <div class="text-danger small mt-2 fs-6">{{ $errors->first('email') }}</div>
+            @endif
         </div>
-    </body>
-    <header class="cerrar-sess">
-        <a href="{{ route('register') }}" class="click-layout">Registrarse</a>
-    </header>
-</html>
+
+        <div class="mb-5">
+            <label for="password" class="form-label fw-semibold text-secondary fs-4">Contraseña</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                class="form-control form-control-lg" 
+                placeholder="Escribe aquí" 
+                required
+            />
+            @if ($errors->has('password'))
+                <div class="text-danger small mt-2 fs-6">{{ $errors->first('password') }}</div>
+            @endif
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg w-100 fw-semibold shadow-sm">Continuar</button>
+    </form>
+</div>
+
+<div class="text-center mt-5">
+    <a href="{{ route('register') }}" class="btn btn-outline-primary btn-lg px-5 py-3 rounded fw-semibold shadow-sm text-decoration-none">
+        ¿No tienes cuenta? Regístrate
+    </a>
+</div>
+@endsection

@@ -32,25 +32,28 @@
         @endif
     </p>
 
-
     @else
         <table class="styled-table" align="center">
             <thead>
                 <tr>
+                    <th>Nombre del evaluado</th>
+                    <th>Email del evaluado</th>
+                    <th>Email del evaluador</th>
+                    <th>Nombre del evaluador</th>
                     <th>Fecha de inicio</th>
                     <th>Fecha final</th>
-                    <th>Email del usuario</th>
-                    <th>Email del teleoperador</th>
                     <th>Media</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($evaluaciones as $evaluacion)
                     <tr>
-                        <td>{{ $evaluacion->hora_inicio }}</td>
-                        <td>{{ $evaluacion->hora_fin }}</td>
+                        <td>{{ \App\Models\User::where('email', $evaluacion->email_usuario)->value('name') ?? 'N/D' }}</td>
                         <td>{{ $evaluacion->email_usuario }}</td>
                         <td>{{ $evaluacion->email_teleoperador }}</td>
+                        <td>{{ \App\Models\User::where('email', $evaluacion->email_teleoperador)->value('name') ?? 'N/D' }}</td>
+                        <td>{{ $evaluacion->hora_inicio }}</td>
+                        <td>{{ $evaluacion->hora_fin }}</td>
                         <td>{{ $evaluacion->media }}</td>
                     </tr>
                 @endforeach

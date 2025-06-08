@@ -45,16 +45,27 @@ class EvaluarController extends Controller
             'hora_inicio' => 'required|date_format:Y-m-d\TH:i:s',
             'hora_fin' => 'required|date_format:Y-m-d\TH:i:s|after:hora_inicio',
             'email_usuario' => 'required|email|exists:users,email',
+            'nombre_usuario' => 'required|string|max:255',
             'email_teleoperador' => 'required|email|exists:users,email',
+            'nombre_teleoperador' => 'required|string|max:255',
             'bienvenida' => 'required|integer|between:1,10',
             'contenido' => 'required|integer|between:1,10',
             'comunicacion' => 'required|integer|between:1,10',
             'despedida' => 'required|integer|between:1,10',
             'observaciones' => 'nullable|string',
         ], [
-            'email_usuario.exists' => 'El email del usuario no pertenece a ningún usuario registrado.',
-            'email_teleoperador.exists' => 'El email del teleoperador no pertenece a ningún usuario registrado.',
+            'email_teleoperador.exists' => 'El email del evaluado no pertenece a ningún usuario registrado.',
         ]);
+        // Verificación: nombre del teleoperador coincide con el email
+        $coincide = \App\Models\User::where('email', $validatedData['email_teleoperador'])
+            ->where('name', $validatedData['nombre_teleoperador'])
+            ->exists();
+
+        if (!$coincide) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'El nombre no coincide con el email del teleoperador en el sistema.');
+        }
         
 
         try {

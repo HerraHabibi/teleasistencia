@@ -13,7 +13,9 @@ class EvaluacionTeleoperador extends Model
         'hora_inicio',
         'hora_fin',
         'email_usuario',
+        'nombre_usuario',
         'email_teleoperador',
+        'nombre_teleoperador',
         'bienvenida',
         'contenido',
         'comunicacion',
@@ -21,6 +23,7 @@ class EvaluacionTeleoperador extends Model
         'observaciones',
         'media',
     ];
+    
     public function usuario()
     {
         return $this->belongsTo(User::class, 'email_usuario', 'email');

@@ -14,16 +14,18 @@ class AudioController extends Controller
     {
         // Obtener registros de llamadas entrantes y salientes
         $entrantes = Entrante::whereNotNull('archivo')->get()->map(function($item) {
-            $user = User::where('email', $item->email)->first();
+            $item->email = $item->email_users;
+            $user = User::where('email', $item->email_users)->first();
             $item->nombre = $user ? $user->name : 'Desconocido';
             $item->tipo_llamada = 'Entrante';
             $item->archivo_existe = Storage::disk('public')->exists('audios/' . $item->archivo);
             return $item;
         });
+        
 
         $salientes = Saliente::whereNotNull('archivo')->get()->map(function($item) {
-            $user = User::where('email', $item->email_users)->first();
             $item->email = $item->email_users;
+            $user = User::where('email', $item->email_users)->first();
             $item->nombre = $user ? $user->name : 'Desconocido';
             $item->tipo_llamada = 'Saliente';
             $item->archivo_existe = Storage::disk('public')->exists('audios/' . $item->archivo);

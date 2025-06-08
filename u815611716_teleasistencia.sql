@@ -791,6 +791,10 @@ ALTER TABLE evaluacion_usuario
 ALTER TABLE beneficiario_interes
   DROP COLUMN observaciones;
 
+ALTER TABLE evaluacion_teleoperador
+  ADD COLUMN nombre_usuario VARCHAR(255) AFTER email_usuario,
+  ADD COLUMN nombre_teleoperador VARCHAR(255) AFTER email_teleoperador;
+
 ALTER TABLE registro_llamadas_salientes
   DROP COLUMN fecha,
   DROP COLUMN hora,

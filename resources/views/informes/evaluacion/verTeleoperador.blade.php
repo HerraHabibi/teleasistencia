@@ -48,10 +48,10 @@
             <tbody>
                 @foreach($evaluaciones as $evaluacion)
                     <tr>
-                        <td>{{ $evaluacion->email_usuario }}</td>
-                        <td>{{ $evaluacion->email_usuario }}</td>
+                        <td>{{ $evaluacion->nombre_teleoperador }}</td>
                         <td>{{ $evaluacion->email_teleoperador }}</td>
-                        <td>{{ $evaluacion->email_teleoperador }}</td>
+                        <td>{{ $evaluacion->email_usuario }}</td>
+                        <td>{{ $evaluacion->nombre_usuario }}</td>
                         <td>{{ $evaluacion->hora_inicio }}</td>
                         <td>{{ $evaluacion->hora_fin }}</td>
                         <td>{{ $evaluacion->media }}</td>

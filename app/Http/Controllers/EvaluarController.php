@@ -75,7 +75,9 @@ class EvaluarController extends Controller
                 'hora_inicio' => $validatedData['hora_inicio'],
                 'hora_fin' => $validatedData['hora_fin'],
                 'email_usuario' => $validatedData['email_usuario'],
+                'nombre_usuario' => $validatedData['nombre_usuario'],
                 'email_teleoperador' => $validatedData['email_teleoperador'],
+                'nombre_teleoperador' => $validatedData['nombre_teleoperador'],
                 'bienvenida' => $validatedData['bienvenida'],
                 'contenido' => $validatedData['contenido'],
                 'comunicacion' => $validatedData['comunicacion'],
@@ -83,6 +85,7 @@ class EvaluarController extends Controller
                 'media' => $media,
                 'observaciones' => $validatedData['observaciones'],
             ]);
+            
 
             $evaluacion->save();
 

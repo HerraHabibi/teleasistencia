@@ -1,57 +1,79 @@
-@extends('layout')
+@extends('layouts.app')
 
-@section('seccion', 'Gestión')
 @section('title', 'Asignar contacto')
-@section('ruta_volver', route('gestion.index'))
+
 @section('content')
-@if ($errors->any())
+<div class="d-flex align-items-center justify-content-between px-3 titulo">
+    <div class="flex-shrink-0">
+        <a href="{{ route('gestion.contactos.buscar') }}" class="btn btn-link text-decoration-none p-0">
+            <i class="bi bi-arrow-left fs-1"></i>
+        </a>
+    </div>
+    <div class="flex-grow-1 text-center align-self-start">
+        <h2 class="fw-bold m-0 nombre mx-auto">Asignar contacto</h2>
+    </div>
+    <div style="width: 38px;"></div>
+</div>
+
+<div class="container-fluid mt-3">
+    @if ($errors->any())
         <div class="alert alert-danger">
-            <ul>
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
-    <form class="beneficiary-form" method="post" action="{{ route('gestion.crear.contactos.post') }}" enctype="multipart/form-data">
+
+    <form method="POST" action="{{ route('gestion.crear.contactos.post') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="nombre">Nombre y apellidos</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre" required />
-                <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required />
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
             </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required />
+            <div class="col-md-6">
+                <label for="apellidos" class="form-label">Apellidos</label>
+                <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellidos" required>
             </div>
-            <div class="form-group">
-                <label for="dni_beneficiario">DNI del Beneficiario</label>
-                <input type="text" id="dni_beneficiario" name="dni_beneficiario" value="{{ $contacto->dni }}" readonly required />
+            <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="Teléfono" required>
             </div>
-            <div class="form-group">
-                <label for="tipo">Tipo de contacto</label>
-                <select id="tipo" name="tipo" required>
+            <div class="col-md-6">
+                <label for="dni_beneficiario" class="form-label">DNI del Beneficiario</label>
+                <input type="text" id="dni_beneficiario" name="dni_beneficiario" class="form-control" value="{{ $contacto->dni }}" readonly required>
+            </div>
+            <div class="col-md-6">
+                <label for="tipo" class="form-label">Tipo de contacto</label>
+                <select id="tipo" name="tipo" class="form-select" required>
+                    <option value="">Seleccionar</option>
                     <option value="Familiar">Familiar</option>
                     <option value="Amigo o vecino">Amigo o vecino</option>
                     <option value="Asistente">Asistente</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="direccion">Dirección (calle y número)</label>
-                <input type="text" id="direccion" name="direccion" placeholder="Dirección" required />
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="ejemplo@gmail.com" required>
             </div>
-            <div class="form-group">
-                <label for="codigopostal">Código Postal</label>
-                <input type="text" id="codigopostal" name="codigopostal" placeholder="Código Postal" required />
+            <div class="col-md-6">
+                <label for="direccion" class="form-label">Dirección (calle y número)</label>
+                <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Dirección" required>
             </div>
-            <div class="form-group">
-                <label for="localidad">Localidad</label>
-                <input type="text" id="localidad" name="localidad" placeholder="Localidad" required />
+            <div class="col-md-4">
+                <label for="codigopostal" class="form-label">Código Postal <a href="https://www.correos.es/es/es/herramientas/codigos-postales/detalle" target="_blank">Consultar</a></label>
+                <input type="text" id="codigopostal" name="codigopostal" class="form-control" placeholder="Código Postal" required>
             </div>
-            <div class="form-group">
-                <label for="provincia">Provincia</label>
-                <select id="provincia" name="provincia" required>
+            <div class="col-md-4">
+                <label for="localidad" class="form-label">Localidad</label>
+                <input type="text" id="localidad" name="localidad" class="form-control" placeholder="Localidad" required>
+            </div>
+            <div class="col-md-4">
+                <label for="provincia" class="form-label">Provincia</label>
+                <select id="provincia" name="provincia" class="form-select" required>
+                    <option value="">Seleccionar</option>
                     <option value="Álava/Araba">Álava/Araba</option>
                     <option value="Albacete">Albacete</option>
                     <option value="Alicante">Alicante</option>
@@ -106,25 +128,23 @@
                     <option value="Zaragoza">Zaragoza</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="dispone_llave_del_domicilio">Tiene disponible la llave del domicilio del usuario/a</label>
-                <select id="dispone_llave_del_domicilio" name="dispone_llave_del_domicilio" required>
+            <div class="col-md-6">
+                <label for="dispone_llave_del_domicilio" class="form-label">Tiene disponible la llave del domicilio del usuario/a</label>
+                <select id="dispone_llave_del_domicilio" name="dispone_llave_del_domicilio" class="form-select" required>
+                    <option value="">Seleccionar</option>
                     <option value="Si">Sí</option>
                     <option value="No">No</option>
                 </select>
-            </div>   
-            <div class="form-group">
-                <label for="observaciones">Observaciones</label>
-                <input type="text" id="observaciones" name="observaciones"/>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="example@example.com" required />
+            <div class="col-12">
+                <label for="observaciones" class="form-label">Observaciones</label>
+                <textarea id="observaciones" name="observaciones" class="form-control" rows="3"></textarea>
             </div>
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn-submit">Dar de alta</button>
+
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success px-5">Dar de alta</button>
         </div>
-        
     </form>
+</div>
 @endsection

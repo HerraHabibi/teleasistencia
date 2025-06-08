@@ -27,14 +27,14 @@
                     <tr>
                         <td>
                             <a href="{{ route('gestion.index') }}" class="click">
-                                <img src="{{ asset('images/llamada-saliente.png') }}" alt="Gestión de Usuarios" border="0"
+                                <img src="{{ asset('images/llamada-saliente.png') }}" alt="Gestión de usuarios" border="0"
                                     class="img-index">
                                 <p>Llamada saliente</p>
                             </a>
                         </td>
                         <td>
                             <a href="{{ route('gestion.index') }}" class="click">
-                                <img src="{{ asset('images/alta.png') }}" alt="Gestión de Usuarios" border="0"
+                                <img src="{{ asset('images/alta.png') }}" alt="Gestión de usuarios" border="0"
                                     class="img-index">
                                 <p>Llamada saliente rutinaria por la mañana</p>
                             </a>

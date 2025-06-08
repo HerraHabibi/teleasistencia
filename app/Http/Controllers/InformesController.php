@@ -9,7 +9,6 @@ use App\Models\Entrante;
 use App\Models\Gestion;
 use App\Models\User;
 use App\Models\Saliente;
-use App\Models\EvaluacionUsuario;
 use App\Models\EvaluacionTeleoperador;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -40,28 +39,6 @@ class InformesController extends Controller
         $contactos = Contacto::orderBy('dni_beneficiario')->get();
 
         return view('informes.contactos_resultados', compact('contactos'));
-    }
-    public function interesconsultarview()
-    {
-        return view('informes.consultar_interes');
-    }
-    public function interesconsultar(Request $request)
-    {
-        $request->validate([
-            'dni' => 'required|string|max:9'
-        ]);
-
-        $dni = $request->input('dni');
-        $beneficiario = Gestion::where('dni', $dni)->first();
-        $beneficiarioInteres = BeneficiarioInteres::where('dni_beneficiario', $dni)->first();
-
-        if (!$beneficiario) {
-            return redirect()->back()->with('error', 'El DNI no existe en la tabla Beneficiario.');
-        } elseif (!$beneficiarioInteres) {
-            return redirect()->back()->with('error', 'Datos no asignados.');
-        } else {
-            return view('informes.consultar_datos_interes', compact('beneficiario','beneficiarioInteres'));
-        }
     }
     public function buscarprevistas(Request $request)
     {
@@ -111,7 +88,7 @@ class InformesController extends Controller
         ]);
     
         $dni = $request->input('dni');
-        $beneficiario = Gestion::where('dni', $dni)->first();
+        $beneficiario = Gestion::with('beneficiarioInteres')->where('dni', $dni)->first();
     
         if (!$beneficiario) {
             return redirect()->route('informes.informes-beneficiario')->with('error', 'Beneficiario no encontrado.');
@@ -145,7 +122,7 @@ class InformesController extends Controller
             ->map(function ($llamada) {
                 $tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
                 return [
-                    'fecha_hora' => $llamada->fecha . ' ' . $llamada->hora,
+                    'fecha_hora' => $llamada->hora_inicio,
                     'dni_beneficiario' => $llamada->dni_beneficiario,
                     'tipo' => $llamada->tipo,
                     'observaciones' => $llamada->observaciones,
@@ -168,33 +145,6 @@ class InformesController extends Controller
                 return (object) $item;
             })
             ->values();
-        
-        $evaluaciones = EvaluacionUsuario::where('email_usuario', $beneficiario->email)
-        ->orderByDesc('hora_inicio')
-        ->get()
-        ->map(function ($evaluacion) {
-            $nombreEvaluador = function ($email) {
-                $teleoperador = User::where('email', $email)->first();
-                if ($teleoperador) {
-                    return $teleoperador->name;
-                }
-    
-                $beneficiario = User::where('email', $email)->first();
-                return $beneficiario ? $beneficiario->nombre . ' ' . $beneficiario->apellidos : $email;
-            };
-    
-            return [
-                'nombre_usuario' => $nombreEvaluador($evaluacion->email_usuario),
-                'hora_inicio' => $evaluacion->hora_inicio,
-                'hora_fin' => $evaluacion->hora_fin,
-                'bienvenida' => $evaluacion->bienvenida,
-                'contenido' => $evaluacion->contenido,
-                'comunicacion' => $evaluacion->comunicacion,
-                'despedida' => $evaluacion->despedida,
-                'media' => $evaluacion->media,
-                'observaciones' => $evaluacion->observaciones,
-            ];
-        });
     
         $totalEntrantes = Entrante::where('dni_beneficiario', $dni)->count();
         $totalSalientes = Saliente::where('dni_beneficiario', $dni)->count();
@@ -202,8 +152,6 @@ class InformesController extends Controller
         $activacionN1 = Entrante::where('dni_beneficiario', $dni)->where('nivel_activacion', '1')->count();
         $activacionN2 = Entrante::where('dni_beneficiario', $dni)->where('nivel_activacion', '2')->count();
         $activacionN3 = Entrante::where('dni_beneficiario', $dni)->where('nivel_activacion', '3')->count();
-        $evaluacionMedia = $beneficiario->evaluaciones()->avg('media');
-        $evaluacionMedia = $evaluacionMedia !== null ? round($evaluacionMedia, 2) : null;
     
         return view('informes.informes_beneficiario', compact(
             'beneficiario',
@@ -214,8 +162,6 @@ class InformesController extends Controller
             'activacionN1',
             'activacionN2',
             'activacionN3',
-            'evaluacionMedia',
-            'evaluaciones'
         ));
     }
     public function buscarTeleoperador(Request $request)
@@ -260,7 +206,7 @@ class InformesController extends Controller
             ->map(function ($llamada) {
                 $tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
                 return [
-                    'fecha_hora' => $llamada->fecha . ' ' . $llamada->hora,
+                    'fecha_hora' => $llamada->hora_inicio,
                     'dni_beneficiario' => $llamada->dni_beneficiario,
                     'tipo' => $llamada->tipo,
                     'observaciones' => $llamada->observaciones,
@@ -364,8 +310,12 @@ class InformesController extends Controller
     {
         $hoy = Carbon::today();
 
-        $salientes_hoy = Saliente::whereDate('fecha', $hoy)
-                            ->orderByDesc('fecha')
+        $inicioHoy = $hoy->startOfDay();
+        $finHoy = $hoy->copy()->endOfDay();
+
+        $salientes_hoy = Saliente::whereBetween('hora_inicio', [$inicioHoy, $finHoy])
+                            ->orWhereBetween('hora_fin', [$inicioHoy, $finHoy])
+                            ->orderByDesc('hora_fin')
                             ->orderBy('dni_beneficiario')
                             ->get()
                             ->map(function ($llamada) {
@@ -377,7 +327,7 @@ class InformesController extends Controller
     }
     public function llamadasSalientesSiempre()
     {
-        $salientes_siempre = Saliente::orderByDesc('fecha')
+        $salientes_siempre = Saliente::orderByDesc('hora_fin')
                                 ->orderBy('dni_beneficiario')
                                 ->get()
                                 ->map(function ($llamada) {

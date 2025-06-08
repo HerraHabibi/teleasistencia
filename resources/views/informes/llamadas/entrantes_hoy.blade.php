@@ -1,59 +1,76 @@
-@extends('layout')
+@extends('layouts.app')
 
-@section('seccion', 'Informes')
 @section('title', 'Llamadas registradas')
-@section('ruta_volver', route('informes.index'))
+
 @section('content')
-    <nav class="flex justify-center m-auto gap-30px mt-20px">
-        <a href="{{ route('informes.llamadas.entrantes.hoy') }}" class="cursor-pointer p-20px rounded-md selected-tab">
+
+<div class="d-flex align-items-center justify-content-between px-3 titulo">
+    <div class="flex-shrink-0">
+        <a href="{{ route('informes.index') }}" class="btn btn-link text-decoration-none p-0">
+            <i class="bi bi-arrow-left fs-1"></i>
+        </a>
+    </div>
+    <div class="flex-grow-1 text-center align-self-start">
+        <h2 class="fw-bold m-0 nombre mx-auto">Llamadas registradas</h2>
+    </div>
+    <div style="width: 38px;"></div>
+</div>
+
+<div class="container-fluid">
+    <div class="my-3 d-flex justify-content-center gap-2 flex-wrap">
+        <a href="{{ route('informes.llamadas.entrantes.hoy') }}" class="btn {{ request()->routeIs('informes.llamadas.entrantes.hoy') ? 'btn-primary' : 'btn-outline-primary' }}">
             Llamadas entrantes hoy
         </a>
-        <a href="{{ route('informes.llamadas.entrantes.siempre') }}" class="cursor-pointer p-20px rounded-md not-selected-tab">
+        <a href="{{ route('informes.llamadas.entrantes.siempre') }}" class="btn {{ request()->routeIs('informes.llamadas.entrantes.siempre') ? 'btn-primary' : 'btn-outline-primary' }}">
             Llamadas entrantes siempre
         </a>
-        <a href="{{ route('informes.llamadas.salientes.hoy') }}" class="cursor-pointer p-20px rounded-md not-selected-tab">
+        <a href="{{ route('informes.llamadas.salientes.hoy') }}" class="btn {{ request()->routeIs('informes.llamadas.salientes.hoy') ? 'btn-primary' : 'btn-outline-primary' }}">
             Llamadas salientes hoy
         </a>
-        <a href="{{ route('informes.llamadas.salientes.siempre') }}" class="cursor-pointer p-20px rounded-md not-selected-tab">
+        <a href="{{ route('informes.llamadas.salientes.siempre') }}" class="btn {{ request()->routeIs('informes.llamadas.salientes.siempre') ? 'btn-primary' : 'btn-outline-primary' }}">
             Llamadas salientes siempre
         </a>
-    </nav>
+    </div>
+
     @if($entrantes_hoy->isEmpty())
-        <p class="alert alert-danger mt-20px">No hay llamadas entrantes registradas para hoy.</p>
+        <div class="alert alert-danger">No hay llamadas entrantes registradas para hoy.</div>
     @else
-        <table class="styled-table" align="center">
-            <thead>
-                <tr>
-                    <th>Email del teleoperador</th>
-                    <th>DNI del beneficiario</th>
-                    <th>Hora inicio</th>
-                    <th>Hora fin</th>
-                    <th>Tipo de llamada</th>
-                    <th>Nivel de activación</th>
-                    <th>Observaciones</th>
-                    <th>Audios</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($entrantes_hoy as $llamada)
+        <div class="table-responsive shadow rounded bg-white p-3">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-primary titulo-tabla">
                     <tr>
-                        <td>{{ $llamada->email_users }}</td>
-                        <td>{{ $llamada->dni_beneficiario }}</td>
-                        <td>{{ \Carbon\Carbon::parse($llamada->hora_inicio)->format('H:i:s - d/m/Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($llamada->hora_fin)->format('H:i:s - d/m/Y') }}</td>
-                        <td>{{ $llamada->tipo_llamada }}</td>
-                        <td>{{ $llamada->nivel_activacion }}</td>
-                        <td>{{ $llamada->observaciones }}</td>
-                        <td class="text-center">
-                            @if($llamada->tiene_audio)
-                                <a href="{{ asset('storage/audios/' . $llamada->archivo) }}" class="btn-download" download>Descargar</a>
-                            @else
-                                <span class="text-gray-500">No disponible</span>
-                            @endif
-                        </td>
+                        <th>Email del teleoperador</th>
+                        <th>DNI del beneficiario</th>
+                        <th>Hora inicio</th>
+                        <th>Hora fin</th>
+                        <th>Tipo de llamada</th>
+                        <th>Nivel de activación</th>
+                        <th>Observaciones</th>
+                        <th>Audios</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($entrantes_hoy as $llamada)
+                        <tr>
+                            <td>{{ $llamada->email_users }}</td>
+                            <td>{{ $llamada->dni_beneficiario }}</td>
+                            <td>{{ \Carbon\Carbon::parse($llamada->hora_inicio)->format('H:i:s - d/m/Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($llamada->hora_fin)->format('H:i:s - d/m/Y') }}</td>
+                            <td>{{ $llamada->tipo_llamada }}</td>
+                            <td>{{ $llamada->nivel_activacion }}</td>
+                            <td>{{ $llamada->observaciones }}</td>
+                            <td class="text-center">
+                                @if($llamada->tiene_audio)
+                                    <a href="{{ asset('storage/audios/' . $llamada->archivo) }}" class="btn btn-sm btn-outline-success" download>Descargar</a>
+                                @else
+                                    <span class="text-muted">No disponible</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @endif
+</div>
 @endsection

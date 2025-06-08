@@ -4,14 +4,14 @@
 
 @section('content')
 
-<div class="d-flex align-items-center justify-content-between mb-5">
+<div class="d-flex align-items-center justify-content-between px-3 titulo">
     <div class="flex-shrink-0">
         <a href="{{ route('home') }}" class="btn btn-link text-decoration-none p-0">
             <i class="bi bi-arrow-left fs-1"></i>
         </a>
     </div>
-    <div class="flex-grow-1 text-center">
-        <h2 class="fw-bold mb-0">Llamadas</h2>
+    <div class="flex-grow-1 text-center align-self-start">
+        <h2 class="fw-bold m-0 nombre mx-auto">Llamadas</h2>
     </div>
     <div style="width: 38px;"></div>
 </div>

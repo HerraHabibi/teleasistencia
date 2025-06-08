@@ -45,9 +45,6 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::post('/baja', [GestionController::class, 'searchBeneficiario'])->name('gestion.borrar.beneficiario');
         Route::delete('/baja/{id}', [GestionController::class, 'deleteBeneficiario'])->name('gestion.eliminar.beneficiario');
         Route::post('/buscar/guardar', [GestionController::class, 'interesguardar'])->name('gestion.interes.guardar');
-        Route::get('/modificar', [GestionController::class, 'interesmodificarview'])->name('gestion.interes.buscar.modificar');
-        Route::post('/modificar', [GestionController::class, 'interesmodificar'])->name('gestion.interes.buscar');
-        Route::post('/modificar/asd', [GestionController::class, 'guardarDatosInteres'])->name('gestion.interes.modificar');
         Route::get('/contactos/buscar', [GestionController::class, 'buscarcontacto'])->name('gestion.contactos.buscar.mod');
         Route::post('/contactos/buscar', [GestionController::class, 'buscarPorEmail'])->name('gestion.contactos.buscar.mod.email');
         Route::post('/contactos/modificar', [GestionController::class, 'modificarContacto'])->name('gestion.contactos.modificar');
@@ -76,8 +73,6 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::get('/', [InformesController::class, 'index'])->name('informes.index');
         Route::get('/beneficiarios', [InformesController::class, 'infoBeneficiarios'])->name('informes.beneficiarios.buscar');
         Route::get('/contactos', [InformesController::class, 'buscarContacto'])->name('informes.contactos.buscar');
-        Route::get('/consultar', [InformesController::class, 'interesconsultarview'])->name('informes.consultar');
-        Route::post('/consultar', [InformesController::class, 'interesconsultar'])->name('informes.consultar.buscar');
 
         Route::get('/previstas', [InformesController::class, 'llamadasprevistas'])->name('informes.previstas');
         Route::post('/previstas', [InformesController::class, 'buscarprevistas'])->name('informes.previstas.buscar');

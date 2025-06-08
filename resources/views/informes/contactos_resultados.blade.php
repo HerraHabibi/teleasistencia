@@ -1,46 +1,58 @@
-<!-- resources/views/resultados.blade.php -->
+@extends('layouts.app')
 
-@extends('layout')
+@section('title', 'Datos de los contactos')
 
-@section('seccion', 'Informes')
-@section('title', 'Resultados de la búsqueda')
-@section('ruta_volver', route('informes.index'))
 @section('content')
-    <h3 style="text-align: center; margin-bottom:0px;">Si quieres buscar algo en concreto pon Control+F</h3>
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <td><b>DNI del Beneficiario</b></td>
-                <td><b>Nombre</b></td>
-                <td><b>Apellidos</b></td>
-                <td><b>Teléfono</b></td>
-                <td><b>Tipo</b></td>
-                <td><b>Dirección</b></td>
-                <td><b>Código Postal</b></td>
-                <td><b>Localidad</b></td>
-                <td><b>Provincia</b></td>
-                <td><b>Email</b></td>
-                <td><b>Dispone de llave del domicilio</b></td>
-                <td><b>Observaciones</b></td>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($contactos as $contacto)
-            <tr>
-                <td>{{ $contacto->dni_beneficiario }}</td>
-                <td>{{ $contacto->nombre }}</td>
-                <td>{{ $contacto->apellidos }}</td>
-                <td>{{ $contacto->telefono }}</td>
-                <td>{{ $contacto->tipo }}</td>
-                <td>{{ $contacto->direccion }}</td>
-                <td>{{ $contacto->codigopostal }}</td>
-                <td>{{ $contacto->localidad }}</td>
-                <td>{{ $contacto->provincia }}</td>
-                <td>{{ $contacto->email }}</td>
-                <td>{{ $contacto->dispone_llave_del_domicilio }}</td>
-                <td>{{ $contacto->observaciones }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+
+<div class="d-flex align-items-center justify-content-between px-3 titulo">
+    <div class="flex-shrink-0">
+        <a href="{{ route('informes.index') }}" class="btn btn-link text-decoration-none p-0">
+            <i class="bi bi-arrow-left fs-1"></i>
+        </a>
+    </div>
+    <div class="flex-grow-1 text-center align-self-start">
+        <h2 class="fw-bold m-0 nombre mx-auto">Datos de los contactos</h2>
+    </div>
+    <div style="width: 38px;"></div>
+</div>
+
+<div class="container-fluid">
+    <div class="table-responsive shadow rounded bg-white p-3">
+        <table class="table table-striped table-bordered align-middle">
+            <thead class="table-primary titulo-tabla">
+                <tr>
+                    <th>DNI del Beneficiario</th>
+                    <th>Nombre completo</th>
+                    <th>Teléfono</th>
+                    <th>Tipo</th>
+                    <th>Dirección</th>
+                    <th>Código Postal</th>
+                    <th>Localidad</th>
+                    <th>Provincia</th>
+                    <th>Email</th>
+                    <th>Custodia llaves</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($contactos as $contacto)
+                    <tr>
+                        <td>{{ $contacto->dni_beneficiario }}</td>
+                        <td>{{ $contacto->nombre . ' ' . $contacto->apellidos }}</td>
+                        <td>{{ $contacto->telefono }}</td>
+                        <td>{{ $contacto->tipo }}</td>
+                        <td>{{ $contacto->direccion }}</td>
+                        <td>{{ $contacto->codigopostal }}</td>
+                        <td>{{ $contacto->localidad }}</td>
+                        <td>{{ $contacto->provincia }}</td>
+                        <td>{{ $contacto->email }}</td>
+                        <td>{{ $contacto->dispone_llave_del_domicilio }}</td>
+                        <td>{{ $contacto->observaciones }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
 @endsection

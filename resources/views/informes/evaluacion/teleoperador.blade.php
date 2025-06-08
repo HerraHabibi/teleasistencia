@@ -1,93 +1,137 @@
-@extends('layout')
+@extends('layouts.app')
 
-@section('seccion', 'Usuario')
-@section('title', 'Evaluar Teleoperador')
-@section('ruta_volver', route('evaluar.index'))
+@section('title', 'Evaluar teleoperador')
+
 @section('content')
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul style="margin-bottom: 0;">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+<div class="d-flex align-items-center justify-content-between px-3 titulo">
+    <div class="flex-shrink-0">
+        <a href="{{ route('evaluar.index') }}" class="btn btn-link text-decoration-none p-0">
+            <i class="bi bi-arrow-left fs-1"></i>
+        </a>
     </div>
+    <div class="flex-grow-1 text-center align-self-start">
+        <h2 class="fw-bold m-0 nombre mx-auto">Evaluar teleoperador</h2>
+    </div>
+    <div style="width: 38px;"></div>
+</div>
+
+<div class="container-fluid mt-3">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
 
     @if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
-    <form class="beneficiary-form" method="post" action="{{route('evaluar.teleoperador.store')}}" enctype="multipart/form-data">
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('evaluar.teleoperador.store') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf
-        <div class="form-grid">
-
-            <div class="form-group">
-                <label for="hora_inicio">Hora de inicio</label>
-                <div>
-                    <input type="datetime-local" id="hora_inicio" name="hora_inicio" step="1" required value="{{ old('hora_inicio') }}" />
-                    <button type="button" onclick="establecerHora('hora_inicio')">Ahora</button>
+        
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="hora_inicio" class="form-label">Hora de inicio</label>
+                <div class="d-flex gap-2">
+                    <input type="datetime-local" id="hora_inicio" name="hora_inicio" class="form-control" step="1" required value="{{ old('hora_inicio') }}">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="establecerHora('hora_inicio')">Ahora</button>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="hora_fin">Hora final</label>
-                <div>
-                    <input type="datetime-local" id="hora_fin" name="hora_fin" step="1" required value="{{ old('hora_fin') }}" />
-                    <button type="button" onclick="establecerHora('hora_fin')">Ahora</button>
+            <div class="col-md-6">
+                <label for="hora_fin" class="form-label">Hora final</label>
+                <div class="d-flex gap-2">
+                    <input type="datetime-local" id="hora_fin" name="hora_fin" class="form-control" step="1" required value="{{ old('hora_fin') }}">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="establecerHora('hora_fin')">Ahora</button>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="nombre_usuario">Nombre del Evaluador</label>
-                <input type="text" id="nombre_usuario" name="nombre_usuario" value="{{ old('nombre_usuario', Auth::user()->name) }}" required readonly />
+            <div class="col-md-6">
+                <label for="nombre_usuario" class="form-label">Nombre del Evaluador</label>
+                <input type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" value="{{ old('nombre_usuario', Auth::user()->name) }}" required readonly>
             </div>
-            <div class="form-group">
-                <label for="nombre_teleoperador">Nombre del Teleoperador a evaluar</label>
-                <input type="text" id="nombre_teleoperador" name="nombre_teleoperador" placeholder="Nombre del teleoperador" required value="{{ old('nombre_teleoperador') }}" />
+            <div class="col-md-6">
+                <label for="nombre_teleoperador" class="form-label">Nombre del Teleoperador a evaluar</label>
+                <input type="text" id="nombre_teleoperador" name="nombre_teleoperador" class="form-control" placeholder="Nombre del teleoperador" required value="{{ old('nombre_teleoperador') }}">
             </div>
-            <div class="form-group">
-                <label for="email_usuario">Email del Evaluador</label>
-                <input type="text" id="email_usuario" name="email_usuario" placeholder="Email del usuario" value="{{ old('email_usuario', Auth::user()->email) }}" required readonly />
+            <div class="col-md-6">
+                <label for="email_usuario" class="form-label">Email del Evaluador</label>
+                <input type="text" id="email_usuario" name="email_usuario" class="form-control" placeholder="Email del usuario" value="{{ old('email_usuario', Auth::user()->email) }}" required readonly>
             </div>
-            <div class="form-group">
-                <label for="email_teleoperador">Email del Teleoperador a evaluar</label>
-                <input type="text" id="email_teleoperador" name="email_teleoperador" placeholder="Email del teleoperador" required value="{{ old('email_teleoperador') }}" />
+            <div class="col-md-6">
+                <label for="email_teleoperador" class="form-label">Email del Teleoperador a evaluar</label>
+                <input type="text" id="email_teleoperador" name="email_teleoperador" class="form-control" placeholder="Email del teleoperador" required value="{{ old('email_teleoperador') }}">
             </div>
+        </div>
 
-            <h3>Protocolo de Bienvenida</h3>
-            <div class="form-group">
-                <label for="bienvenida">El teleoperador/a lleva a cabo el protocolo de bienvenida respetando todos sus elementos:</label>
-                <input type="number" id="bienvenida" name="bienvenida" min="1" max="10" required placeholder="Minimo 1, Maximo 10" value="{{ old('bienvenida') }}">
+        <div class="row g-3 mt-4">
+            <div class="col-12">
+                <h3 class="h5 fw-bold mb-3">Protocolo de Bienvenida</h3>
             </div>
-            <h3>Relación Contenido-Caso</h3>
-            <div class="form-group">
-                <label for="contenido">La respuesta que ofrece la persona teleoperadora corresponde con la teoría:</label>
-                <input type="number" id="contenido" name="contenido" min="1" max="10" required placeholder="Minimo 1, Maximo 10" value="{{ old('contenido') }}">
-            </div>
-            <h3>Uso de Estrategias de Comunicación</h3>
-            <div class="form-group">
-                <label for="comunicacion">El teleoperador/a utiliza las habilidades de escucha activa y de transmisión de información:</label>
-                <input type="number" id="comunicacion" name="comunicacion" min="1" max="10" required placeholder="Minimo 1, Maximo 10" value="{{ old('comunicacion') }}">
-            </div>
-            <h3>Protocolo de Despedida</h3>
-            <div class="form-group">
-                <label for="despedida">El teleoperador/a lleva a cabo el protocolo de despedida respetando todos sus elementos:</label>
-                <input type="number" id="despedida" name="despedida" min="1" max="10" required placeholder="Minimo 1, Maximo 10" value="{{ old('despedida') }}">
+            <div class="col-12">
+                <label for="bienvenida" class="form-label">El teleoperador/a lleva a cabo el protocolo de bienvenida respetando todos sus elementos:</label>
+                <input type="number" id="bienvenida" name="bienvenida" class="form-control" min="1" max="10" required placeholder="Mínimo 1, Máximo 10" value="{{ old('bienvenida') }}">
             </div>
         </div>
-        <div class="form-group">
-            <label for="observaciones">Observaciones</label>
-            <textarea id="observaciones" name="observaciones" rows="4" cols="50">{{ old('observaciones') }}</textarea>
+
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <h3 class="h5 fw-bold mb-3">Relación Contenido-Caso</h3>
+            </div>
+            <div class="col-12">
+                <label for="contenido" class="form-label">La respuesta que ofrece la persona teleoperadora corresponde con la teoría:</label>
+                <input type="number" id="contenido" name="contenido" class="form-control" min="1" max="10" required placeholder="Mínimo 1, Máximo 10" value="{{ old('contenido') }}">
+            </div>
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn-submit">Enviar Evaluación</button>
+
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <h3 class="h5 fw-bold mb-3">Uso de Estrategias de Comunicación</h3>
+            </div>
+            <div class="col-12">
+                <label for="comunicacion" class="form-label">El teleoperador/a utiliza las habilidades de escucha activa y de transmisión de información:</label>
+                <input type="number" id="comunicacion" name="comunicacion" class="form-control" min="1" max="10" required placeholder="Mínimo 1, Máximo 10" value="{{ old('comunicacion') }}">
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <h3 class="h5 fw-bold mb-3">Protocolo de Despedida</h3>
+            </div>
+            <div class="col-12">
+                <label for="despedida" class="form-label">El teleoperador/a lleva a cabo el protocolo de despedida respetando todos sus elementos:</label>
+                <input type="number" id="despedida" name="despedida" class="form-control" min="1" max="10" required placeholder="Mínimo 1, Máximo 10" value="{{ old('despedida') }}">
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <label for="observaciones" class="form-label">Observaciones</label>
+                <textarea id="observaciones" name="observaciones" class="form-control" rows="4">{{ old('observaciones') }}</textarea>
+            </div>
+        </div>
+
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success px-5">Enviar Evaluación</button>
         </div>
     </form>
-    <script>
-        function establecerHora(input) {
-            const ahora = new Date();
-            const formato = ahora.toISOString().slice(0, 19);
-            document.getElementById(input).value = formato;
-        }
-    </script>
+</div>
+
+<script>
+    function establecerHora(input) {
+        const ahora = new Date();
+        const formato = ahora.toISOString().slice(0, 19);
+        document.getElementById(input).value = formato;
+    }
+</script>
 @endsection

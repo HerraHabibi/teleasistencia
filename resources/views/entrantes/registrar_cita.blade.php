@@ -1,42 +1,62 @@
-@extends('layout')
+@extends('layouts.app')
 
-@section('seccion', 'Entrantes')
 @section('title', 'Registrar cita médica')
-@section('ruta_volver', route('entrantes.index'))
+
 @section('content')
+<div class="d-flex align-items-center justify-content-between px-3 titulo">
+    <div class="flex-shrink-0">
+        <a href="{{ route('entrantes.index') }}" class="btn btn-link text-decoration-none p-0">
+            <i class="bi bi-arrow-left fs-1"></i>
+        </a>
+    </div>
+    <div class="flex-grow-1 text-center align-self-start">
+        <h2 class="fw-bold m-0 nombre mx-auto">Registrar cita médica</h2>
+    </div>
+    <div style="width: 38px;"></div>
+</div>
+
+<div class="container-fluid mt-3">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     @if ($errors->any())
         <div class="alert alert-danger">
-            <ul>
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
-    <form class="beneficiary-form" method="post" action="{{ route('entrantes.rescita') }}" enctype="multipart/form-data">
-        @csrf
-        <div class="form-grid">
 
-            <div class="form-group">
-                <label for="dni_beneficiario">DNI del beneficiario</label>
-                <input type="text" id="dni_beneficiario" name="dni_beneficiario" placeholder="DNI del beneficiario" required />
+    <form method="POST" action="{{ route('entrantes.rescita') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
+        @csrf
+        
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="dni_beneficiario" class="form-label">DNI del beneficiario</label>
+                <input type="text" id="dni_beneficiario" name="dni_beneficiario" class="form-control" placeholder="DNI del beneficiario" required>
             </div>
-            <div class="form-group">
-                <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha" required />
+            <div class="col-md-6">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" id="fecha" name="fecha" class="form-control" required>
             </div>
-            <div class="form-group">
-                <label for="hora">Hora</label>
-                <input type="time" id="hora" name="hora" required />
+            <div class="col-md-6">
+                <label for="hora" class="form-label">Hora</label>
+                <input type="time" id="hora" name="hora" class="form-control" required>
             </div>
-            <div class="form-group">
-                <label for="observaciones">Observaciones</label>
-                <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea>
+            <div class="col-12">
+                <label for="observaciones" class="form-label">Observaciones</label>
+                <textarea id="observaciones" name="observaciones" class="form-control" rows="4"></textarea>
             </div>
-            
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn-submit">Registrar cita médica</button>
+
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success px-5">Registrar cita médica</button>
         </div>
     </form>
+</div>
 @endsection

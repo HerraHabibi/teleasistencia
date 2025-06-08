@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Saliente;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class SalientesController extends Controller
 {
@@ -26,9 +27,8 @@ class SalientesController extends Controller
             'intentos' => 'required|integer',
             'quien_coge' => 'required|string|max:255',
             'beneficiario' => 'required|in:Si,No',
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-            'duracion' => 'required|string|max:10',
+            'hora_inicio' => 'required|date_format:Y-m-d\TH:i:s',
+            'hora_fin' => 'required|date_format:Y-m-d\TH:i:s|after:hora_inicio',
             'observaciones' => 'nullable|string',
             'dni_beneficiario' => 'required|string|max:9',
             'archivo' => 'nullable|file|mimes:mp3,wav,aac,ogg',
@@ -48,9 +48,8 @@ class SalientesController extends Controller
         $registroLlamada->intentos = $request->intentos;
         $registroLlamada->quien_coge = $request->quien_coge;
         $registroLlamada->beneficiario = $request->beneficiario;
-        $registroLlamada->fecha = $request->fecha;
-        $registroLlamada->hora = $request->hora;
-        $registroLlamada->duracion = $request->duracion;
+        $registroLlamada->hora_inicio = Carbon::parse($request->hora_inicio)->format('Y-m-d H:i:s');
+        $registroLlamada->hora_fin = Carbon::parse($request->hora_fin)->format('Y-m-d H:i:s');
         $registroLlamada->observaciones = $request->observaciones;
         $registroLlamada->dni_beneficiario = $request->dni_beneficiario;
         $registroLlamada->tipo = $request->tipo;

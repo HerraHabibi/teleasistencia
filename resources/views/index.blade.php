@@ -3,15 +3,15 @@
 @section('title', 'Inicio')
 
 @section('content')
-    <div class="text-center mb-5">
-        <h2 class="fw-bold">Inicio</h2>
+    <div class="text-center titulo">
+        <h2 class="fw-bold m-0 nombre mx-auto">Inicio</h2>
     </div>
 
     <div class="row g-4 justify-content-center">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <a href="{{ route('gestion.index') }}" class="text-center text-decoration-none d-block h-100 card-link">
-                <img src="{{ asset('images/nuevo-usuario.png') }}" alt="Gestión de Usuarios" class="img-fluid mb-2" />
-                <p>Gestión de Usuarios</p>
+                <img src="{{ asset('images/re.png') }}" alt="Gestión de usuarios" class="img-fluid mb-2" />
+                <p>Gestión de usuarios</p>
             </a>
         </div>
 

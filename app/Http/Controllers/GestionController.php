@@ -74,7 +74,7 @@ class GestionController extends Controller
 
             return redirect()->route('gestion.index')->with('success', 'Beneficiario creado con éxito');
         } catch (\Exception $e) {
-            return redirect()->route('gestion.error')->with('error', 'Error al crear el beneficiario y sus datos de interés' . $e)->withInput();
+            return redirect()->route('gestion.error')->with('error', 'Error al crear el beneficiario y sus datos de interés')->withInput();
         }
     }
 

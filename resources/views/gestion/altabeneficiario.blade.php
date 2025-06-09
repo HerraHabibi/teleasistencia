@@ -3,6 +3,29 @@
 @section('title', 'Alta beneficiario')
 
 @section('content')
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#d33',
+            });
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6',
+            });
+        </script>
+    @endif
+
 <div class="d-flex align-items-center justify-content-between px-3 titulo">
     <div class="flex-shrink-0">
         <a href="{{ route('gestion.index') }}" class="btn btn-link text-decoration-none p-0">

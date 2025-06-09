@@ -57,6 +57,20 @@ class GestionController extends Controller
             'medicacion_noche' => 'nullable|string|max:255',
         ]);
 
+        $dni = strtoupper(trim($validatedData['dni']));
+        if (!self::validarDniNieCif($dni)) {
+            return redirect()->back()
+                ->withErrors(['dni' => 'El DNI debe ser un NIF, NIE o CIF válido.'])
+                ->withInput();
+        }
+
+        $nuss = preg_replace('/\D/', '', $validatedData['num_seguridad_social']);
+        if (!self::validarNuss($nuss)) {
+            return redirect()->back()
+                ->withErrors(['num_seguridad_social' => 'El número de la Seguridad Social no es válido.'])
+                ->withInput();
+        }
+
         try {
             Gestion::getConnectionResolver()->connection()->transaction(function () use ($validatedData) {
                 $beneficiario = Gestion::create($validatedData);
@@ -76,6 +90,60 @@ class GestionController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('gestion.error')->with('error', 'Error al crear el beneficiario y sus datos de interés' . $e)->withInput();
         }
+    }
+
+    private static function validarDniNieCif($valor)
+    {
+        $valor = strtoupper(trim($valor));
+
+        // NIF: 8 dígitos + letra
+        if (preg_match('/^\d{8}[A-Z]$/', $valor)) {
+            $letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+            $num = intval(substr($valor, 0, 8));
+            return $valor[8] === $letras[$num % 23];
+        }
+
+        // NIE: X, Y o Z + 7 dígitos + letra
+        if (preg_match('/^[XYZ]\d{7}[A-Z]$/', $valor)) {
+            $map = ['X' => '0', 'Y' => '1', 'Z' => '2'];
+            $num = $map[$valor[0]] . substr($valor, 1, 7);
+            $letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+            return $valor[8] === $letras[intval($num) % 23];
+        }
+
+        // CIF: letra + 7 dígitos + control
+        if (preg_match('/^[ABCDEFGHJKLMNPQRSUVW]\d{7}[0-9A-J]$/', $valor)) {
+            $suma = 0;
+            for ($i = 1; $i < 8; $i++) {
+                $n = intval($valor[$i]);
+                if ($i % 2 !== 0) {
+                    $n *= 2;
+                    $suma += ($n > 9) ? $n - 9 : $n;
+                } else {
+                    $suma += $n;
+                }
+            }
+            $control = (10 - ($suma % 10)) % 10;
+            $controlChar = 'JABCDEFGHI'[$control];
+            $controlDigit = strval($control);
+            return $valor[8] === $controlDigit || $valor[8] === $controlChar;
+        }
+
+        return false;
+    }
+
+    private static function validarNuss($nuss)
+    {
+        if (!preg_match('/^\d{12}$/', $nuss)) {
+            return false;
+        }
+
+        $base = substr($nuss, 0, 10);
+        $control = substr($nuss, 10, 2);
+
+        $calculado = str_pad((intval($base) % 97), 2, '0', STR_PAD_LEFT);
+
+        return $control === $calculado;
     }
 
     public function show($id)

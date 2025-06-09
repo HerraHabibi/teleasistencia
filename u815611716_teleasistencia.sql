@@ -795,6 +795,10 @@ ALTER TABLE evaluacion_teleoperador
   ADD COLUMN nombre_usuario VARCHAR(255) AFTER email_usuario,
   ADD COLUMN nombre_teleoperador VARCHAR(255) AFTER email_teleoperador;
 
+ALTER TABLE beneficiarios
+  DROP COLUMN mayor65,
+  DROP COLUMN discapacidad;
+
 ALTER TABLE registro_llamadas_salientes
   DROP COLUMN fecha,
   DROP COLUMN hora,

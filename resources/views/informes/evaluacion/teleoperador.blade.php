@@ -40,7 +40,6 @@
 
     <form method="POST" action="{{ route('evaluar.teleoperador.store') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf
-        
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="hora_inicio" class="form-label">Hora de inicio</label>

@@ -17,8 +17,31 @@
 </div>
 
 <div class="container-fluid mt-3">
+    <form method="GET" action="{{ route('usuarios') }}" class="mb-4">
+        <div class="d-flex justify-content-center">
+            <div class="d-flex w-100" style="max-width: 600px;">
+                <input 
+                    type="text" 
+                    name="buscar" 
+                    value="{{ request('buscar') }}" 
+                    class="form-control me-2" 
+                    placeholder="Buscar por nombre y apellidos o teléfono"
+                >
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+    </form>
+
     @if($usuarios->isEmpty())
-        <div class="alert alert-warning text-center">No hay usuarios registrados.</div>
+        <div class="alert alert-danger">
+            @if(request('buscar'))
+                No se encontraron beneficiarios para la búsqueda: <strong>{{ request('buscar') }}</strong>.
+            @else
+                No hay beneficiarios registrados.
+            @endif
+        </div>
     @else
         <div class="table-responsive shadow rounded bg-white p-3">
             <table class="table table-striped table-bordered align-middle">

@@ -20,7 +20,6 @@
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    
     <form method="POST" action="{{ route('gestion.borrar.beneficiario') }}" class="mx-auto" style="max-width: 400px;">
         @csrf
         <div class="mb-3">

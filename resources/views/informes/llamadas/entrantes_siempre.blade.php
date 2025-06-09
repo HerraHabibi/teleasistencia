@@ -1,9 +1,6 @@
 @extends('layouts.app')
-
 @section('title', 'Llamadas registradas')
-
 @section('content')
-
 <div class="d-flex align-items-center justify-content-between px-3 titulo">
     <div class="flex-shrink-0">
         <a href="{{ route('informes.index') }}" class="btn btn-link text-decoration-none p-0">
@@ -32,8 +29,49 @@
         </a>
     </div>
 
+    <form method="GET" action="{{ route('informes.llamadas.entrantes.siempre') }}" class="mb-4">
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 w-100" style="max-width: 800px;">
+                <div class="d-flex align-items-center flex-grow-1" style="min-width: 200px;">
+                    <label for="desde" class="me-2 mb-0">Desde:</label>
+                    <input 
+                        type="date" 
+                        name="desde"
+                        id="desde" 
+                        value="{{ request('desde') }}" 
+                        class="form-control" 
+                        title="Desde"
+                    >
+                </div>
+                <div class="d-flex align-items-center flex-grow-1" style="min-width: 200px;">
+                    <label for="hasta" class="me-2 mb-0">Hasta:</label>
+                    <input 
+                        type="date" 
+                        name="hasta"
+                        id="hasta" 
+                        value="{{ request('hasta') }}" 
+                        class="form-control" 
+                        title="Hasta"
+                    >
+                </div>
+                <a href="{{ route('informes.llamadas.entrantes.siempre') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle"></i>
+                </a>
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+    </form>
+
     @if($entrantes_siempre->isEmpty())
-        <div class="alert alert-danger">No hay llamadas entrantes registradas.</div>
+        <div class="alert alert-danger">
+            @if(request('desde') || request('hasta'))
+                No se encontraron llamadas para los filtros aplicados.
+            @else
+                No hay llamadas entrantes registradas.
+            @endif
+        </div>
     @else
         <div class="table-responsive shadow rounded bg-white p-3">
             <table class="table table-striped table-bordered align-middle">

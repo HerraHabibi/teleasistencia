@@ -34,7 +34,6 @@
 
     <form method="POST" action="{{ route('entrantes.rescita') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf
-        
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="dni_beneficiario" class="form-label">DNI del beneficiario</label>

@@ -31,11 +31,21 @@ class UserController extends Controller
 
         return redirect('/login')->with('success', '¡Registro exitoso!');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::orderByRaw("CASE WHEN name = 'Admin' THEN 0 ELSE 1 END, perfil DESC")
-                        ->get();
-        
+        $query = User::orderByRaw("CASE WHEN name = 'Admin' THEN 0 ELSE 1 END, perfil DESC");
+    
+        if ($request->has('buscar') && $request->buscar !== '') {
+            $buscar = $request->buscar;
+    
+            $query->where(function ($q) use ($buscar) {
+                $q->where('email', 'like', '%' . $buscar . '%')
+                  ->orWhere('name', 'like', '%' . $buscar . '%');
+            });
+        }
+    
+        $usuarios = $query->get();
+    
         return view('usuarios.index', compact('usuarios'));
     }
     public function destroy($id)

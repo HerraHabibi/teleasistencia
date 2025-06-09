@@ -165,10 +165,10 @@ class GestionController extends Controller
         $request->validate([
             'dni' => 'required|string|max:255',
         ]);
-    
+        
         $dni = $request->input('dni');
         $beneficiario = Gestion::with('beneficiarioInteres')->where('dni', $dni)->first();
-    
+        
         if ($beneficiario) {
             return view('gestion.resultados', ['beneficiario' => $beneficiario]);
         } else {
@@ -229,7 +229,7 @@ class GestionController extends Controller
                 'dispone_llave_del_domicilio' => $request->input('dispone_llave_del_domicilio'),
                 'observaciones' => $request->input('observaciones'),
             ]);
-    
+            
             return redirect()->route('gestion.contactos')->with('success', 'Contacto creado exitosamente.');
         } catch (\Exception $e) {
             $errorMessage = $e->getMessage();
@@ -318,7 +318,6 @@ class GestionController extends Controller
 
         $contacto = Contacto::where('email', $email)->first();
         
-
         if (!$contacto) {
             return redirect()->back()->with('error', 'No se encontró ningún beneficiario con ese email.');
         }

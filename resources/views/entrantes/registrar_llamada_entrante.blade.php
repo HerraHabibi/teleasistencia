@@ -35,7 +35,6 @@
     <form method="POST" action="{{ route('entrantes.store') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf
         <input type="hidden" id="email_users" name="email_users" value="{{Auth::user()->email}}" required>
-        
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="dni_beneficiario" class="form-label">DNI beneficiario</label>

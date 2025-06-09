@@ -86,7 +86,7 @@ Route::middleware([Authenticate::class])->group(function () {
             return view('informes.buscar_teleoperador');
         })->name('informes.informes-teleoperador');
         Route::post('/informes-teleoperador', [InformesController::class, 'buscarTeleoperador'])->name('informes.buscar-teleoperador');
-    
+        
         Route::prefix('llamadas')->group(function () {
             Route::get('/previstas', [InformesController::class, 'llamadasprevistas'])->name('informes.llamadas.previstas');
             Route::get('/entrantes/hoy', [InformesController::class, 'llamadasEntrantesHoy'])->name('informes.llamadas.entrantes.hoy');
@@ -117,7 +117,6 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::get('/', [AudioController::class, 'index'])->name('audios.index');
     });
 
-    
 });
 
     // Rutas de registro

@@ -17,8 +17,49 @@
 </div>
 
 <div class="container-fluid mt-3">
+    <form method="GET" action="{{ route('audios.index') }}" class="mb-4">
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 w-100" style="max-width: 800px;">
+                <div class="d-flex align-items-center flex-grow-1" style="min-width: 200px;">
+                    <label for="desde" class="me-2 mb-0">Desde:</label>
+                    <input 
+                        type="date" 
+                        name="desde"
+                        id="desde" 
+                        value="{{ request('desde') }}" 
+                        class="form-control" 
+                        title="Desde"
+                    >
+                </div>
+                <div class="d-flex align-items-center flex-grow-1" style="min-width: 200px;">
+                    <label for="hasta" class="me-2 mb-0">Hasta:</label>
+                    <input 
+                        type="date" 
+                        name="hasta"
+                        id="hasta" 
+                        value="{{ request('hasta') }}" 
+                        class="form-control" 
+                        title="Hasta"
+                    >
+                </div>
+                <a href="{{ route('audios.index') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle"></i>
+                </a>
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+    </form>
+
     @if($llamadas->isEmpty())
-        <div class="alert alert-warning text-center">No hay registros de llamadas con archivos.</div>
+        <div class="alert alert-danger">
+            @if(request('desde') || request('hasta'))
+                No se encontraron llamadas para los filtros aplicados.
+            @else
+                No hay registros de llamadas con archivos.
+            @endif
+        </div>
     @else
         <div class="table-responsive shadow rounded bg-white p-3">
             <table class="table table-striped table-bordered align-middle">

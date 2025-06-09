@@ -67,7 +67,6 @@ class EvaluarController extends Controller
                 ->with('error', 'El nombre no coincide con el email del teleoperador en el sistema.');
         }
         
-
         try {
             $media = ($validatedData['bienvenida'] + $validatedData['contenido'] + $validatedData['comunicacion'] + $validatedData['despedida']) / 4;
 
@@ -85,7 +84,6 @@ class EvaluarController extends Controller
                 'media' => $media,
                 'observaciones' => $validatedData['observaciones'],
             ]);
-            
 
             $evaluacion->save();
 

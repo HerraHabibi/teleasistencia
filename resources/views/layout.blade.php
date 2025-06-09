@@ -20,6 +20,5 @@
     <main class="main">
         @yield('content')
     </main>
-    
 </body>
 </html>

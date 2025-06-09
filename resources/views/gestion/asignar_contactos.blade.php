@@ -22,7 +22,6 @@
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    
     <form method="POST" action="{{ route('gestion.contactos.buscar') }}" class="mx-auto" style="max-width: 400px;" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">

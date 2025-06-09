@@ -17,7 +17,6 @@
 </div>
 
 <div class="row g-4 justify-content-center">
-    
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <a href="{{ route('gestion.altabeneficiario') }}" class="text-center text-decoration-none d-block h-100 card-link">
             <img src="{{ asset('images/nuevo-usuario.png') }}" alt="Alta de beneficiario" class="img-fluid mb-2" />

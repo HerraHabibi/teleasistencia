@@ -24,9 +24,22 @@ class InformesController extends Controller
     {
         return view('informes.listado_beneficiario');
     }
-    public function infoBeneficiarios()
+    public function infoBeneficiarios(Request $request)
     {
-        $beneficiarios = Gestion::orderBy('dni')->get();
+        $query = Gestion::orderBy('dni');
+
+        if ($request->has('buscar') && $request->buscar != '') {
+            $buscar = $request->buscar;
+
+            $query->where(function ($q) use ($buscar) {
+                $q->where('dni', $buscar)
+                ->orWhere('telefono', $buscar)
+                ->orWhere('email', 'like', '%' . $buscar . '%')
+                ->orWhereRaw("CONCAT(nombre, ' ', apellidos) LIKE ?", ['%' . $buscar . '%']);
+            });
+        }
+
+        $beneficiarios = $query->get();
 
         return view('informes.beneficiario_resultados', compact('beneficiarios'));
     }
@@ -34,9 +47,22 @@ class InformesController extends Controller
     {
         return view('informes.listado_contactos');
     }
-    public function buscarContacto()
+    public function buscarContacto(Request $request)
     {
-        $contactos = Contacto::orderBy('dni_beneficiario')->get();
+        $query = Contacto::orderBy('dni_beneficiario');
+
+        if ($request->has('buscar') && $request->buscar != '') {
+            $buscar = $request->buscar;
+
+            $query->where(function ($q) use ($buscar) {
+                $q->where('dni_beneficiario', $buscar)
+                ->orWhere('telefono', $buscar)
+                ->orWhere('email', 'like', '%' . $buscar . '%')
+                ->orWhereRaw("CONCAT(nombre, ' ', apellidos) LIKE ?", ['%' . $buscar . '%']);
+            });
+        }
+
+        $contactos = $query->get();
 
         return view('informes.contactos_resultados', compact('contactos'));
     }
@@ -273,15 +299,22 @@ class InformesController extends Controller
         ));
     }
 
-    public function llamadasEntrantesHoy()
+    public function llamadasEntrantesHoy(Request $request)
     {
         $hoy = Carbon::today();
-
-        $inicioHoy = $hoy->startOfDay();
-        $finHoy = $hoy->copy()->endOfDay();
-
-        $entrantes_hoy = Entrante::whereBetween('hora_inicio', [$inicioHoy, $finHoy])
-                            ->orWhereBetween('hora_fin', [$inicioHoy, $finHoy])
+    
+        $desdeHora = $request->filled('desde')
+            ? Carbon::parse("{$hoy->toDateString()} {$request->input('desde')}:00")
+            : $hoy->copy()->startOfDay();
+    
+        $hastaHora = $request->filled('hasta')
+            ? Carbon::parse("{$hoy->toDateString()} {$request->input('hasta')}:59")
+            : $hoy->copy()->endOfDay();
+    
+        $entrantes_hoy = Entrante::where(function ($query) use ($desdeHora, $hastaHora) {
+                                $query->whereBetween('hora_inicio', [$desdeHora, $hastaHora])
+                                      ->orWhereBetween('hora_fin', [$desdeHora, $hastaHora]);
+                            })
                             ->orderByDesc('hora_fin')
                             ->orderBy('dni_beneficiario')
                             ->get()
@@ -289,32 +322,49 @@ class InformesController extends Controller
                                 $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
                                 return $llamada;
                             });
-
+    
         return view('informes.llamadas.entrantes_hoy', compact('entrantes_hoy'));
-    }
+    }    
 
-    public function llamadasEntrantesSiempre()
+    public function llamadasEntrantesSiempre(Request $request)
     {
-        $entrantes_siempre = Entrante::orderByDesc('hora_fin')
-                                ->orderBy('dni_beneficiario')
-                                ->get()
-                                ->map(function ($llamada) {
-                                    $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
-                                    return $llamada;
-                                });
-
+        $query = Entrante::orderByDesc('hora_fin')
+                        ->orderBy('dni_beneficiario');
+    
+        if ($request->filled('desde')) {
+            $desde = Carbon::parse($request->desde)->startOfDay();
+            $query->where('hora_inicio', '>=', $desde);
+        }
+    
+        if ($request->filled('hasta')) {
+            $hasta = Carbon::parse($request->hasta)->endOfDay();
+            $query->where('hora_fin', '<=', $hasta);
+        }
+    
+        $entrantes_siempre = $query->get()->map(function ($llamada) {
+            $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+            return $llamada;
+        });
+    
         return view('informes.llamadas.entrantes_siempre', compact('entrantes_siempre'));
     }
 
-    public function llamadasSalientesHoy()
+    public function llamadasSalientesHoy(Request $request)
     {
         $hoy = Carbon::today();
-
-        $inicioHoy = $hoy->startOfDay();
-        $finHoy = $hoy->copy()->endOfDay();
-
-        $salientes_hoy = Saliente::whereBetween('hora_inicio', [$inicioHoy, $finHoy])
-                            ->orWhereBetween('hora_fin', [$inicioHoy, $finHoy])
+    
+        $desdeHora = $request->filled('desde')
+            ? Carbon::parse("{$hoy->toDateString()} {$request->input('desde')}:00")
+            : $hoy->copy()->startOfDay();
+    
+        $hastaHora = $request->filled('hasta')
+            ? Carbon::parse("{$hoy->toDateString()} {$request->input('hasta')}:59")
+            : $hoy->copy()->endOfDay();
+    
+        $salientes_hoy = Saliente::where(function ($query) use ($desdeHora, $hastaHora) {
+                                $query->whereBetween('hora_inicio', [$desdeHora, $hastaHora])
+                                      ->orWhereBetween('hora_fin', [$desdeHora, $hastaHora]);
+                            })
                             ->orderByDesc('hora_fin')
                             ->orderBy('dni_beneficiario')
                             ->get()
@@ -322,19 +372,30 @@ class InformesController extends Controller
                                 $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
                                 return $llamada;
                             });
-
+    
         return view('informes.llamadas.salientes_hoy', compact('salientes_hoy'));
-    }
-    public function llamadasSalientesSiempre()
-    {
-        $salientes_siempre = Saliente::orderByDesc('hora_fin')
-                                ->orderBy('dni_beneficiario')
-                                ->get()
-                                ->map(function ($llamada) {
-                                    $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
-                                    return $llamada;
-                                });
+    }    
 
+    public function llamadasSalientesSiempre(Request $request)
+    {
+        $query = Saliente::orderByDesc('hora_fin')
+                        ->orderBy('dni_beneficiario');
+    
+        if ($request->filled('desde')) {
+            $desde = Carbon::parse($request->desde)->startOfDay();
+            $query->where('hora_inicio', '>=', $desde);
+        }
+    
+        if ($request->filled('hasta')) {
+            $hasta = Carbon::parse($request->hasta)->endOfDay();
+            $query->where('hora_fin', '<=', $hasta);
+        }
+    
+        $salientes_siempre = $query->get()->map(function ($llamada) {
+            $llamada->tiene_audio = $llamada->archivo !== null && Storage::disk('public')->exists('audios/' . $llamada->archivo);
+            return $llamada;
+        });
+    
         return view('informes.llamadas.salientes_siempre', compact('salientes_siempre'));
     }
 }

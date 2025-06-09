@@ -17,7 +17,7 @@ class EntrantesController extends Controller
     }
     public function create()
     {
-        return view('entrantes.registrar_llamada');
+        return view('entrantes.registrar_llamada_entrante');
     }
     public function register()
     {

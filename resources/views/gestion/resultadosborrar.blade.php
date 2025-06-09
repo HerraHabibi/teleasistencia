@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dar de baja un beneficiario')
+@section('title', 'Baja de beneficiario')
 
 @section('content')
 <div class="d-flex align-items-center justify-content-between px-3 titulo">
@@ -10,7 +10,7 @@
         </a>
     </div>
     <div class="flex-grow-1 text-center align-self-start">
-        <h2 class="fw-bold m-0 nombre mx-auto">Dar de baja un beneficiario</h2>
+        <h2 class="fw-bold m-0 nombre mx-auto">Baja de beneficiario</h2>
     </div>
     <div style="width: 38px;"></div>
 </div>

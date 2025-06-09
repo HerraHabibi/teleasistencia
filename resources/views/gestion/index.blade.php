@@ -20,22 +20,22 @@
     
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <a href="{{ route('gestion.altabeneficiario') }}" class="text-center text-decoration-none d-block h-100 card-link">
-            <img src="{{ asset('images/nuevo-usuario.png') }}" alt="Alta de nuevo beneficiario" class="img-fluid mb-2" />
-            <p>Alta de nuevo beneficiario</p>
+            <img src="{{ asset('images/nuevo-usuario.png') }}" alt="Alta de beneficiario" class="img-fluid mb-2" />
+            <p>Alta de beneficiario</p>
         </a>
     </div>
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <a href="{{ route('gestion.actualizar') }}" class="text-center text-decoration-none d-block h-100 card-link">
-            <img src="{{ asset('images/editar-usuario.png') }}" alt="Modificar beneficiario" class="img-fluid mb-2" />
-            <p>Modificar beneficiario</p>
+            <img src="{{ asset('images/editar-usuario.png') }}" alt="Modificación de beneficiario" class="img-fluid mb-2" />
+            <p>Modificación de beneficiario</p>
         </a>
     </div>
 
     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <a href="{{ route('gestion.borrar.beneficiario.form') }}" class="text-center text-decoration-none d-block h-100 card-link">
-            <img src="{{ asset('images/borrar-usuario.png') }}" alt="Dar de baja un beneficiario" class="img-fluid mb-2" />
-            <p>Dar de baja un beneficiario</p>
+            <img src="{{ asset('images/borrar-usuario.png') }}" alt="Baja de beneficiario" class="img-fluid mb-2" />
+            <p>Baja de beneficiario</p>
         </a>
     </div>
 </div>

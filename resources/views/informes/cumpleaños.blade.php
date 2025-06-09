@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cumpleañeros de hoy')
+@section('title', 'Beneficiarios que cumplen años hoy')
 
 @section('content')
 

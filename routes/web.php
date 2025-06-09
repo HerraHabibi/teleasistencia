@@ -57,7 +57,6 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::get('/cita', [EntrantesController::class, 'register'])->name('entrantes.cita');
         Route::post('/cita', [EntrantesController::class, 'registrarcita'])->name('entrantes.rescita');
         Route::post('/store', [EntrantesController::class, 'store'])->name('entrantes.store');
-        Route::get('/rest', [EntrantesController::class, 'error'])->name('entrantes.error');
     });
 
     // Rutas de salientes
@@ -65,7 +64,6 @@ Route::middleware([Authenticate::class])->group(function () {
         Route::get('/', [SalientesController::class, 'index'])->name('salientes.index');
         Route::get('/register', [SalientesController::class, 'create'])->name('salientes.create');
         Route::post('/', [SalientesController::class, 'store'])->name('salientes.store');
-        Route::get('/rest', [SalientesController::class, 'error'])->name('salientes.error');
     });
 
     // Rutas de informes
@@ -105,7 +103,6 @@ Route::middleware([Authenticate::class])->group(function () {
     //Rutas evaluación
     Route::prefix('evaluar')->group(function(){
         Route::get('/', [EvaluarController::class, 'index'])->name('evaluar.index');
-        Route::get('/resultado', [EvaluarController::class, 'result'])->name('evaluar.result');
         Route::get('/usuario', [EvaluarController::class, 'evaluarUsuario'])->name('evaluar.usuario');
         Route::post('/usuario', [EvaluarController::class, 'storeUsuario'])->name('evaluar.usuario.store');
         Route::get('/teleoperador', [EvaluarController::class, 'evaluarTeleoperador'])->name('evaluar.teleoperador');

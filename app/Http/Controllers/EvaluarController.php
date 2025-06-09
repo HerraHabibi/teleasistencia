@@ -12,19 +12,10 @@ class EvaluarController extends Controller
     {
         return view('informes.evaluacion.index');
     }
-    public function evaluarUsuario()
-    {
-        return view('informes.evaluacion.usuario');
-    }
     public function evaluarTeleoperador()
     {
         return view('informes.evaluacion.teleoperador');
     }
-    public function result()
-    {
-        return view('informes.evaluacion.error');
-    }
-
     public function verTeleoperador(Request $request)
     {
 
@@ -87,7 +78,7 @@ class EvaluarController extends Controller
 
             $evaluacion->save();
 
-            return redirect()->route('evaluar.result')->with('success', 'Evaluación registrada con éxito');
+            return redirect()->route('evaluar.teleoperador')->with('success', 'Evaluación registrada con éxito');
 
         } catch (\Illuminate\Database\QueryException $e) {
             $errorMessage = $e->getMessage();

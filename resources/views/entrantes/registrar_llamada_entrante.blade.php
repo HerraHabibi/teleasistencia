@@ -17,19 +17,34 @@
 
 <div class="container-fluid mt-3">
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: @json(session('success')),
+                confirmButtonColor: '#3085d6',
+            });
+        </script>
     @endif
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                html: `
+                    <ul style="text-align: left; padding-left: 1.2em;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                `,
+                confirmButtonColor: '#d33',
+                customClass: {
+                    popup: 'swal-wide'
+                }
+            });
+        </script>
     @endif
 
     <form method="POST" action="{{ route('entrantes.store') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">

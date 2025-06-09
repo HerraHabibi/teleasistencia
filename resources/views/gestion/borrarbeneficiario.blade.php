@@ -15,10 +15,25 @@
 
 <div class="container-fluid mt-3">
     @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#d33',
+            });
+        </script>
     @endif
+
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6',
+            });
+        </script>
     @endif
     <form method="POST" action="{{ route('gestion.borrar.beneficiario') }}" class="mx-auto" style="max-width: 400px;">
         @csrf

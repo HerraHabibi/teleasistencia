@@ -34,10 +34,10 @@ class EntrantesController extends Controller
 
         try {
             CitaMedica::create($validatedData);
-            return redirect()->route('entrantes.error')->with('success', 'Cita médica registrada con éxito');
+            return redirect()->route('entrantes.rescita')->with('success', 'Cita médica registrada con éxito');
         } catch (\Exception $e) {
             Log::error('Error al registrar la cita médica: '.$e->getMessage());
-            return redirect()->route('entrantes.error')->with('error', 'Error al registrar la cita médica')->withInput();
+            return redirect()->route('entrantes.rescita')->with('error', 'Error al registrar la cita médica')->withInput();
         }
     }
     public function register_citas(Request $request)
@@ -104,7 +104,7 @@ class EntrantesController extends Controller
         $entrante->save();
 
         // Redireccionar a una vista o ruta específica después de guardar los datos
-        return redirect()->route('entrantes.error')->with('success', '¡Registro de llamada entrante exitoso!');
+        return redirect()->route('entrantes.create')->with('success', '¡Registro de llamada entrante exitoso!');
     }
     
     public function error()

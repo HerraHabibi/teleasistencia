@@ -40,14 +40,21 @@
 
 <div class="container-fluid mt-3">
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: `
+                    <ul style="text-align: left; margin: 0;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                `
+            });
+        </script>
     @endif
+
 
     <form method="POST" action="{{ route('gestion.store') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf

@@ -14,11 +14,25 @@
 </div>
 <div class="container-fluid mt-3">
     @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ session('error') }}"
+            });
+        </script>
     @endif
+
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: "{{ session('success') }}"
+            });
+        </script>
     @endif
+
     <form method="POST" action="{{ route('gestion.buscar.beneficiario') }}" class="mx-auto" style="max-width: 400px;">
         @csrf
         <div class="mb-3">

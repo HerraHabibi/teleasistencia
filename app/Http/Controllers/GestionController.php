@@ -328,18 +328,18 @@ class GestionController extends Controller
     public function modificarContacto(Request $request)
     {
         $request->validate([
-            'dni_beneficiario' => 'required|string|max:9',
+            'dni_beneficiario' => 'required|string|max:20',
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'telefono' => 'required|string|max:20',
-            'tipo' => 'required|string|max:255',
+            'tipo' => 'required|string',
             'direccion' => 'required|string|max:255',
             'codigopostal' => 'required|string|max:10',
             'localidad' => 'required|string|max:255',
             'provincia' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'dispone_llave_del_domicilio' => 'required|string|',
-            'observaciones' => 'required|string|',
+            'dispone_llave_del_domicilio' => 'required|string',
+            'observaciones' => 'required|string',
         ]);
 
         try {
@@ -349,19 +349,19 @@ class GestionController extends Controller
                 return redirect()->route('gestion.contactos.buscar.mod')->with('error', 'No se encontró ningún contacto asociado a ese beneficiario.');
             }
 
-            $contacto->nombre = $request->nombre;
-            $contacto->apellidos = $request->apellidos;
-            $contacto->telefono = $request->telefono;
-            $contacto->tipo = $request->tipo;
-            $contacto->direccion = $request->direccion;
-            $contacto->codigopostal = $request->codigopostal;
-            $contacto->localidad = $request->localidad;
-            $contacto->provincia = $request->provincia;
-            $contacto->email = $request->email;
-            $contacto->dispone_llave_del_domicilio = $request->dispone_llave_del_domicilio;
-            $contacto->observaciones = $request->observaciones;
-
-            $contacto->save();
+            $contacto->update([
+                'nombre' => $request->input('nombre'),
+                'apellidos' => $request->input('apellidos'),
+                'telefono' => $request->input('telefono'),
+                'tipo' => $request->input('tipo'),
+                'direccion' => $request->input('direccion'),
+                'codigopostal' => $request->input('codigopostal'),
+                'localidad' => $request->input('localidad'),
+                'provincia' => $request->input('provincia'),
+                'email' => $request->input('email'),
+                'dispone_llave_del_domicilio' => $request->input('dispone_llave_del_domicilio'),
+                'observaciones' => $request->input('observaciones'),
+            ]);
 
             return redirect()->route('gestion.contactos.buscar.mod')->with('success', 'Contacto modificado exitosamente.');
         } catch (\Exception $e) {

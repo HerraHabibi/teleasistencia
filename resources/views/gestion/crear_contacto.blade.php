@@ -30,6 +30,10 @@
         @csrf
         <div class="row g-3">
             <div class="col-md-6">
+                <label for="dni_beneficiario" class="form-label">DNI del beneficiario</label>
+                <input type="text" id="dni_beneficiario" name="dni_beneficiario" class="form-control" value="{{ $contacto->dni }}" readonly required>
+            </div>
+            <div class="col-md-6">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
             </div>
@@ -40,10 +44,6 @@
             <div class="col-md-6">
                 <label for="telefono" class="form-label">Teléfono</label>
                 <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="Teléfono" required>
-            </div>
-            <div class="col-md-6">
-                <label for="dni_beneficiario" class="form-label">DNI del Beneficiario</label>
-                <input type="text" id="dni_beneficiario" name="dni_beneficiario" class="form-control" value="{{ $contacto->dni }}" readonly required>
             </div>
             <div class="col-md-6">
                 <label for="tipo" class="form-label">Tipo de contacto</label>

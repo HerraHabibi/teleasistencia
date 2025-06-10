@@ -46,7 +46,7 @@
             </div>
             <div class="col-md-6">
                 <label for="dni" class="form-label">DNI <a href="https://generadordni.es/#dni" target="_blank">Generar</a></label>
-                <input type="text" id="dni" name="dni" class="form-control" value="{{ $beneficiario->dni }}" placeholder="DNI" required>
+                <input type="text" id="dni" name="dni" class="form-control" value="{{ $beneficiario->dni }}" placeholder="DNI" readonly required>
             </div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Correo electrónico</label>

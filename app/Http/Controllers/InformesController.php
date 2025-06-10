@@ -245,14 +245,16 @@ class InformesController extends Controller
                     'quien_coge' => $llamada->quien_coge,
                     'id' => $llamada->id,
                     'tiene_audio' => $tiene_audio,
-                    'beneficiario_nombre' => optional($llamada->getRelationValue('beneficiario'))->nombre . ' ' . optional($llamada->getRelationValue('beneficiario'))->apellidos,
+                    'beneficiario_nombre' => optional($llamada->beneficiario)->nombre . ' ' . optional($llamada->beneficiario)->apellidos,
                 ];
             });
     
-        $llamadas = $llamadasRealizadas
-            ->merge($llamadasAtendidas)
+        $llamadas = $llamadasAtendidas
+            ->merge($llamadasRealizadas)
             ->sortByDesc('fecha_hora')
-            ->map(fn($item) => (object) $item)
+            ->map(function($item) {
+                return (object) $item;
+            })
             ->values();
         
         $evaluaciones = EvaluacionTeleoperador::where('email_teleoperador', $email)

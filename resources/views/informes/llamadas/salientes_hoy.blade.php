@@ -72,7 +72,7 @@
             @if(request()->filled('desde') || request()->filled('hasta'))
                 No se encontraron llamadas para los filtros aplicados.
             @else
-                No hay llamadas entrantes registradas.
+                No hay llamadas salientes registradas hoy.
             @endif
         </div>
     @else

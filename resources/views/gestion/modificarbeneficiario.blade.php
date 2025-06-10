@@ -13,25 +13,6 @@
     <div style="width: 38px;"></div>
 </div>
 <div class="container-fluid mt-3">
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: "{{ session('error') }}"
-            });
-        </script>
-    @endif
-
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: '¡Éxito!',
-                text: "{{ session('success') }}"
-            });
-        </script>
-    @endif
 
     <form method="POST" action="{{ route('gestion.buscar.beneficiario') }}" class="mx-auto" style="max-width: 400px;">
         @csrf

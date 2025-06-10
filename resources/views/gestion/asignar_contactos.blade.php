@@ -16,27 +16,6 @@
 </div>
 
 <div class="container-fluid mt-3">
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: '{{ session('error') }}',
-                confirmButtonColor: '#d33',
-            });
-        </script>
-    @endif
-
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: '{{ session('success') }}',
-                confirmButtonColor: '#3085d6',
-            });
-        </script>
-    @endif
     <form method="POST" action="{{ route('gestion.contactos.buscar') }}" class="mx-auto" style="max-width: 400px;" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">

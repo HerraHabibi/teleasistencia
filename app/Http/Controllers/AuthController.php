@@ -20,7 +20,7 @@ class AuthController extends Controller
         // Comprobación adicional para verificar si el usuario está verificado
         if (Auth::user()->verificado) {
             $request->session()->regenerate();
-            return redirect()->route('home');
+            return redirect()->route('home')->with('success', '¡Has iniciado sesión correctamente!');
         } else {
             Auth::logout();
             return redirect()->back()->withErrors(['email' => 'Necesita que un profesor verifique su cuenta.']);

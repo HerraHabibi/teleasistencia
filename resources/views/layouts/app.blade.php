@@ -49,7 +49,8 @@
                 <i class="bi bi-house-door-fill me-2"></i> Inicio
             </a>
         </div>
-        
+        <x-alert />
+
         
     </header>
     

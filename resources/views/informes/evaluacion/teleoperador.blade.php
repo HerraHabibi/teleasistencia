@@ -16,47 +16,6 @@
 </div>
 
 <div class="container-fluid mt-3">
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: @json(session('success')),
-                confirmButtonColor: '#3085d6',
-            });
-        </script>
-    @endif
-
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: @json(session('error')),
-                confirmButtonColor: '#d33',
-            });
-        </script>
-    @endif
-
-    @if ($errors->any())
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Errores de validación',
-                html: `
-                    <ul style="text-align: left; padding-left: 1.2em;">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                `,
-                confirmButtonColor: '#d33',
-                customClass: {
-                    popup: 'swal-wide'
-                }
-            });
-        </script>
-    @endif
 
     <form method="POST" action="{{ route('evaluar.teleoperador.store') }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf

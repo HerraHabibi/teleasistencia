@@ -16,11 +16,6 @@
 </div>
 
 <div class="container-fluid mt-3">
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <form method="POST" action="{{ route('gestion.eliminar.beneficiario', $beneficiario->id) }}" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm formulario">
         @csrf

@@ -4,16 +4,6 @@
 
 @section('content')
 
-@if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Éxito',
-                text: '{{ session('success') }}',
-                confirmButtonColor: '#3085d6',
-            });
-        </script>
-    @endif
 
 <div class="d-flex align-items-center justify-content-between px-3 titulo">
     <div class="flex-shrink-0">

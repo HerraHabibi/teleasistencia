@@ -7,8 +7,10 @@
     <title>@yield('title', 'Sistema de Teleasistencia - Acceso a usuarios')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-    @vite(['resources/css/app.css'])
+    @php
+        use Illuminate\Support\Facades\Vite;
+    @endphp
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

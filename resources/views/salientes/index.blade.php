@@ -6,7 +6,10 @@
     <title>Sistema de Teleasistencia - Acceso a usuarios</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @vite('resources/css/app.css')
+    @php
+        use Illuminate\Support\Facades\Vite;
+    @endphp
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}">
 </head>
 
 <body>

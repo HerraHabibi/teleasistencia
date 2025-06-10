@@ -218,7 +218,7 @@ class GestionController extends Controller
             return redirect()->route('gestion.actualizar')->with('success', 'Datos actualizados con éxito.');
 
         } catch (\Exception $e) {
-            return redirect()->route('gestion.actualizar')->with('error', 'Error al actualizar los datos. ' . $e->getMessage());
+            return redirect()->route('gestion.actualizar')->with('error', 'Error al actualizar los datos.');
         }
     }
 
@@ -302,7 +302,6 @@ class GestionController extends Controller
             
             return redirect()->route('gestion.contactos')->with('success', 'Contacto creado exitosamente.');
         } catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
             return redirect()->route('gestion.error.contacto')->with('error', 'Ha ocurrido un error al crear el contacto revise si estan repetidos algun dato');
         }
     }
@@ -434,8 +433,7 @@ class GestionController extends Controller
 
             return redirect()->route('gestion.contactos.buscar.mod')->with('success', 'Contacto modificado exitosamente.');
         } catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
-            return redirect()->route('gestion.contactos.buscar.mod')->with('error', 'Error al modificar el contacto: ' . $errorMessage);
+            return redirect()->route('gestion.contactos.buscar.mod')->with('error', 'Error al modificar el contacto');
         }
     }
 

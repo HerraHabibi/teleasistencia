@@ -36,7 +36,7 @@ class EntrantesController extends Controller
             CitaMedica::create($validatedData);
             return redirect()->route('entrantes.rescita')->with('success', 'Cita médica registrada con éxito');
         } catch (\Exception $e) {
-            Log::error('Error al registrar la cita médica: '.$e->getMessage());
+            Log::error('Error al registrar la cita médica' -> getMessage());
             return redirect()->route('entrantes.rescita')->with('error', 'Error al registrar la cita médica')->withInput();
         }
     }

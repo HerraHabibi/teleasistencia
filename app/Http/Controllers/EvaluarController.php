@@ -80,11 +80,6 @@ class EvaluarController extends Controller
 
             return redirect()->route('evaluar.teleoperador')->with('success', 'Evaluación registrada con éxito');
 
-        } catch (\Illuminate\Database\QueryException $e) {
-            $errorMessage = $e->getMessage();
-
-            return redirect()->route('evaluar.teleoperador')->with('error', 'Error al registrar la evaluación: ' . $errorMessage);
-
         } catch (\Exception $e) {
             return redirect()->route('evaluar.teleoperador')->with('error', 'Error al registrar la evaluación');
         }

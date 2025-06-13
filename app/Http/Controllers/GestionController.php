@@ -251,7 +251,7 @@ class GestionController extends Controller
     }
     public function errorContacto()
     {
-        return view('gestion.error_contacto');
+        return view('gestion.asignar_contactos');
     }
     public function contactos()
     {

@@ -103,6 +103,7 @@ Route::middleware([Authenticate::class])->group(function () {
     //Rutas evaluación
     Route::prefix('evaluar')->group(function(){
         Route::get('/', [EvaluarController::class, 'index'])->name('evaluar.index');
+        Route::get('/resultado', [EvaluarController::class, 'result'])->name('evaluar.result');
         Route::get('/usuario', [EvaluarController::class, 'evaluarUsuario'])->name('evaluar.usuario');
         Route::post('/usuario', [EvaluarController::class, 'storeUsuario'])->name('evaluar.usuario.store');
         Route::get('/teleoperador', [EvaluarController::class, 'evaluarTeleoperador'])->name('evaluar.teleoperador');

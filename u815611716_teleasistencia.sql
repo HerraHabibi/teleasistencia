@@ -118,28 +118,6 @@ CREATE TABLE beneficiario_interes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Estructura de tabla para la tabla cache
---
-
-CREATE TABLE `cache` (
-  `key` VARCHAR(255) NOT NULL,
-  `value` MEDIUMTEXT NOT NULL,
-  `expiration` INT NOT NULL,
-  PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Estructura de tabla para la tabla cache_locks
---
-
-CREATE TABLE `cache_locks` (
-  `key` VARCHAR(255) NOT NULL,
-  `owner` VARCHAR(255) NOT NULL,
-  `expiration` INT NOT NULL,
-  PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
 -- Estructura de tabla para la tabla citas_medicas
 --
 
@@ -229,67 +207,6 @@ CREATE TABLE evaluacion_teleoperador (
   KEY email_teleoperador (email_teleoperador),
   CONSTRAINT evaluacion_teleoperador_ibfk_1 FOREIGN KEY (email_usuario) REFERENCES users (email) ON DELETE CASCADE,
   CONSTRAINT evaluacion_teleoperador_ibfk_2 FOREIGN KEY (email_teleoperador) REFERENCES users (email) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Estructura de tabla para la tabla failed_jobs
---
-
-CREATE TABLE failed_jobs (
-  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  uuid VARCHAR(255) NOT NULL,
-  `connection` TEXT NOT NULL,
-  `queue` TEXT NOT NULL,
-  payload LONGTEXT NOT NULL,
-  exception LONGTEXT NOT NULL,
-  failed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (id),
-  UNIQUE KEY uuid (uuid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Estructura de tabla para la tabla jobs
---
-
-CREATE TABLE jobs (
-  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `queue` VARCHAR(255) NOT NULL,
-  payload LONGTEXT NOT NULL,
-  attempts TINYINT UNSIGNED NOT NULL,
-  reserved_at INT UNSIGNED DEFAULT NULL,
-  available_at INT UNSIGNED NOT NULL,
-  created_at INT UNSIGNED NOT NULL,
-  PRIMARY KEY (id),
-  KEY queue (queue)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Estructura de tabla para la tabla job_batches
---
-
-CREATE TABLE job_batches (
-  id VARCHAR(255) NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  total_jobs INT NOT NULL,
-  pending_jobs INT NOT NULL,
-  failed_jobs INT NOT NULL,
-  failed_job_ids LONGTEXT NOT NULL,
-  options MEDIUMTEXT DEFAULT NULL,
-  cancelled_at INT DEFAULT NULL,
-  created_at INT NOT NULL,
-  finished_at INT DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Estructura de tabla para la tabla password_reset_tokens
---
-
-CREATE TABLE password_reset_tokens (
-  email VARCHAR(255) NOT NULL,
-  token VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NULL,
-  PRIMARY KEY (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
